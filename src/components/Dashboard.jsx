@@ -1,6 +1,9 @@
 // import React from "react";
 import FormWizard from "react-form-wizard-component";
 import "react-form-wizard-component/dist/style.css";
+import { useEffect, useState } from "react";
+import { Steps } from "intro.js-react";
+import "intro.js/introjs.css";
 
 import StepForm from "./form/StepForm";
 import "./FormWizard.css";
@@ -12,7 +15,6 @@ const steps = [
   { stepno: "Step4", heading: "Document Upload" },
   { stepno: "Step5", heading: "AYUSH Compliance" },
   { stepno: "Step6", heading: "Financial Details (Optional)" },
-  { stepno: "Step7", heading: "Declaration and Submission" },
 ];
 const Dashboard = () => {
   const handleComplete = () => {
@@ -23,17 +25,63 @@ const Dashboard = () => {
     console.log("prevIndex", prevIndex);
     console.log("nextIndex", nextIndex);
   };
+
+  const stepsForTour = [
+    {
+      element: ".wizard-navigation ul span.active",
+      intro: "This is the Step Marker !",
+    },
+    {
+      element: ".step1",
+      intro: "Fill all the input fields !",
+    },
+    {
+      element: ".wizard-card-footer .wizard-btn",
+      intro: "Then click on the next button !",
+    },
+  ];
+
+  // Step state and initialization
+  const [enabled, setEnabled] = useState(false);
+
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+
+  useEffect(() => {
+    // Check if it's the first load
+    if (isFirstLoad) {
+      setEnabled(true); // Enable the tour on first load
+      setIsFirstLoad(false); // Set the flag to false after the first load
+    }
+  }, [isFirstLoad]);
+
+  const startTour = () => {
+    setEnabled(true);
+  };
+
   return (
     <div>
       Dashboard
-      <div className="w-[70vw] mx-auto max-h-[80vh] p-7 bg-slate-100 rounded-lg">
+      <button
+        onClick={startTour}
+        className="px-3 py-2 bg-violet-400 rounded-md"
+      >
+        Need Guide
+      </button>
+      <div className="w-[70vw] mx-auto max-h-[80vh] p-7 bg-violet-100 rounded-lg">
         <FormWizard
+          // inlineStep={true}
+          startIndex={0}
           onComplete={handleComplete}
           onTabChange={tabChanged}
           layout="vertical"
         >
           {steps.map((stepno, i) => (
-            <FormWizard.TabContent title={stepno.stepno} icon={i + 1} key={i}>
+            <FormWizard.TabContent
+              id={`#${stepno.stepno.toLowerCase()}`}
+              title={stepno.stepno}
+              icon={i + 1}
+              key={i}
+            >
               <StepForm stepno={stepno.stepno} />
             </FormWizard.TabContent>
           ))}
@@ -43,6 +91,20 @@ const Dashboard = () => {
       <style>
         {`@import url("https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css");`}
       </style>
+      {/* Intro.js Steps Component */}
+      <Steps
+        enabled={enabled}
+        steps={stepsForTour}
+        initialStep={0}
+        onExit={() => setEnabled(false)}
+        options={{
+          nextLabel: "Next",
+          prevLabel: "Back",
+          skipLabel: "Skip",
+          doneLabel: "Finish",
+          showBullets: true,
+        }}
+      />
     </div>
   );
 };

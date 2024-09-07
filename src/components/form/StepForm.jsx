@@ -2,24 +2,7 @@
 // import React from "react";
 // import { Steps, Hints } from "intro.js-react";
 import "intro.js/introjs.css";
-
-const steps = [
-  {
-    element: ".step1",
-    intro: "test 1",
-    position: "left",
-    tooltipClass: "myTooltipClass",
-    highlightClass: "myHighlightClass",
-  },
-  {
-    element: ".selector2",
-    intro: "test 2",
-  },
-  {
-    element: ".selector3",
-    intro: "test 3",
-  },
-];
+import { useState } from "react";
 
 const step1 = [
   {
@@ -189,24 +172,9 @@ const step6 = [
   },
 ];
 
-const step7 = [
-  {
-    heading: "Declaration and Submission",
-    label: "Declaration",
-    type: "checkbox",
-    id: "declaration",
-    placeholder: "",
-  },
-  {
-    label: "Submit Application",
-    type: "submit",
-    id: "submitApplication",
-    placeholder: "",
-  },
-];
-
 const formHeading = `text-left text-3xl font-semibold`;
 const formSubHeading = `text-left text-base font-normal mb-10`;
+const mandatory = `text-red-600 text-lg ml-1`;
 
 const StepForm = ({ stepno }) => {
   return (
@@ -226,6 +194,7 @@ const StepForm = ({ stepno }) => {
                 className="block mb-2 text-left text-sm font-medium text-gray-900"
               >
                 {data.label}
+                <span className={mandatory}>*</span>
               </label>
               <input
                 type={data.type}
@@ -350,32 +319,6 @@ const StepForm = ({ stepno }) => {
             ullam.
           </p>
           {step6.map((data, index) => (
-            <div key={index} className="step1 mb-5">
-              <label
-                htmlFor={data.label}
-                className="block mb-2 text-left text-sm font-medium text-gray-900"
-              >
-                {data.label}
-              </label>
-              <input
-                type={data.type}
-                id={data.id}
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder={data.placeholder}
-                required
-              />
-            </div>
-          ))}
-        </>
-      )}
-      {stepno === "Step7" && (
-        <>
-          <h1 className={formHeading}>{step7[0].heading}</h1>
-          <p className={formSubHeading}>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
-            ullam.
-          </p>
-          {step7.map((data, index) => (
             <div key={index} className="step1 mb-5">
               <label
                 htmlFor={data.label}

@@ -1,5 +1,6 @@
 .smooth-border-left-to-right {
-  display: none;
+  border: 2px solid black !important;
+  width: 15%;
 }
 
 .react-form-wizard .wizard-navigation {
@@ -21,22 +22,31 @@
   /* margin-right: 2.5rem; */
 }
 
+.react-form-wizard.vertical .wizard-card-footer .wizard-btn {
+  background-color: rgb(174, 140, 241);
+}
+
+.react-form-wizard.vertical .wizard-card-footer .wizard-btn:hover {
+  background-color: rgb(152, 108, 241);
+}
+
 .react-form-wizard.vertical .wizard-card-footer .wizard-footer-left {
   margin-right: 20px;
 }
 
 .react-form-wizard .wizard-navigation ul {
   padding: 20px;
-  background: rgb(232, 224, 224);
+  background: rgb(174, 140, 241);
   border-radius: 0.5rem;
   flex-basis: 20%;
+  text-align: left;
 }
 
 .react-form-wizard .wizard-navigation ul span {
-  color: gray;
+  color: rgb(231, 228, 228) !important;
 }
 .react-form-wizard .wizard-navigation ul span.active {
-  color: white;
+  color: #000 !important;
 }
 
 .react-form-wizard .wizard-navigation ul li a {
@@ -44,6 +54,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  gap: 0 1rem;
 }
 
 .react-form-wizard .wizard-navigation ul li a span {
@@ -54,4 +65,25 @@
 .react-form-wizard .wizard-navigation ul li a .wizard-icon-circle {
   width: 2rem;
   height: 2rem;
+  background-color: #fff !important;
+}
+
+.react-form-wizard
+  .wizard-navigation
+  ul
+  li
+  a
+  .wizard-icon-circle.checked
+  .wizard-icon-container {
+  background-color: #000 !important;
+}
+
+.react-form-wizard
+  .wizard-navigation
+  ul
+  li
+  a
+  .wizard-icon-circle.checked
+  + span {
+  color: #000 !important;
 }
