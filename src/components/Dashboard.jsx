@@ -46,13 +46,13 @@ const Dashboard = () => {
 
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  useEffect(() => {
-    // Check if it's the first load
-    if (isFirstLoad) {
-      setEnabled(true); // Enable the tour on first load
-      setIsFirstLoad(false); // Set the flag to false after the first load
-    }
-  }, [isFirstLoad]);
+  // useEffect(() => {
+  //   // Check if it's the first load
+  //   if (isFirstLoad) {
+  //     setEnabled(true); // Enable the tour on first load
+  //     setIsFirstLoad(false); // Set the flag to false after the first load
+  //   }
+  // }, [isFirstLoad]);
 
   const startTour = () => {
     setEnabled(true);

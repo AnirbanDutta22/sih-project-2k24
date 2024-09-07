@@ -3,6 +3,7 @@
 // import { Steps, Hints } from "intro.js-react";
 import "intro.js/introjs.css";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const step1 = [
   {
@@ -22,6 +23,7 @@ const step1 = [
     label: "Startup Category",
     type: "select",
     id: "startupCategory",
+    values: ["Ayurveda", "Yoga", "Unani", "Sidha", "Homeopathy"],
     placeholder: "Select your startup category",
   },
   {
@@ -177,12 +179,21 @@ const formSubHeading = `text-left text-base font-normal mb-10`;
 const mandatory = `text-red-600 text-lg ml-1`;
 
 const StepForm = ({ stepno }) => {
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (event, lng) => {
+    event.preventDefault();
+    i18n.changeLanguage(lng);
+  };
+
   return (
     <form className="">
-      {/* <Steps enabled="true" steps={steps} initialStep="0" /> */}
       {stepno === "Step1" && (
         <>
-          <h1 className={formHeading}>{step1[0].heading}</h1>
+          <button onClick={(event) => changeLanguage(event, "hi")}>
+            Hindi
+          </button>
+          <h1 className={formHeading}>{t(step1[0].heading)}</h1>
           <p className={formSubHeading}>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
             ullam.
@@ -190,19 +201,32 @@ const StepForm = ({ stepno }) => {
           {step1.map((data, index) => (
             <div key={index} className="step1 mb-5">
               <label
-                htmlFor={data.label}
+                htmlFor={data.id}
                 className="block mb-2 text-left text-sm font-medium text-gray-900"
               >
-                {data.label}
+                {t(data.label)}
                 <span className={mandatory}>*</span>
               </label>
-              <input
-                type={data.type}
-                id={data.id}
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder={data.placeholder}
-                required
-              />
+              {data.type === "select" ? (
+                <select
+                  id="countries"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                >
+                  <option selected>{t(data.placeholder)}</option>
+                  {data.values.map((value, i) => (
+                    <option key={i} value={value}>
+                      {t(value)}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type={data.type}
+                  id={data.id}
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                  placeholder={t(data.placeholder)}
+                />
+              )}
             </div>
           ))}
         </>
