@@ -12,10 +12,12 @@ i18n
     fallbackLng: "en",
     lng: "en",
     interpolation: {
-      escapeValue: false, // React already protects from XSS
+      escapeValue: false,
     },
+    ns: ["common", "steps", "formTranslation"], // List of namespaces
+    defaultNS: "common", // Default namespace
     backend: {
-      loadPath: "/locales/{{lng}}/formTranslation.json", // Path to translation files
+      loadPath: "/locales/{{lng}}/{{ns}}.json", // Path to translation files
     },
     detection: {
       order: [
@@ -27,6 +29,6 @@ i18n
         "path",
         "subdomain",
       ],
-      caches: ["localStorage", "cookie"], // Cache the detected language
+      caches: ["localStorage", "cookie"],
     },
   });
