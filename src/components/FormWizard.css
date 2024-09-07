@@ -1,0 +1,57 @@
+.smooth-border-left-to-right {
+  display: none;
+}
+
+.react-form-wizard .wizard-navigation {
+  height: 40rem;
+}
+
+.react-form-wizard .wizard-navigation .wizard-tab-content {
+  flex-basis: 80%;
+}
+
+.react-form-wizard .wizard-header {
+  display: none;
+}
+
+.react-form-wizard.vertical .wizard-card-footer {
+  padding-top: 0px;
+  width: fit-content;
+  float: right;
+  /* margin-right: 2.5rem; */
+}
+
+.react-form-wizard.vertical .wizard-card-footer .wizard-footer-left {
+  margin-right: 20px;
+}
+
+.react-form-wizard .wizard-navigation ul {
+  padding: 20px;
+  background: rgb(232, 224, 224);
+  border-radius: 0.5rem;
+  flex-basis: 20%;
+}
+
+.react-form-wizard .wizard-navigation ul span {
+  color: gray;
+}
+.react-form-wizard .wizard-navigation ul span.active {
+  color: white;
+}
+
+.react-form-wizard .wizard-navigation ul li a {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-form-wizard .wizard-navigation ul li a span {
+  margin-top: 0px !important;
+  flex-grow: 1;
+}
+
+.react-form-wizard .wizard-navigation ul li a .wizard-icon-circle {
+  width: 2rem;
+  height: 2rem;
+}

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // import React from "react";
-import { Steps, Hints } from "intro.js-react";
+// import { Steps, Hints } from "intro.js-react";
 import "intro.js/introjs.css";
 
 const steps = [
@@ -205,17 +205,25 @@ const step7 = [
   },
 ];
 
+const formHeading = `text-left text-3xl font-semibold`;
+const formSubHeading = `text-left text-base font-normal mb-10`;
+
 const StepForm = ({ stepno }) => {
   return (
-    <form className="max-w-sm mx-auto">
-      <Steps enabled="true" steps={steps} initialStep="0" />
+    <form className="">
+      {/* <Steps enabled="true" steps={steps} initialStep="0" /> */}
       {stepno === "Step1" && (
         <>
+          <h1 className={formHeading}>{step1[0].heading}</h1>
+          <p className={formSubHeading}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
+            ullam.
+          </p>
           {step1.map((data, index) => (
             <div key={index} className="step1 mb-5">
               <label
                 htmlFor={data.label}
-                className="block mb-2 text-sm font-medium text-gray-900"
+                className="block mb-2 text-left text-sm font-medium text-gray-900"
               >
                 {data.label}
               </label>
@@ -232,11 +240,16 @@ const StepForm = ({ stepno }) => {
       )}
       {stepno === "Step2" && (
         <>
+          <h1 className={formHeading}>{step2[0].heading}</h1>
+          <p className={formSubHeading}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
+            ullam.
+          </p>
           {step2.map((data, index) => (
-            <div key={index} className="mb-5">
+            <div key={index} className="step1 mb-5">
               <label
                 htmlFor={data.label}
-                className="block mb-2 text-sm font-medium text-gray-900"
+                className="block mb-2 text-left text-sm font-medium text-gray-900"
               >
                 {data.label}
               </label>
@@ -253,11 +266,16 @@ const StepForm = ({ stepno }) => {
       )}
       {stepno === "Step3" && (
         <>
+          <h1 className={formHeading}>{step3[0].heading}</h1>
+          <p className={formSubHeading}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
+            ullam.
+          </p>
           {step3.map((data, index) => (
-            <div key={index} className="mb-5">
+            <div key={index} className="step1 mb-5">
               <label
                 htmlFor={data.label}
-                className="block mb-2 text-sm font-medium text-gray-900"
+                className="block mb-2 text-left text-sm font-medium text-gray-900"
               >
                 {data.label}
               </label>
@@ -274,11 +292,16 @@ const StepForm = ({ stepno }) => {
       )}
       {stepno === "Step4" && (
         <>
+          <h1 className={formHeading}>{step4[0].heading}</h1>
+          <p className={formSubHeading}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
+            ullam.
+          </p>
           {step4.map((data, index) => (
-            <div key={index} className="mb-5">
+            <div key={index} className="step1 mb-5">
               <label
                 htmlFor={data.label}
-                className="block mb-2 text-sm font-medium text-gray-900"
+                className="block mb-2 text-left text-sm font-medium text-gray-900"
               >
                 {data.label}
               </label>
@@ -295,11 +318,16 @@ const StepForm = ({ stepno }) => {
       )}
       {stepno === "Step5" && (
         <>
+          <h1 className={formHeading}>{step5[0].heading}</h1>
+          <p className={formSubHeading}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
+            ullam.
+          </p>
           {step5.map((data, index) => (
-            <div key={index} className="mb-5">
+            <div key={index} className="step1 mb-5">
               <label
                 htmlFor={data.label}
-                className="block mb-2 text-sm font-medium text-gray-900"
+                className="block mb-2 text-left text-sm font-medium text-gray-900"
               >
                 {data.label}
               </label>
@@ -316,11 +344,16 @@ const StepForm = ({ stepno }) => {
       )}
       {stepno === "Step6" && (
         <>
+          <h1 className={formHeading}>{step6[0].heading}</h1>
+          <p className={formSubHeading}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
+            ullam.
+          </p>
           {step6.map((data, index) => (
-            <div key={index} className="mb-5">
+            <div key={index} className="step1 mb-5">
               <label
                 htmlFor={data.label}
-                className="block mb-2 text-sm font-medium text-gray-900"
+                className="block mb-2 text-left text-sm font-medium text-gray-900"
               >
                 {data.label}
               </label>
@@ -337,11 +370,16 @@ const StepForm = ({ stepno }) => {
       )}
       {stepno === "Step7" && (
         <>
+          <h1 className={formHeading}>{step7[0].heading}</h1>
+          <p className={formSubHeading}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
+            ullam.
+          </p>
           {step7.map((data, index) => (
-            <div key={index} className="mb-5">
+            <div key={index} className="step1 mb-5">
               <label
                 htmlFor={data.label}
-                className="block mb-2 text-sm font-medium text-gray-900"
+                className="block mb-2 text-left text-sm font-medium text-gray-900"
               >
                 {data.label}
               </label>

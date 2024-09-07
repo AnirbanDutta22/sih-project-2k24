@@ -3,6 +3,7 @@ import FormWizard from "react-form-wizard-component";
 import "react-form-wizard-component/dist/style.css";
 
 import StepForm from "./form/StepForm";
+import "./FormWizard.css";
 
 const steps = [
   { stepno: "Step1", heading: "Basic Startup Information" },
@@ -25,21 +26,23 @@ const Dashboard = () => {
   return (
     <div>
       Dashboard
-      <FormWizard
-        onComplete={handleComplete}
-        onTabChange={tabChanged}
-        layout="vertical"
-      >
-        {steps.map((stepno, i) => (
-          <FormWizard.TabContent title={stepno.heading} icon="ti-user" key={i}>
-            <StepForm stepno={stepno.stepno} />
-          </FormWizard.TabContent>
-        ))}
-      </FormWizard>
+      <div className="w-[70vw] mx-auto max-h-[80vh] p-7 bg-slate-100 rounded-lg">
+        <FormWizard
+          onComplete={handleComplete}
+          onTabChange={tabChanged}
+          layout="vertical"
+        >
+          {steps.map((stepno, i) => (
+            <FormWizard.TabContent title={stepno.stepno} icon={i + 1} key={i}>
+              <StepForm stepno={stepno.stepno} />
+            </FormWizard.TabContent>
+          ))}
+        </FormWizard>
+      </div>
       {/* add style */}
-      <style>{`
-        @import url("https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css");
-      `}</style>
+      <style>
+        {`@import url("https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css");`}
+      </style>
     </div>
   );
 };
