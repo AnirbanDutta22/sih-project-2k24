@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import langIcon from "../../assets/language.png";
 
 const DropdownLang = () => {
   const { i18n } = useTranslation();
@@ -19,11 +20,11 @@ const DropdownLang = () => {
     <div className="relative">
       <button
         id="dropdownDefaultButton"
-        className="text-white bg-violet-400 font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center"
+        className="font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center"
         type="button"
         onClick={toggleLangMenu}
       >
-        Select Language{" "}
+        <img src={langIcon} alt="Select Language" className="size-7" />
         <svg
           className="w-2.5 h-2.5 ms-3"
           aria-hidden="true"

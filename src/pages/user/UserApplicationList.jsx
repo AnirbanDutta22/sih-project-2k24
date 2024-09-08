@@ -1,7 +1,12 @@
 import React from "react";
+import StartupRegistrationForm from "../../components/form/StartupRegistrationForm";
 
 const UserApplicationList = () => {
-  return <div>UserApplicationList</div>;
+  return (
+    <div>
+      <StartupRegistrationForm />
+    </div>
+  );
 };
 
 export default UserApplicationList;
