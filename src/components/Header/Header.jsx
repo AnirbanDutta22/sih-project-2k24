@@ -8,7 +8,7 @@ import DropdownLang from "./DropdownLang";
 
 const Header = ({ sidebarOpen, setSidebarOpen, userType }) => {
   return (
-    <header className="sticky top-0 z-999 flex w-full bg-white shadow-sm">
+    <header className="sticky top-0 z-999 flex w-full bg-white shadow">
       <div className="flex flex-grow items-center justify-end px-4 py-5 shadow-2 md:px-6 2xl:px-11">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           {/* <!-- Hamburger Toggle BTN --> */}
@@ -58,21 +58,19 @@ const Header = ({ sidebarOpen, setSidebarOpen, userType }) => {
           </Link>
         </div>
 
-        <div className="flex items-center gap-3 2xsm:gap-7">
-          <ul className="flex items-center gap-2 2xsm:gap-4">
-            {/* <!-- Dark Mode Toggler --> */}
-            {/* <DarkModeSwitcher /> */}
+        <ul className="flex items-center gap-5 2xsm:gap-4">
+          {/* <!-- Dark Mode Toggler --> */}
+          {/* <DarkModeSwitcher /> */}
 
-            {/* language change */}
-            {userType === "user" && <DropdownLang />}
+          {/* language change */}
+          {userType === "user" && <DropdownLang />}
 
-            {/* <!-- Notification Menu Area --> */}
-            <DropdownNotification />
-          </ul>
+          {/* <!-- Notification Menu Area --> */}
+          <DropdownNotification />
 
           {/* <!-- User Area --> */}
           <DropdownUser userType={userType} />
-        </div>
+        </ul>
       </div>
     </header>
   );

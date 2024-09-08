@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply h-9 text-sm text-white capitalize font-semibold px-12 py-1.5 bg-violet-500/70 hover:bg-violet-500 rounded-[0.250rem];
+  }
+  .dashboard-box {
+    @apply flex flex-col justify-between gap-y-3 items-start p-4 uppercase bg-white border border-gray-300 shadow-md;
+  }
+}

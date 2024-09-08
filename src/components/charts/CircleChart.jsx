@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // ProgressCircleChart.js
-import React from "react";
+// import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
@@ -41,7 +41,11 @@ const ProgressCircleChart = ({ percentage, className }) => {
 
   return (
     <div
-      style={{ position: "relative", width: "250px", height: "250px" }}
+      style={{
+        position: "relative",
+        width: "250px",
+        height: "250px",
+      }}
       className={className}
     >
       <Doughnut data={data} options={options} />

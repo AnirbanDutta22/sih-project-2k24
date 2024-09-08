@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import AYUSH from "../../assets/AYUSH.png";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
   const { t } = useTranslation("common");
@@ -135,12 +136,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
       ref={sidebar}
       className={`absolute left-0 top-0 z-9999 flex h-screen w-[18rem] flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } shadow-lg`}
+      } shadow-[8px_0px_15px_-4px_rgba(0,0,0,0.3)`}
     >
       {/* <!-- Sidebar header --> */}
-      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+      <div className="flex items-center justify-between gap-2 px-16 py-5.5 lg:py-6.5">
         <NavLink to="/">
-          <img src="" alt="Logo" />
+          <img src={AYUSH} alt="Logo" />
         </NavLink>
 
         <button
@@ -168,7 +169,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
 
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         {/* <!-- Sidebar Menu --> */}
-        <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
+        <nav className="mt-5 py-4 lg:mt-9">
           <div>
             <ul className="mb-6 flex flex-col gap-5">
               {userType === "user" &&
@@ -176,7 +177,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
                   userSidebar.length - 1 === index ? (
                     <li
                       key={index}
-                      className="mt-10 py-6 border-t border-violet-100"
+                      className="mt-10 border-l-4 border-violet-500 bg-gradient-to-r from-violet-50"
                     >
                       <NavLink to={items.link} className={menuText}>
                         <svg
@@ -200,7 +201,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
                       </NavLink>
                     </li>
                   ) : (
-                    <li key={index}>
+                    <li
+                      key={index}
+                      className="border-l-4 border-violet-500 bg-gradient-to-r from-violet-50"
+                    >
                       <NavLink to={items.link} className={menuText}>
                         <svg
                           className="fill-current"

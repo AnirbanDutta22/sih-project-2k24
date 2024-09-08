@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import UserOne from '../../images/user/user-01.png';
+import user from "../../assets/USER.png";
 
 const DropdownUser = ({ userType }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -10,11 +10,11 @@ const DropdownUser = ({ userType }) => {
     <div className="relative">
       <Link
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center gap-4"
+        className="flex items-center"
         to="#"
       >
-        <span className="h-12 w-12 rounded-full">
-          <img src="" alt={userType} />
+        <span className="h-8 w-12 rounded-full">
+          <img src={user} alt={userType} />
         </span>
         <svg
           className="hidden fill-current sm:block"

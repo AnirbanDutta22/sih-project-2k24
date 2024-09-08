@@ -122,7 +122,7 @@ const StartupRegistrationForm = () => {
         {t("Need Guide")}
       </button>
       {/* multi-step form */}
-      <div className="w-[70vw] mx-auto max-h-[80vh] p-7 bg-violet-100 rounded-lg">
+      <div className="w-[70vw] mx-auto max-h-[80vh] p-7 bg-violet-200 rounded-lg">
         <FormWizard
           startIndex={0}
           layout="vertical"
