@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const DropdownLang = () => {
-  const { i18n } = useTranslation("steps");
+  const { i18n } = useTranslation();
 
   const changeLanguage = (event, lng) => {
     event.preventDefault();

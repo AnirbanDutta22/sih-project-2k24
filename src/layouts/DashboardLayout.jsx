@@ -22,7 +22,11 @@ const DashboardLayout = ({ userType }) => {
         {/* Content Area */}
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           {/* Header */}
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <Header
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+            userType={userType}
+          />
 
           {/* Main Content*/}
           <main className="bg-blue-50 h-full">

@@ -21,6 +21,7 @@ import {
   ComplianceList,
   Reports,
   AllReports,
+  Status,
 } from "./pages/index.js";
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
           <Route index element={<UserDashboard />} />
           <Route path="applications" element={<UserApplicationList />} />
           <Route path="documents" element={<Documents />} />
+          <Route path="status" element={<Status />} />
           <Route path="support" element={<Support />} />
           <Route path="profile" element={<Profile userType="user" />} />
         </Route>

@@ -6,7 +6,7 @@ import DropdownLang from "./DropdownLang";
 // import LogoIcon from "../../images/logo/logo-icon.svg";
 // import DarkModeSwitcher from "./DarkModeSwitcher";
 
-const Header = ({ sidebarOpen, setSidebarOpen }) => {
+const Header = ({ sidebarOpen, setSidebarOpen, userType }) => {
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white shadow-sm">
       <div className="flex flex-grow items-center justify-between px-4 py-9 shadow-2 md:px-6 2xl:px-11">
@@ -64,7 +64,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
             {/* <DarkModeSwitcher /> */}
 
             {/* language change */}
-            <DropdownLang />
+            {userType === "user" && <DropdownLang />}
 
             {/* <!-- Notification Menu Area --> */}
             {/* <DropdownNotification /> */}

@@ -1,6 +1,7 @@
 import UserDashboard from "./user/UserDashboard.jsx";
 import UserApplicationList from "./user/UserApplicationList";
 import Documents from "./user/Documents";
+import Status from "./user/Status.jsx";
 
 import AdminDashboard from "./admin/AdminDashboard.jsx";
 import AllApplicationList from "./admin/AllApplicationList";
@@ -26,4 +27,5 @@ export {
   ComplianceList,
   Reports,
   AllReports,
+  Status,
 };
