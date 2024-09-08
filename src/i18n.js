@@ -14,8 +14,8 @@ i18n
     interpolation: {
       escapeValue: false,
     },
-    ns: ["common", "steps", "formTranslation"], // List of namespaces
-    defaultNS: "common", // Default namespace
+    ns: ["steps", "formTranslation"], // List of namespaces
+    // Default namespace
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json", // Path to translation files
     },

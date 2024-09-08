@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 // import React from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const formHeading = `text-left text-3xl font-semibold`;
-const formSubHeading = `text-left text-base font-normal mb-10`;
+const formSubHeading = `text-left text-base font-normal mb-6`;
 const mandatory = `text-red-600 text-lg ml-1`;
 
-const StepForm = ({ stepno }) => {
+const StepForm = ({ stepno, onChange, values }) => {
   const { t } = useTranslation("formTranslation");
 
   const step1 = [
@@ -214,7 +215,10 @@ const StepForm = ({ stepno }) => {
                     type={data.type}
                     id={data.id}
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                    value={values[step1]?.[data.id] || ""}
+                    onChange={onChange(step1, data.id)}
                     placeholder={t(data.placeholder)}
+                    required
                   />
                 )}
               </div>
