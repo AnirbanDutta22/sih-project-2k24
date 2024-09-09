@@ -29,7 +29,7 @@ const DashboardLayout = ({ userType }) => {
           />
 
           {/* Main Content*/}
-          <main className="bg-violet-100">
+          <main className="bg-violet-50">
             <div className="mx-auto max-w-screen p-3 md:p-8 min-h-screen">
               <Outlet />
             </div>

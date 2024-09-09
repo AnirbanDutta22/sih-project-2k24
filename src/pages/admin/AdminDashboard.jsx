@@ -31,20 +31,35 @@ const AdminDashboard = () => {
     maintenanceMode: false,
   });
   const [logs, setLogs] = useState([
-    { id: 1, message: "User login successful", timestamp: "2024-09-09T10:00:00Z" },
-    { id: 2, message: "Application reviewed", timestamp: "2024-09-09T11:00:00Z" },
+    {
+      id: 1,
+      message: "User login successful",
+      timestamp: "2024-09-09T10:00:00Z",
+    },
+    {
+      id: 2,
+      message: "Application reviewed",
+      timestamp: "2024-09-09T11:00:00Z",
+    },
   ]);
 
   const handleRoleChange = (id, newRole) => {
-    setUsers(users.map(user => 
-      user.id === id ? { ...user, role: newRole } : user
-    ));
+    setUsers(
+      users.map((user) => (user.id === id ? { ...user, role: newRole } : user))
+    );
   };
 
   const handleStatusChange = (id) => {
-    setApplications(applications.map(app =>
-      app.id === id ? { ...app, status: app.status === "Pending" ? "Reviewed" : "Pending" } : app
-    ));
+    setApplications(
+      applications.map((app) =>
+        app.id === id
+          ? {
+              ...app,
+              status: app.status === "Pending" ? "Reviewed" : "Pending",
+            }
+          : app
+      )
+    );
   };
 
   const handleSettingsChange = (setting, value) => {
@@ -52,28 +67,40 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="h-full p-6">
-      <h1 className="text-3xl uppercase font-semibold mb-6">
-        Admin Dashboard
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
+    <div className="h-full">
+      <h1 className="welcomeText">Admin Dashboard</h1>
+      <p className="welcomeSubText">
+        all systems are running smoothly ! You have{" "}
+        <span className="text-violet-500">
+          <Link>15 unread notifications !</Link>
+        </span>
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
         <div className={cardContainer}>
           <h2 className={cardHeader}>User Management</h2>
           <div className={cardContent}>
             <ul>
-              {users.map(user => (
+              {users.map((user) => (
                 <li key={user.id} className="py-2 border-b border-gray-200">
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-lg font-medium">{user.name}</span>
-                      <span className="ml-2 text-xs font-medium text-gray-500">{user.role}</span>
+                      <span className="ml-2 text-xs font-medium text-gray-500">
+                        {user.role}
+                      </span>
                     </div>
                     <button
-                      onClick={() => handleRoleChange(user.id, user.role === "User" ? "Admin" : "User")}
+                      onClick={() =>
+                        handleRoleChange(
+                          user.id,
+                          user.role === "User" ? "Admin" : "User"
+                        )
+                      }
                       className={cardAction}
                     >
-                      {user.role === "User" ? "Promote to Admin" : "Demote to User"}
+                      {user.role === "User"
+                        ? "Promote to Admin"
+                        : "Demote to User"}
                     </button>
                   </div>
                 </li>
@@ -84,12 +111,12 @@ const AdminDashboard = () => {
             Manage Users
           </Link>
         </div>
-        
+
         <div className={cardContainer}>
           <h2 className={cardHeader}>Application Management</h2>
           <div className={cardContent}>
             <ul>
-              {applications.map(app => (
+              {applications.map((app) => (
                 <li key={app.id} className="py-2 border-b border-gray-200">
                   <div className="flex justify-between items-center">
                     <div>
@@ -97,7 +124,13 @@ const AdminDashboard = () => {
                       <span className="ml-2 text-xs font-medium text-gray-500">
                         Metrics: {app.metrics}
                       </span>
-                      <span className={`ml-2 text-xs font-medium ${app.status === "Pending" ? "text-yellow-500" : "text-green-500"}`}>
+                      <span
+                        className={`ml-2 text-xs font-medium ${
+                          app.status === "Pending"
+                            ? "text-yellow-500"
+                            : "text-green-500"
+                        }`}
+                      >
                         {app.status}
                       </span>
                     </div>
@@ -116,7 +149,7 @@ const AdminDashboard = () => {
             View All Applications
           </Link>
         </div>
-        
+
         <div className={cardContainer}>
           <h2 className={cardHeader}>Portal Settings & Logs</h2>
           <div className={cardContent}>
@@ -126,7 +159,9 @@ const AdminDashboard = () => {
                 <label className="block text-sm font-medium mb-1">Theme</label>
                 <select
                   value={portalSettings.theme}
-                  onChange={(e) => handleSettingsChange('theme', e.target.value)}
+                  onChange={(e) =>
+                    handleSettingsChange("theme", e.target.value)
+                  }
                   className="border border-gray-300 rounded-md p-2 w-full"
                 >
                   <option value="Light">Light</option>
@@ -134,19 +169,28 @@ const AdminDashboard = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Maintenance Mode</label>
+                <label className="block text-sm font-medium mb-1">
+                  Maintenance Mode
+                </label>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     checked={portalSettings.maintenanceMode}
-                    onChange={(e) => handleSettingsChange('maintenanceMode', e.target.checked)}
+                    onChange={(e) =>
+                      handleSettingsChange("maintenanceMode", e.target.checked)
+                    }
                     className="sr-only"
                   />
                   <div className="w-10 h-6 bg-gray-200 rounded-full"></div>
-                  <div className="absolute w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ease-in-out"
+                  <div
+                    className="absolute w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ease-in-out"
                     style={{
-                      transform: `translateX(${portalSettings.maintenanceMode ? "1.5rem" : "0"})`,
-                      backgroundColor: portalSettings.maintenanceMode ? "green" : "gray",
+                      transform: `translateX(${
+                        portalSettings.maintenanceMode ? "1.5rem" : "0"
+                      })`,
+                      backgroundColor: portalSettings.maintenanceMode
+                        ? "green"
+                        : "gray",
                     }}
                   ></div>
                 </label>
@@ -155,11 +199,13 @@ const AdminDashboard = () => {
             <div>
               <h3 className="text-lg font-semibold mb-2">Logs</h3>
               <ul>
-                {logs.map(log => (
+                {logs.map((log) => (
                   <li key={log.id} className="py-2 border-b border-gray-200">
                     <div>
                       <p className="text-sm">{log.message}</p>
-                      <span className="text-xs text-gray-500">{new Date(log.timestamp).toLocaleString()}</span>
+                      <span className="text-xs text-gray-500">
+                        {new Date(log.timestamp).toLocaleString()}
+                      </span>
                     </div>
                   </li>
                 ))}
@@ -171,7 +217,9 @@ const AdminDashboard = () => {
           </Link>
         </div>
 
-        <div className={`${cardContainer} col-span-1 md:col-span-2 lg:col-span-3`}>
+        <div
+          className={`${cardContainer} col-span-1 md:col-span-2 lg:col-span-3`}
+        >
           <h2 className={cardHeader}>Reports</h2>
           <div className={cardContent}>
             <p>Charts and Graphs</p>
@@ -180,7 +228,6 @@ const AdminDashboard = () => {
             View Reports
           </Link>
         </div>
-
       </div>
     </div>
   );

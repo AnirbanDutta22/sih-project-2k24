@@ -4,12 +4,35 @@ import { Link } from "react-router-dom";
 import ProgressCircleChart from "../../components/charts/CircleChart";
 
 const UserDashboard = () => {
+  const documents = [
+    {
+      name: "GST File",
+      upload: "12/03/2024",
+      status: "uploaded",
+    },
+    {
+      name: "Founder ID proof",
+      upload: "13/03/2024",
+      status: "uploaded",
+    },
+    {
+      name: "Business details File",
+      upload: "-",
+      status: "missing",
+    },
+  ];
+
   return (
     <div className="h-full">
-      <h1 className="text-3xl uppercase font-semibold">
-        welcome to user dashboard !
-      </h1>
+      <h1 className="welcomeText">welcome to user dashboard !</h1>
+      <p className="welcomeSubText">
+        all systems are running smoothly ! You have{" "}
+        <span className="text-violet-500">
+          <Link>3 unread notifications !</Link>
+        </span>
+      </p>
       <div className="grid grid-cols-10 grid-rows-12 gap-8 h-full mt-6">
+        {/* current status */}
         <div className={`col-span-6 row-span-3 gridBox`}>
           <h1 className="text-2xl">CURRENT STATUS</h1>
           <div className="statusBar">
@@ -21,6 +44,7 @@ const UserDashboard = () => {
             check
           </Link>
         </div>
+        {/* progress chart */}
         <div className={`col-span-4 row-span-6 gridBox`}>
           <h1 className="text-2xl">Submission progress</h1>
           <ProgressCircleChart percentage={100} className="self-center" />
@@ -28,6 +52,7 @@ const UserDashboard = () => {
             click here to know more
           </Link>
         </div>
+        {/* pending actions */}
         <div className={`col-span-6 row-span-3 gridBox`}>
           <h1 className="text-2xl">pending actions</h1>
           <div className="statusBar">
@@ -37,10 +62,100 @@ const UserDashboard = () => {
             check
           </Link>
         </div>
+        {/* documents table */}
         <div className={`col-span-10 row-span-6 gridBox`}>
           <div className="w-full flex justify-between">
             <h1 className="text-2xl">documents</h1>
-            <button>Filter & Sort</button>
+            <button className="btn-primary">Filter & Sort</button>
+          </div>
+          {/* table */}
+          <div className="w-full relative overflow-x-auto flex-1">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+              <thead className="text-sm text-gray-500 uppercase border-b">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Document
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Upload date
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {documents.map((doc, index) => (
+                  <tr className="bg-white border-b" key={index}>
+                    <th scope="row" className="px-6 py-4 whitespace-nowrap">
+                      <Link
+                        to="/document.pdf" // Replace with the path to your document
+                        target="_blank" // Opens in a new tab
+                        rel="noopener noreferrer" // Security best practice
+                        className="w-fit block bg-gray-300 hover:bg-gray-400/70 px-6 py-1 text-black font-medium rounded capitalize"
+                      >
+                        {doc.name}
+                      </Link>
+                    </th>
+                    <td className="px-6 py-4">{doc.upload}</td>
+                    <td className="px-6 py-4">
+                      <Link
+                        to="#"
+                        className={`font-medium ${
+                          doc.status === "uploaded"
+                            ? "bg-green-200 text-green-500"
+                            : "bg-gray-200 text-red-500"
+                        } px-2 py-1`}
+                      >
+                        {doc.status}
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+                {/* <tr className="bg-white border-b">
+                  <th scope="row" className="px-6 py-4 whitespace-nowrap">
+                    <Link
+                      to="/document.pdf" // Replace with the path to your document
+                      target="_blank" // Opens in a new tab
+                      rel="noopener noreferrer" // Security best practice
+                      className="w-fit block bg-gray-300 hover:bg-gray-400/70 px-6 py-1 text-black font-medium rounded capitalize"
+                    >
+                      Founder ID proof
+                    </Link>
+                  </th>
+                  <td className="px-6 py-4">12/03/2024</td>
+                  <td className="px-6 py-4">
+                    <Link
+                      to="#"
+                      className="font-medium bg-green-200 text-green-500 px-2 py-1"
+                    >
+                      uploaded
+                    </Link>
+                  </td>
+                </tr>
+                <tr className="bg-white border-b">
+                  <th scope="row" className="px-6 py-4 whitespace-nowrap">
+                    <Link
+                      to="/document.pdf" // Replace with the path to your document
+                      target="_blank" // Opens in a new tab
+                      rel="noopener noreferrer" // Security best practice
+                      className="w-fit block bg-gray-300 hover:bg-gray-400/70 px-6 py-1 text-black font-medium rounded capitalize"
+                    >
+                      Business Details File
+                    </Link>
+                  </th>
+                  <td className="px-6 py-4">13/03/2024</td>
+                  <td className="px-6 py-4">
+                    <Link
+                      to="#"
+                      className="font-medium bg-green-200 text-green-500 px-2 py-1"
+                    >
+                      uploaded
+                    </Link>
+                  </td>
+                </tr> */}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

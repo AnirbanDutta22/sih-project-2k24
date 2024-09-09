@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
 import AYUSH from "../../assets/AYUSH.png";
@@ -10,7 +10,6 @@ import {
   MdOutlineDocumentScanner,
   MdOutlineFormatAlignLeft,
 } from "react-icons/md";
-import { SiFormspree } from "react-icons/si";
 import { GrCompliance, GrStatusInfo } from "react-icons/gr";
 import { LuUser2 } from "react-icons/lu";
 import { PiUsersThree } from "react-icons/pi";
@@ -131,15 +130,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
           key={index}
           className={`${index === sidebarItems.length - 1 && "mt-10"} py-1 ${
             location.pathname === path
-              ? "border-l-4 border-violet-600 bg-violet-50"
-              : "border-l-4 border-transparent"
+              ? "bg-violet-500/70 rounded-[0.250rem]"
+              : ""
           }`}
         >
           <NavLink
             to={item.link}
             end
             className={({ isActive }) =>
-              `${menuText} ${isActive ? "text-violet-600" : ""}`
+              `${menuText} ${isActive ? "text-white" : ""}`
             }
           >
             {/* Add appropriate icon here */}
@@ -154,7 +153,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-[18rem] flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-[18rem] flex-col overflow-y-hidden bg-white text-black duration-200 ease-linear lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       } shadow-[8px_0px_15px_-4px_rgba(0,0,0,0.3)`}
     >
@@ -189,7 +188,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <nav className="mt-5 py-4 lg:mt-9">
           <div>
-            <ul className="mb-6 flex flex-col gap-5">
+            <ul className="mb-6 flex flex-col gap-5 px-4">
               {userType === "user" && renderSidebarMenu(userSidebar)}
               {userType === "govt" && renderSidebarMenu(govtSidebar)}
               {userType === "admin" && renderSidebarMenu(adminSidebar)}

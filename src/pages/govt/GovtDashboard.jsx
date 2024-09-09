@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ProgressCircleChart from "../../components/charts/CircleChart";
 
 const appText = `text-lg font-medium`;
 const statusText = `text-xs font-medium`;
@@ -28,9 +27,13 @@ const GovtDashboard = () => {
 
   return (
     <div className="h-full">
-      <h1 className="text-3xl uppercase font-semibold">
-        Welcome to Government Dashboard!
-      </h1>
+      <h1 className="welcomeText">Welcome to Government Dashboard!</h1>
+      <p className="welcomeSubText">
+        all systems are running smoothly ! You have{" "}
+        <span className="text-violet-500">
+          <Link>10 unread notifications !</Link>
+        </span>
+      </p>
       <div className="grid grid-cols-10 grid-rows-12 gap-8 h-full mt-6">
         <div className={`col-span-6 row-span-3 gridBox`}>
           <h1 className="text-2xl">Application Manager</h1>
