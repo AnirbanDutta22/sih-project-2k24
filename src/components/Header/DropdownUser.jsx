@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import user from "../../assets/USER.png";
+import { FaUserCircle } from "react-icons/fa";
 
 const DropdownUser = ({ userType }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -13,9 +13,7 @@ const DropdownUser = ({ userType }) => {
         className="flex items-center"
         to="#"
       >
-        <span className="h-8 w-12 rounded-full">
-          <img src={user} alt={userType} />
-        </span>
+        <FaUserCircle className="text-2xl mr-2" />
         <svg
           className="hidden fill-current sm:block"
           width="12"
@@ -38,7 +36,7 @@ const DropdownUser = ({ userType }) => {
         <div
           className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`}
         >
-          <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+          <ul className="flex flex-col gap-5 border-b border-stroke p-6 dark:border-strokedark">
             <li>
               <Link
                 to="/profile"

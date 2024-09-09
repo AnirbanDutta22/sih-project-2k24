@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import notification from "../../assets/Notification_icon.png";
+import { GrNotification } from "react-icons/gr";
 
 const DropdownNotification = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -23,7 +24,7 @@ const DropdownNotification = () => {
         >
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
         </span>
-        <img src={notification} alt="notifi" className="size-6" />
+        <GrNotification className="text-2xl" />
       </Link>
 
       {dropdownOpen && (

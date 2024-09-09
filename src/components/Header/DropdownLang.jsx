@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import langIcon from "../../assets/language.png";
+import { GrLanguage } from "react-icons/gr";
+import { Link } from "react-router-dom";
+
+const langLinks = `cursor-pointer border-b border-violet-500 p-2`;
 
 const DropdownLang = () => {
   const { i18n } = useTranslation();
@@ -10,21 +13,16 @@ const DropdownLang = () => {
     i18n.changeLanguage(lng);
   };
 
-  const [isLangMenuOpen, setLangMenuOpen] = useState(true);
-
-  const toggleLangMenu = () => {
-    setLangMenuOpen((prev) => !prev);
-  };
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
     <div className="relative">
-      <button
-        id="dropdownDefaultButton"
-        className="font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center"
-        type="button"
-        onClick={toggleLangMenu}
+      <Link
+        onClick={() => setDropdownOpen(!dropdownOpen)}
+        className="flex items-center"
+        to="#"
       >
-        <img src={langIcon} alt="Select Language" className="size-7" />
+        <GrLanguage className="text-2xl" />
         <svg
           className="w-2.5 h-2.5 ms-3"
           aria-hidden="true"
@@ -40,21 +38,36 @@ const DropdownLang = () => {
             d="m1 1 4 4 4-4"
           />
         </svg>
-      </button>
+      </Link>
 
       {/* <!-- Dropdown menu --> */}
-      <div
-        id="dropdown"
-        className={`z-10 ${
-          isLangMenuOpen ? "hidden" : "block"
-        } absolute top-10 left-0 bg-white divide-y text-black divide-gray-100 rounded-lg shadow w-44`}
-      >
-        <ul className="py-2 text-sm">
-          <li onClick={(event) => changeLanguage(event, "en")}>English</li>
-          <li onClick={(event) => changeLanguage(event, "hi")}>हिन्दी</li>
-          <li onClick={(event) => changeLanguage(event, "bn")}>বাংলা</li>
-        </ul>
-      </div>
+      {dropdownOpen && (
+        <div
+          id="dropdown"
+          className={`w-fit z-10 absolute top-10 right-0 bg-white divide-y text-black divide-gray-100 rounded-lg shadow`}
+        >
+          <ul className="px-3 py-2 text-md">
+            <li
+              className={langLinks}
+              onClick={(event) => changeLanguage(event, "en")}
+            >
+              English
+            </li>
+            <li
+              className={langLinks}
+              onClick={(event) => changeLanguage(event, "hi")}
+            >
+              हिन्दी
+            </li>
+            <li
+              className={langLinks}
+              onClick={(event) => changeLanguage(event, "bn")}
+            >
+              বাংলা
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
