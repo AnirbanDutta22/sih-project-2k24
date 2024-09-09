@@ -3,6 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
 import AYUSH from "../../assets/AYUSH.png";
+import {
+  MdHelpOutline,
+  MdOutlineAnalytics,
+  MdOutlineDashboard,
+  MdOutlineDocumentScanner,
+  MdOutlineFormatAlignLeft,
+} from "react-icons/md";
+import { SiFormspree } from "react-icons/si";
+import { GrCompliance, GrStatusInfo } from "react-icons/gr";
+import { LuUser2 } from "react-icons/lu";
+import { PiUsersThree } from "react-icons/pi";
+import { RiListSettingsLine } from "react-icons/ri";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
   const { t } = useTranslation("common");
@@ -54,57 +66,84 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
   const menuText = `group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-xl duration-300 ease-in-out`;
 
   const userSidebar = [
-    { menuItem: t("Dashboard"), link: "" },
-    { menuItem: t("Application"), link: "applications" },
-    { menuItem: t("Status"), link: "status" },
-    { menuItem: t("Documents"), link: "documents" },
-    { menuItem: t("Support"), link: "support" },
-    { menuItem: t("Profile"), link: "profile" },
+    { menuItem: t("Dashboard"), link: "", icon: <MdOutlineDashboard /> },
+    {
+      menuItem: t("Application"),
+      link: "applications",
+      icon: <MdOutlineFormatAlignLeft />,
+    },
+    { menuItem: t("Status"), link: "status", icon: <GrStatusInfo /> },
+    {
+      menuItem: t("Documents"),
+      link: "documents",
+      icon: <MdOutlineDocumentScanner />,
+    },
+    { menuItem: t("Support"), link: "support", icon: <MdHelpOutline /> },
+    { menuItem: t("Profile"), link: "profile", icon: <LuUser2 /> },
   ];
 
   const govtSidebar = [
-    { menuItem: "Dashboard", link: "" },
-    { menuItem: "Application", link: "applications" },
-    { menuItem: "Compliance", link: "compliances" },
-    { menuItem: "Reports & Analytics", link: "reports-analytics" },
-    { menuItem: "Support", link: "support" },
-    { menuItem: "Profile", link: "profile" },
+    { menuItem: "Dashboard", link: "", icon: <MdOutlineDashboard /> },
+    {
+      menuItem: "Application",
+      link: "applications",
+      icon: <MdOutlineFormatAlignLeft />,
+    },
+    { menuItem: "Compliance", link: "compliances", icon: <GrCompliance /> },
+    {
+      menuItem: "Reports & Analytics",
+      link: "reports-analytics",
+      icon: <MdOutlineAnalytics />,
+    },
+    { menuItem: t("Support"), link: "support", icon: <MdHelpOutline /> },
+    { menuItem: t("Profile"), link: "profile", icon: <LuUser2 /> },
   ];
 
   const adminSidebar = [
-    { menuItem: "Dashboard", link: "" },
-    { menuItem: "Users", link: "users" },
-    { menuItem: "Application", link: "applications" },
-    { menuItem: "Portal Setting", link: "portal-settings" },
-    { menuItem: "Reports & Analytics", link: "reports-analytics" },
-    { menuItem: "Profile", link: "profile" },
+    { menuItem: "Dashboard", link: "", icon: <MdOutlineDashboard /> },
+    { menuItem: "Users", link: "users", icon: <PiUsersThree /> },
+    {
+      menuItem: "Application",
+      link: "applications",
+      icon: <MdOutlineFormatAlignLeft />,
+    },
+    {
+      menuItem: "Portal Setting",
+      link: "portal-settings",
+      icon: <RiListSettingsLine />,
+    },
+    {
+      menuItem: "Reports & Analytics",
+      link: "reports-analytics",
+      icon: <MdOutlineAnalytics />,
+    },
+    { menuItem: "Profile", link: "profile", icon: <LuUser2 /> },
   ];
 
   const renderSidebarMenu = (sidebarItems) => {
     return sidebarItems.map((item, index) => {
       // Generate the path for comparison
-      const path = `/${item.link}`;
+      const path =
+        item.link === "" ? `/${userType}` : `/${userType}/${item.link}`;
 
       return (
         <li
           key={index}
-          className={`border-l-4 ${location.pathname === path ? "border-violet-500 bg-gradient-to-r from-violet-50" : ""}`}
+          className={`${index === sidebarItems.length - 1 && "mt-10"} py-1 ${
+            location.pathname === path
+              ? "border-l-4 border-violet-600 bg-violet-50"
+              : "border-l-4 border-transparent"
+          }`}
         >
           <NavLink
             to={item.link}
-            className={({ isActive }) => `${menuText} ${isActive ? "text-violet-600" : ""}`}
+            end
+            className={({ isActive }) =>
+              `${menuText} ${isActive ? "text-violet-600" : ""}`
+            }
           >
             {/* Add appropriate icon here */}
-            <svg
-              className="fill-current"
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* SVG paths */}
-            </svg>
+            {item.icon}
             {item.menuItem}
           </NavLink>
         </li>
