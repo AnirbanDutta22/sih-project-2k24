@@ -23,6 +23,7 @@ import {
   AllReports,
   Status,
 } from "./pages/index.js";
+import StartupRegistrationForm from "./components/form/StartupRegistrationForm.jsx";
 
 const App = () => {
   return (
@@ -38,6 +39,10 @@ const App = () => {
           <Route path="status" element={<Status />} />
           <Route path="support" element={<Support />} />
           <Route path="profile" element={<Profile userType="user" />} />
+          <Route
+            path="applications/new-application"
+            element={<StartupRegistrationForm />}
+          />
         </Route>
         <Route exact path="/govt" element={<DashboardLayout userType="govt" />}>
           <Route index element={<GovtDashboard />} />

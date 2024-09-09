@@ -38,7 +38,7 @@ const UserDashboard = () => {
           <div className="statusBar">
             <span className="text-black">ministry of AYUSH</span>
             <span className="text-black">Date : 12/04/2024</span>
-            <span className="text-green-500">Checking</span>
+            <span className="text-green-500">under review</span>
           </div>
           <Link to="status" className="gridBoxLink">
             check

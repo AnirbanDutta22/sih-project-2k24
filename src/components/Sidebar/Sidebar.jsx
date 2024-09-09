@@ -155,7 +155,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
       ref={sidebar}
       className={`absolute left-0 top-0 z-9999 flex h-screen w-[18rem] flex-col overflow-y-hidden bg-white text-black duration-200 ease-linear lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } shadow-[8px_0px_15px_-4px_rgba(0,0,0,0.3)`}
+      } shadow-lg`}
     >
       <div className="flex items-center justify-between gap-2 px-16 py-5.5 lg:py-6.5">
         <NavLink to="/">

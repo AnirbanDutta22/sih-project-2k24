@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer components {
+  .btn {
+    @apply h-9 text-sm text-black border capitalize font-semibold px-12 py-1.5 rounded-[0.250rem];
+  }
   .btn-primary {
     @apply h-9 text-sm text-white capitalize font-semibold px-12 py-1.5 bg-violet-500/70 hover:bg-violet-500 rounded-[0.250rem];
   }

@@ -62,7 +62,7 @@ const Header = ({ sidebarOpen, setSidebarOpen, userType }) => {
             <div className="relative">
               <button className="absolute left-0 top-1/2 -translate-y-1/2">
                 <svg
-                  className="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
+                  className="fill-body fill-gray-500"
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
@@ -87,7 +87,7 @@ const Header = ({ sidebarOpen, setSidebarOpen, userType }) => {
               <input
                 type="text"
                 placeholder="Type to search..."
-                className="w-full bg-transparent pl-9 pr-4 text-black focus:outline-none dark:text-white xl:w-125"
+                className="w-full bg-transparent pl-9 pr-4 text-black focus:outline-none"
               />
             </div>
           </form>
