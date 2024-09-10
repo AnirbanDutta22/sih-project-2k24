@@ -134,11 +134,11 @@ const StartupRegistrationForm = () => {
               back
             </button>
           )}
-          nextButtonTemplate={() => (
+          nextButtonTemplate={(handleNext) => (
             <button
               className={`base-button ${formButton}`}
               type="submit"
-              onClick={handleSubmit}
+              onClick={handleNext}
             >
               next
             </button>

@@ -7,16 +7,22 @@ const UserDashboard = () => {
   const documents = [
     {
       name: "GST File",
+      appl_id: "01apl",
+      appl_name: "Innovate Health",
       upload: "12/03/2024",
       status: "uploaded",
     },
     {
       name: "Founder ID proof",
+      appl_id: "01apl",
+      appl_name: "Innovate Health",
       upload: "13/03/2024",
       status: "uploaded",
     },
     {
       name: "Business details File",
+      appl_id: "01apl",
+      appl_name: "Innovate Health",
       upload: "-",
       status: "missing",
     },
@@ -77,10 +83,19 @@ const UserDashboard = () => {
                     Document
                   </th>
                   <th scope="col" className="px-6 py-3">
+                    Application ID
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Startup name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
                     Upload date
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Status
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    actions
                   </th>
                 </tr>
               </thead>
@@ -97,6 +112,8 @@ const UserDashboard = () => {
                         {doc.name}
                       </Link>
                     </th>
+                    <td className="px-6 py-4">{doc.appl_id}</td>
+                    <td className="px-6 py-4">{doc.appl_name}</td>
                     <td className="px-6 py-4">{doc.upload}</td>
                     <td className="px-6 py-4">
                       <Link
@@ -110,50 +127,15 @@ const UserDashboard = () => {
                         {doc.status}
                       </Link>
                     </td>
+                    <td className="px-6 py-4 text-violet-500 underline">
+                      {doc.status === "uploaded" ? (
+                        <Link to="#">view</Link>
+                      ) : (
+                        <Link to="#">upload</Link>
+                      )}
+                    </td>
                   </tr>
                 ))}
-                {/* <tr className="bg-white border-b">
-                  <th scope="row" className="px-6 py-4 whitespace-nowrap">
-                    <Link
-                      to="/document.pdf" // Replace with the path to your document
-                      target="_blank" // Opens in a new tab
-                      rel="noopener noreferrer" // Security best practice
-                      className="w-fit block bg-gray-300 hover:bg-gray-400/70 px-6 py-1 text-black font-medium rounded capitalize"
-                    >
-                      Founder ID proof
-                    </Link>
-                  </th>
-                  <td className="px-6 py-4">12/03/2024</td>
-                  <td className="px-6 py-4">
-                    <Link
-                      to="#"
-                      className="font-medium bg-green-200 text-green-500 px-2 py-1"
-                    >
-                      uploaded
-                    </Link>
-                  </td>
-                </tr>
-                <tr className="bg-white border-b">
-                  <th scope="row" className="px-6 py-4 whitespace-nowrap">
-                    <Link
-                      to="/document.pdf" // Replace with the path to your document
-                      target="_blank" // Opens in a new tab
-                      rel="noopener noreferrer" // Security best practice
-                      className="w-fit block bg-gray-300 hover:bg-gray-400/70 px-6 py-1 text-black font-medium rounded capitalize"
-                    >
-                      Business Details File
-                    </Link>
-                  </th>
-                  <td className="px-6 py-4">13/03/2024</td>
-                  <td className="px-6 py-4">
-                    <Link
-                      to="#"
-                      className="font-medium bg-green-200 text-green-500 px-2 py-1"
-                    >
-                      uploaded
-                    </Link>
-                  </td>
-                </tr> */}
               </tbody>
             </table>
           </div>
