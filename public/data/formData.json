@@ -84,6 +84,7 @@
   },
   {
     "step": "Step 4",
+    "document": "missing doc",
     "data": [
       {
         "heading": "Document Upload",
@@ -107,9 +108,9 @@
         "value": "ayush_license.pdf"
       },
       {
-        "label": "Other Supporting Documents",
+        "label": "Business Details",
         "id": "supportingDocuments",
-        "value": "supporting_documents.pdf"
+        "value": "-"
       }
     ]
   },

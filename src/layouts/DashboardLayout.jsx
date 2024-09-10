@@ -20,7 +20,7 @@ const DashboardLayout = ({ userType }) => {
         />
 
         {/* Content Area */}
-        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+        <div className="relative flex flex-1 flex-col overflow-y-auto scrollbar overflow-x-hidden">
           {/* Header */}
           <Header
             sidebarOpen={sidebarOpen}

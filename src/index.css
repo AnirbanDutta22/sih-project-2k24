@@ -27,4 +27,33 @@
   .welcomeSubText {
     @apply capitalize font-semibold mt-1.5;
   }
+  .greenSign {
+    @apply px-2 py-1 uppercase font-medium bg-green-200 text-green-500;
+  }
+  .yellowSign {
+    @apply px-2 py-1 uppercase font-medium bg-yellow-100 text-yellow-500;
+  }
+  .redSign {
+    @apply px-2 py-1 uppercase font-medium bg-gray-200 text-red-500;
+  }
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 0px;
+    height: 20px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+    border: 0px solid #f6f7ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+  }
 }

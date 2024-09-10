@@ -44,7 +44,7 @@ const UserDashboard = () => {
           <div className="statusBar">
             <span className="text-black">ministry of AYUSH</span>
             <span className="text-black">Date : 12/04/2024</span>
-            <span className="text-green-500">under review</span>
+            <span className="yellowSign">under review</span>
           </div>
           <Link to="status" className="gridBoxLink">
             check
@@ -53,6 +53,9 @@ const UserDashboard = () => {
         {/* progress chart */}
         <div className={`col-span-4 row-span-6 gridBox`}>
           <h1 className="text-2xl">Submission progress</h1>
+          <span className="bg-violet-100 text-violet-500 text-sm font-medium me-2 px-2.5 py-0.5 rounded">
+            Latest
+          </span>
           <ProgressCircleChart percentage={100} className="self-center" />
           <Link to="applications" className={`gridBoxLink self-center`}>
             click here to know more

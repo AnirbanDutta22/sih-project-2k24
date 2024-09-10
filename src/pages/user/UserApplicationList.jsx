@@ -48,7 +48,7 @@ const UserApplicationList = () => {
           <p className="welcomeSubText">all applications and their details</p>
         </div>
         <Link to="new-application" className="btn-primary">
-          start new application
+          new application
         </Link>
       </div>
       <div className="mt-6 z-10">
@@ -85,13 +85,13 @@ const UserApplicationList = () => {
                     <td className="px-3 py-4">
                       <Link
                         to="#"
-                        className={`font-medium ${
+                        className={
                           appl.status === "approved"
-                            ? "bg-green-200 text-green-500"
+                            ? "greenSign"
                             : appl.status === "pending"
-                            ? "bg-yellow-100 text-yellow-500"
-                            : "bg-gray-200 text-red-500"
-                        } px-2 py-1`}
+                            ? "yellowSign"
+                            : "redSign"
+                        }
                       >
                         {appl.status}
                       </Link>
@@ -107,12 +107,12 @@ const UserApplicationList = () => {
             </table>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-8 mt-8">
+        <div className="grid grid-cols-2 grid-rows-5 gap-8 h-[30rem] mt-8">
           {/* details*/}
-          <div className="dashboard-box col-span-1 h-auto">
+          <div className="dashboard-box col-span-1 row-span-5">
             <h1 className="text-2xl">DETAILS</h1>
             {/* details collapse */}
-            <div className="w-full">
+            <div className="w-full overflow-y-scroll scrollbar">
               <div className="flex justify-start items-center gap-x-5 text-lg uppercase border-b border-gray-200">
                 <span className="capitalize font-semibold">
                   application ID :{" "}
@@ -123,48 +123,49 @@ const UserApplicationList = () => {
                 </span>
                 {applications[0].startup_name}
               </div>
-              {formData.map((form, index) => (
-                <Collapse
-                  key={index}
-                  collapseText={form.data[0].heading}
-                  className="mt-3"
-                >
-                  {form.data.map((field, index) => (
-                    <div
-                      key={index}
-                      className={`flex justify-between items-center border-b border-violet-200 px-4 py-2`}
-                    >
-                      <span className="font-medium">{field.label}</span>
-                      <span className="normal-case">{field.value}</span>
-                    </div>
-                  ))}
-                </Collapse>
-              ))}
+              <div className="">
+                {formData.map((form, index) => (
+                  <Collapse
+                    key={index}
+                    collapseText={form.data[0].heading}
+                    className="mt-3"
+                    document={form.document}
+                  >
+                    {form.data.map((field, index) => (
+                      <div
+                        key={index}
+                        className={`flex justify-between items-center border-b border-violet-200 px-4 py-2`}
+                      >
+                        <span className="font-medium">{field.label}</span>
+                        <span className="normal-case">{field.value}</span>
+                      </div>
+                    ))}
+                  </Collapse>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="flex flex-col gap-y-8 col-span-1 h-full">
-            {/* application progress basic */}
-            <div className="dashboard-box w-full h-[10rem]">
-              <h1 className="text-2xl">application progress</h1>
-              <ProgressTracker steps={steps} />
-            </div>
-            {/* documents upload status */}
-            <div className="dashboard-box w-full h-auto">
-              <h1 className="text-2xl">document status</h1>
-              <div className="w-full">
-                <div className="py-2 flex justify-between items-center border-b border-gray-200">
-                  <p>
-                    <span className="font-medium">Business details file</span>{" "}
-                    missing
-                  </p>
-                  <label
-                    htmlFor="document"
-                    className="bg-gray-200 hover:bg-gray-200/70 cursor-pointer rounded border border-black px-1 py-[0.15rem]"
-                  >
-                    Upload
-                  </label>
-                  <input id="document" type="file" className="hidden" />
-                </div>
+          {/* application progress overview */}
+          <div className="dashboard-box w-full row-span-2">
+            <h1 className="text-2xl">progress overview</h1>
+            <ProgressTracker steps={steps} />
+          </div>
+          {/* documents upload status */}
+          <div className="dashboard-box w-full row-span-3">
+            <h1 className="text-2xl">document status</h1>
+            <div className="w-full">
+              <div className="py-2 flex justify-between items-center border-b border-gray-200">
+                <p>
+                  <span className="font-medium">Business details file</span>{" "}
+                  missing
+                </p>
+                <label
+                  htmlFor="document"
+                  className="bg-gray-200 hover:bg-gray-200/70 cursor-pointer rounded border border-black px-1 py-[0.15rem]"
+                >
+                  Upload
+                </label>
+                <input id="document" type="file" className="hidden" />
               </div>
             </div>
           </div>
