@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Collapse from "../../components/Collapse";
 import ProgressTracker from "../../components/ProgressTracker";
 import formData from "../../../public/data/formData.json";
+import Guide from "../../components/Guide";
 
 const UserApplicationList = () => {
   const applications = [
@@ -51,6 +52,7 @@ const UserApplicationList = () => {
           new application
         </Link>
       </div>
+      <Guide />
       <div className="mt-6 z-10">
         {/* application list */}
         <div className="dashboard-box h-auto">
@@ -149,6 +151,9 @@ const UserApplicationList = () => {
           <div className="dashboard-box w-full row-span-2">
             <h1 className="text-2xl">progress overview</h1>
             <ProgressTracker steps={steps} />
+            <Link to="../status" className="gridBoxLink self-end">
+              see details
+            </Link>
           </div>
           {/* documents upload status */}
           <div className="dashboard-box w-full row-span-3">

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Collapse from "../../components/Collapse";
 import { BsDownload } from "react-icons/bs";
 
+import Guide from "../../components/Guide";
+
 const documents = [
   {
     heading: "business documents",
@@ -62,6 +64,7 @@ const Documents = () => {
       <p className="welcomeSubText">
         see and manage all of your documents here
       </p>
+      <Guide />
       <div className="mt-6 py-4 gridBox">
         <div className="w-full flex justify-between">
           <div className="flex justify-start gap-x-5 uppercase text-xl">

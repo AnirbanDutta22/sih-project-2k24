@@ -2,6 +2,8 @@
 
 import { Link } from "react-router-dom";
 import ProgressCircleChart from "../../components/charts/CircleChart";
+import Guide from "../../components/Guide";
+import FAQ from "../../components/FAQ";
 
 const UserDashboard = () => {
   const documents = [
@@ -37,7 +39,8 @@ const UserDashboard = () => {
           <Link>3 unread notifications !</Link>
         </span>
       </p>
-      <div className="grid grid-cols-10 grid-rows-12 gap-8 h-full mt-6">
+      <Guide />
+      <div className="grid grid-cols-10 grid-rows-12 gap-8 h-full mt-6 mb-6">
         {/* current status */}
         <div className={`col-span-6 row-span-3 gridBox`}>
           <h1 className="text-2xl">CURRENT STATUS</h1>
