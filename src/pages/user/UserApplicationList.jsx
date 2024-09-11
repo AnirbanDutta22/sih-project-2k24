@@ -5,7 +5,15 @@ import ProgressTracker from "../../components/ProgressTracker";
 import formData from "../../../public/data/formData.json";
 import Guide from "../../components/Guide";
 
+import { useRef, useState } from "react";
+import { Steps } from "intro.js-react";
+import "intro.js/introjs.css";
+import { useTranslation } from "react-i18next";
+
 const UserApplicationList = () => {
+  const collapseRef = useRef(null);
+  const { t } = useTranslation("steps");
+
   const applications = [
     {
       id: "01apl",
@@ -41,6 +49,62 @@ const UserApplicationList = () => {
     { stepno: "Step 4", details: "approved", status: "" },
   ];
 
+  const stepsForTour = [
+    {
+      element: "#action",
+      intro: t(
+        "here you can <b>view</b>, <b>edit</b> or <b>withdraw</b> you application"
+      ),
+      position: "top",
+      tooltipClass: "customTourTooltip",
+    },
+    {
+      element: ".collapseClass",
+      intro: t("here you can check details of your filled form"),
+      tooltipClass: "customTourTooltip",
+    },
+    {
+      element: ".gridBoxLink",
+      intro: t(
+        "Here you can check the current progress of application in details"
+      ),
+      position: "left",
+      tooltipClass: "customTourTooltip",
+    },
+    {
+      element: ".documents",
+      intro: t("Check if any documents need any action"),
+      position: "left",
+      tooltipClass: "customTourTooltip",
+    },
+  ];
+
+  // Step state and initialization
+  const [enabled, setEnabled] = useState(false);
+
+  // const [isFirstLoad, setIsFirstLoad] = useState(true);
+
+  // useEffect(() => {
+  //   // Check if it's the first load
+  //   if (isFirstLoad) {
+  //     setEnabled(true); // Enable the tour on first load
+  //     setIsFirstLoad(false); // Set the flag to false after the first load
+  //   }
+  // }, [isFirstLoad]);
+
+  //start video tutorial
+  const startVideo = () => {
+    console.log("video started");
+  };
+  //start tour
+  const startTour = () => {
+    setEnabled(true);
+  };
+  //start video tutorial
+  const openDocs = () => {
+    console.log("docs opened");
+  };
+
   return (
     <div className="h-full">
       <div className="flex justify-between items-center">
@@ -52,7 +116,11 @@ const UserApplicationList = () => {
           new application
         </Link>
       </div>
-      <Guide />
+      <Guide
+        onDocsClick={openDocs}
+        onTourClick={startTour}
+        onVideoClick={startVideo}
+      />
       <div className="mt-6 z-10">
         {/* application list */}
         <div className="dashboard-box h-auto">
@@ -98,7 +166,10 @@ const UserApplicationList = () => {
                         {appl.status}
                       </Link>
                     </td>
-                    <td className="px-3 py-4 flex gap-x-3 text-violet-500 underline">
+                    <td
+                      id="action"
+                      className="px-3 py-4 flex gap-x-3 text-violet-500 underline"
+                    >
                       <Link to="#">Edit</Link>
                       <Link to="#">view</Link>
                       <Link to="#">withdraw</Link>
@@ -109,8 +180,8 @@ const UserApplicationList = () => {
             </table>
           </div>
         </div>
+        {/* details*/}
         <div className="grid grid-cols-2 grid-rows-5 gap-8 h-[30rem] mt-8">
-          {/* details*/}
           <div className="dashboard-box col-span-1 row-span-5">
             <h1 className="text-2xl">DETAILS</h1>
             {/* details collapse */}
@@ -128,9 +199,10 @@ const UserApplicationList = () => {
               <div className="">
                 {formData.map((form, index) => (
                   <Collapse
+                    ref={collapseRef}
                     key={index}
                     collapseText={form.data[0].heading}
-                    className="mt-3"
+                    className="collapseClass mt-3"
                     document={form.document}
                   >
                     {form.data.map((field, index) => (
@@ -166,7 +238,7 @@ const UserApplicationList = () => {
                 </p>
                 <label
                   htmlFor="document"
-                  className="bg-gray-200 hover:bg-gray-200/70 cursor-pointer rounded border border-black px-1 py-[0.15rem]"
+                  className="documents bg-gray-200 hover:bg-gray-200/70 cursor-pointer rounded border border-black px-1 py-[0.15rem]"
                 >
                   Upload
                 </label>
@@ -194,6 +266,20 @@ const UserApplicationList = () => {
           </ul>
         </div>
       </div>
+      {/* Intro.js Steps Component */}
+      <Steps
+        enabled={enabled}
+        steps={stepsForTour}
+        initialStep={0}
+        onExit={() => setEnabled(false)}
+        options={{
+          nextLabel: t("Next"),
+          prevLabel: t("Back"),
+          skipLabel: t("Skip"),
+          doneLabel: t("Finish"),
+          showBullets: true,
+        }}
+      />
     </div>
   );
 };

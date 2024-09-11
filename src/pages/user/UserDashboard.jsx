@@ -36,7 +36,7 @@ const UserDashboard = () => {
       <p className="welcomeSubText">
         all systems are running smoothly ! You have{" "}
         <span className="text-violet-500">
-          <Link>3 unread notifications !</Link>
+          <Link to="notifications">3 unread notifications !</Link>
         </span>
       </p>
       <Guide />

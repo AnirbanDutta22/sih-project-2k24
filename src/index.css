@@ -36,6 +36,9 @@
   .redSign {
     @apply px-2 py-1 uppercase font-medium bg-gray-200 text-red-500;
   }
+  .customTourTooltip {
+    @apply p-5 capitalize text-xl;
+  }
 }
 
 @layer utilities {

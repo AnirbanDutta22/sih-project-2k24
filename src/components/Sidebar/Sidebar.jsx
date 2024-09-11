@@ -100,12 +100,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
       link: "reports-analytics",
       icon: <MdOutlineAnalytics />,
     },
+    { menuItem: t("Support"), link: "support", icon: <MdHelpOutline /> },
     {
       menuItem: t("Notifications"),
       link: "notifications",
       icon: <GrNotification />,
     },
-    { menuItem: t("Support"), link: "support", icon: <MdHelpOutline /> },
     { menuItem: t("Profile"), link: "profile", icon: <LuUser2 /> },
   ];
 

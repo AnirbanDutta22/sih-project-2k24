@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 // import React from "react";
 
+import React from "react";
+
 const ProgressTracker = ({ steps, className }) => {
   return (
     <div className={`flex items-center justify-center ${className}`}>
       {steps.map((step, index) => (
-        <>
+        <React.Fragment key={index}>
           <div
-            key={index}
             className={`relative rounded-full size-14 text-xs flex justify-center items-center ${
               step.status === "done"
                 ? "text-white bg-green-500"
@@ -32,7 +33,7 @@ const ProgressTracker = ({ steps, className }) => {
               }`}
             ></span>
           )}
-        </>
+        </React.Fragment>
       ))}
     </div>
   );
