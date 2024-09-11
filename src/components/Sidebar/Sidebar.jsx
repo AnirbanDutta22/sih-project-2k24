@@ -10,10 +10,13 @@ import {
   MdOutlineDocumentScanner,
   MdOutlineFormatAlignLeft,
 } from "react-icons/md";
-import { GrCompliance, GrStatusInfo } from "react-icons/gr";
+import { GrCompliance, GrNotification, GrStatusInfo } from "react-icons/gr";
 import { LuUser2 } from "react-icons/lu";
 import { PiUsersThree } from "react-icons/pi";
 import { RiListSettingsLine } from "react-icons/ri";
+import DropdownNotification from "../Header/DropdownNotification";
+
+const menuText = `group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-xl duration-300 ease-in-out`;
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
   const { t } = useTranslation("common");
@@ -62,8 +65,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
     }
   }, [sidebarExpanded]);
 
-  const menuText = `group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-xl duration-300 ease-in-out`;
-
   const userSidebar = [
     { menuItem: t("Dashboard"), link: "", icon: <MdOutlineDashboard /> },
     {
@@ -78,6 +79,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
       icon: <MdOutlineDocumentScanner />,
     },
     { menuItem: t("Support"), link: "support", icon: <MdHelpOutline /> },
+    {
+      menuItem: t("Notifications"),
+      link: "notifications",
+      icon: <GrNotification />,
+    },
     { menuItem: t("Profile"), link: "profile", icon: <LuUser2 /> },
   ];
 
@@ -93,6 +99,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
       menuItem: "Reports & Analytics",
       link: "reports-analytics",
       icon: <MdOutlineAnalytics />,
+    },
+    {
+      menuItem: t("Notifications"),
+      link: "notifications",
+      icon: <GrNotification />,
     },
     { menuItem: t("Support"), link: "support", icon: <MdHelpOutline /> },
     { menuItem: t("Profile"), link: "profile", icon: <LuUser2 /> },
@@ -116,6 +127,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
       link: "reports-analytics",
       icon: <MdOutlineAnalytics />,
     },
+    {
+      menuItem: t("Notifications"),
+      link: "notifications",
+      icon: <GrNotification />,
+    },
     { menuItem: "Profile", link: "profile", icon: <LuUser2 /> },
   ];
 
@@ -128,7 +144,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
       return (
         <li
           key={index}
-          className={`${index === sidebarItems.length - 1 && "mt-10"} py-1 ${
+          className={`${index === sidebarItems.length - 2 && "mt-10"} py-1 ${
             location.pathname === path
               ? "bg-violet-500/70 rounded-[0.250rem]"
               : ""
@@ -141,7 +157,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
               `${menuText} ${isActive ? "text-white" : ""}`
             }
           >
-            {/* Add appropriate icon here */}
             {item.icon}
             {item.menuItem}
           </NavLink>

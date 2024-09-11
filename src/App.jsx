@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Profile from "./layouts/Profile.jsx";
 import Support from "./layouts/Support.jsx";
+import Notification from "./layouts/Notification.jsx";
 //pages
 import {
   UserApplicationList,
@@ -38,6 +39,10 @@ const App = () => {
           <Route path="documents" element={<Documents />} />
           <Route path="status" element={<Status />} />
           <Route path="support" element={<Support />} />
+          <Route
+            path="notifications"
+            element={<Notification userType="user" />}
+          />
           <Route path="profile" element={<Profile userType="user" />} />
           <Route
             path="applications/new-application"
@@ -50,6 +55,10 @@ const App = () => {
           <Route path="compliances" element={<ComplianceList />} />
           <Route path="reports-analytics" element={<Reports />} />
           <Route path="support" element={<Support />} />
+          <Route
+            path="notifications"
+            element={<Notification userType="govt" />}
+          />
           <Route path="profile" element={<Profile userType="govt" />} />
         </Route>
         <Route
@@ -62,6 +71,10 @@ const App = () => {
           <Route path="applications" element={<AllApplicationList />} />
           <Route path="portal-settings" element={<PortalManagement />} />
           <Route path="reports-analytics" element={<AllReports />} />
+          <Route
+            path="notifications"
+            element={<Notification userType="admin" />}
+          />
           <Route path="profile" element={<Profile userType="admin" />} />
         </Route>
       </Routes>

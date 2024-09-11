@@ -1,4 +1,5 @@
 import React from "react";
+import FAQ from "../components/FAQ";
 
 const Support = () => {
   return (
@@ -77,6 +78,7 @@ const Support = () => {
           ))}
         </div>
       </div>
+      <FAQ />
     </div>
   );
 };
