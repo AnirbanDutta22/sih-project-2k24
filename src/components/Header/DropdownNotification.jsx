@@ -22,7 +22,7 @@ const DropdownNotification = () => {
             notifying === false ? "hidden" : "inline"
           }`}
         >
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-600 opacity-75"></span>
         </span>
         <GrNotification className="text-2xl" />
       </Link>
