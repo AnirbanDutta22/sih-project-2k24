@@ -90,7 +90,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
   const govtSidebar = [
     { menuItem: "Dashboard", link: "", icon: <MdOutlineDashboard /> },
     {
-      menuItem: "Application",
+      menuItem: "Applications",
       link: "applications",
       icon: <MdOutlineFormatAlignLeft />,
     },
@@ -113,7 +113,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
     { menuItem: "Dashboard", link: "", icon: <MdOutlineDashboard /> },
     { menuItem: "Users", link: "users", icon: <PiUsersThree /> },
     {
-      menuItem: "Application",
+      menuItem: "Applications",
       link: "applications",
       icon: <MdOutlineFormatAlignLeft />,
     },
