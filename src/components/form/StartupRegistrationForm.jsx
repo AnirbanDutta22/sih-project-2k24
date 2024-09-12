@@ -66,24 +66,41 @@ const StartupRegistrationForm = () => {
     },
     step2: {
       founderName: "",
+      designation: "",
+      contactDetails: "",
+      linkedInProfile: "",
     },
     step3: {
-      s: "",
+      registrationType: "",
+      registrationNumber: "",
+      registeredAddress: "",
+      businessPan: "",
     },
     step4: {
-      f: "",
+      registrationCertificate: "",
+      founderIdProofs: "",
+      pitchDeck: "",
+      ayushLicenses: "",
+      supportingDocuments: "",
     },
     step5: {
-      s: "",
+      ayushApprovalStatus: "",
+      complianceCertifications: "",
+      regulatoryChecklist: "",
     },
     step6: {
-      f: "",
+      investmentRaised: "",
+      annualTurnover: "",
+      bankDetails: "",
     },
   });
 
   // Generic handleChange for nested form state
-  const handleChange = (step, field) => (event) => {
+  const handleChange = (step, field, event) => {
     const { value } = event.target;
+    console.log(value);
+    console.log(step);
+    console.log(field);
     setFormValues((prevValues) => ({
       ...prevValues,
       [step]: {
@@ -95,12 +112,15 @@ const StartupRegistrationForm = () => {
 
   // Handle form submission
   const handleSubmit = () => {
+    console.log(formValues);
     // Validation logic here
     const errors = validateForm(formValues);
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length === formValues.length) {
       console.log("Form submitted successfully:", formValues);
+      return true;
     } else {
       console.log("Form errors:", errors);
+      return false;
     }
   };
 
@@ -128,7 +148,7 @@ const StartupRegistrationForm = () => {
           layout="vertical"
           backButtonTemplate={(handlePrevious) => (
             <button
-              className={`back-button mr-5 ${formButton}`}
+              className={`back-button mr-5 ${formButton} px-4`}
               onClick={handlePrevious}
             >
               back
@@ -136,11 +156,13 @@ const StartupRegistrationForm = () => {
           )}
           nextButtonTemplate={(handleNext) => (
             <button
-              className={`base-button ${formButton}`}
+              className={`base-button ${formButton} px-4`}
               type="submit"
-              onClick={handleNext}
+              onClick={() => {
+                if (handleSubmit()) handleNext();
+              }}
             >
-              next
+              save & next
             </button>
           )}
           finishButtonTemplate={(handleComplete) => (
@@ -162,7 +184,7 @@ const StartupRegistrationForm = () => {
               <StepForm
                 stepno={stepno.stepno}
                 onChange={handleChange}
-                values={formValues}
+                formValues={formValues}
               />
             </FormWizard.TabContent>
           ))}

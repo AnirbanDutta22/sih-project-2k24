@@ -7,11 +7,12 @@ const formHeading = `text-left text-3xl font-semibold`;
 const formSubHeading = `text-left text-base font-normal mb-6`;
 const mandatory = `text-red-600 text-lg ml-1`;
 
-const StepForm = ({ stepno, onChange, values }) => {
+const StepForm = ({ stepno, onChange, formValues }) => {
   const { t } = useTranslation("formTranslation");
 
   const step1 = [
     {
+      stepNo: "step1",
       heading: t("Basic Startup Information"),
       label: t("Startup Name"),
       type: "text",
@@ -47,6 +48,7 @@ const StepForm = ({ stepno, onChange, values }) => {
 
   const step2 = [
     {
+      stepNo: "step2",
       heading: t("Founder Details"),
       label: t("Founder/Co-Founder Name"),
       type: "text",
@@ -75,6 +77,7 @@ const StepForm = ({ stepno, onChange, values }) => {
 
   const step3 = [
     {
+      stepNo: "step3",
       heading: t("Business Registration Details"),
       label: t("Registration Type"),
       type: "select",
@@ -103,6 +106,7 @@ const StepForm = ({ stepno, onChange, values }) => {
 
   const step4 = [
     {
+      stepNo: "step4",
       heading: t("Document Upload"),
       label: t("Business Registration Certificate"),
       type: "file",
@@ -137,6 +141,7 @@ const StepForm = ({ stepno, onChange, values }) => {
 
   const step5 = [
     {
+      stepNo: "step5",
       heading: t("AYUSH Compliance"),
       label: t("AYUSH Approval Status"),
       type: "select",
@@ -159,6 +164,7 @@ const StepForm = ({ stepno, onChange, values }) => {
 
   const step6 = [
     {
+      stepNo: "step6",
       heading: t("Financial Details (Optional)"),
       label: t("Investment Raised"),
       type: "number",
@@ -179,182 +185,70 @@ const StepForm = ({ stepno, onChange, values }) => {
     },
   ];
 
+  const renderStepForm = (stepno) => {
+    const stepName = stepno[0].stepNo;
+    return (
+      <>
+        <h1 className={formHeading}>{stepno[0].heading}</h1>
+        <p className={formSubHeading}>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
+          ullam.
+        </p>
+        {stepno.map((data, index) => {
+          return (
+            <div key={index} className="step1 mb-5">
+              <label
+                htmlFor={data.id}
+                className="block mb-2 text-left text-sm font-medium text-gray-900"
+              >
+                {t(data.label)}
+                <span className={mandatory}>*</span>
+              </label>
+              {data.type === "select" ? (
+                <select
+                  id={data.id}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                >
+                  <option value={t(data.placeholder)}>
+                    {t(data.placeholder)}
+                  </option>
+                  {data.values?.map((value, i) => (
+                    <option
+                      key={i}
+                      value={formValues[stepno]?.[data.id]}
+                      onChange={(event) => onChange(stepName, data.id, event)}
+                    >
+                      {t(value)}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type={data.type}
+                  id={data.id}
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                  value={formValues[stepno]?.[data.id] || ""}
+                  onChange={(event) => onChange(stepName, data.id, event)}
+                  placeholder={t(data.placeholder)}
+                  required
+                />
+              )}
+            </div>
+          );
+        })}
+      </>
+    );
+  };
+
   return (
     <>
       <form className="">
-        {stepno === "Step1" && (
-          <>
-            <h1 className={formHeading}>{step1[0].heading}</h1>
-            <p className={formSubHeading}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
-              ullam.
-            </p>
-            {step1.map((data, index) => (
-              <div key={index} className="step1 mb-5">
-                <label
-                  htmlFor={data.id}
-                  className="block mb-2 text-left text-sm font-medium text-gray-900"
-                >
-                  {t(data.label)}
-                  <span className={mandatory}>*</span>
-                </label>
-                {data.type === "select" ? (
-                  <select
-                    id="countries"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                  >
-                    <option selected>{t(data.placeholder)}</option>
-                    {data.values.map((value, i) => (
-                      <option key={i} value={value}>
-                        {t(value)}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    type={data.type}
-                    id={data.id}
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                    value={values[step1]?.[data.id] || ""}
-                    onChange={onChange(step1, data.id)}
-                    placeholder={t(data.placeholder)}
-                    required
-                  />
-                )}
-              </div>
-            ))}
-          </>
-        )}
-        {stepno === "Step2" && (
-          <>
-            <h1 className={formHeading}>{step2[0].heading}</h1>
-            <p className={formSubHeading}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
-              ullam.
-            </p>
-            {step2.map((data, index) => (
-              <div key={index} className="step1 mb-5">
-                <label
-                  htmlFor={data.label}
-                  className="block mb-2 text-left text-sm font-medium text-gray-900"
-                >
-                  {data.label}
-                </label>
-                <input
-                  type={data.type}
-                  id={data.id}
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder={data.placeholder}
-                  required
-                />
-              </div>
-            ))}
-          </>
-        )}
-        {stepno === "Step3" && (
-          <>
-            <h1 className={formHeading}>{step3[0].heading}</h1>
-            <p className={formSubHeading}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
-              ullam.
-            </p>
-            {step3.map((data, index) => (
-              <div key={index} className="step1 mb-5">
-                <label
-                  htmlFor={data.label}
-                  className="block mb-2 text-left text-sm font-medium text-gray-900"
-                >
-                  {data.label}
-                </label>
-                <input
-                  type={data.type}
-                  id={data.id}
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder={data.placeholder}
-                  required
-                />
-              </div>
-            ))}
-          </>
-        )}
-        {stepno === "Step4" && (
-          <>
-            <h1 className={formHeading}>{step4[0].heading}</h1>
-            <p className={formSubHeading}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
-              ullam.
-            </p>
-            {step4.map((data, index) => (
-              <div key={index} className="step1 mb-5">
-                <label
-                  htmlFor={data.label}
-                  className="block mb-2 text-left text-sm font-medium text-gray-900"
-                >
-                  {data.label}
-                </label>
-                <input
-                  type={data.type}
-                  id={data.id}
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder={data.placeholder}
-                  required
-                />
-              </div>
-            ))}
-          </>
-        )}
-        {stepno === "Step5" && (
-          <>
-            <h1 className={formHeading}>{step5[0].heading}</h1>
-            <p className={formSubHeading}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
-              ullam.
-            </p>
-            {step5.map((data, index) => (
-              <div key={index} className="step1 mb-5">
-                <label
-                  htmlFor={data.label}
-                  className="block mb-2 text-left text-sm font-medium text-gray-900"
-                >
-                  {data.label}
-                </label>
-                <input
-                  type={data.type}
-                  id={data.id}
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder={data.placeholder}
-                  required
-                />
-              </div>
-            ))}
-          </>
-        )}
-        {stepno === "Step6" && (
-          <>
-            <h1 className={formHeading}>{step6[0].heading}</h1>
-            <p className={formSubHeading}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
-              ullam.
-            </p>
-            {step6.map((data, index) => (
-              <div key={index} className="step1 mb-5">
-                <label
-                  htmlFor={data.label}
-                  className="block mb-2 text-left text-sm font-medium text-gray-900"
-                >
-                  {data.label}
-                </label>
-                <input
-                  type={data.type}
-                  id={data.id}
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder={data.placeholder}
-                  required
-                />
-              </div>
-            ))}
-          </>
-        )}
+        {stepno === "Step1" && renderStepForm(step1)}
+        {stepno === "Step2" && renderStepForm(step2)}
+        {stepno === "Step3" && renderStepForm(step3)}
+        {stepno === "Step4" && renderStepForm(step4)}
+        {stepno === "Step5" && renderStepForm(step5)}
+        {stepno === "Step6" && renderStepForm(step6)}
       </form>
     </>
   );

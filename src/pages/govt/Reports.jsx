@@ -218,7 +218,6 @@ const Reports = () => {
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-8 mt-6"></div>
       {/* reports section */}
       <h1 className="welcomeText">reports</h1>
       <div className="grid grid-cols-4 gap-8 mt-6">

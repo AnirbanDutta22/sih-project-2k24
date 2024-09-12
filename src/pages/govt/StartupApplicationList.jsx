@@ -140,7 +140,7 @@ const StartupApplicationList = () => {
   return (
     <div>
       <h1 className="welcomeText">application list</h1>
-      <div className={`gridBox mt-6`}>
+      <div className={`gridBox mt-6 h-[80vh]`}>
         <div className="w-full flex items-center">
           <h1 className="text-2xl flex-1">All</h1>
           <div className="hidden sm:block">
@@ -181,7 +181,7 @@ const StartupApplicationList = () => {
           <button className="btn-primary">filter & sort</button>
         </div>
         {/* table */}
-        <div className="w-full relative overflow-x-auto flex-1 scrollbar">
+        <div className="w-full relative overflow-x-auto overflow-y-auto flex-1 scrollbar">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead className="text-sm text-gray-500 uppercase border-b whitespace-nowrap">
               <tr>
