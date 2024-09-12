@@ -50,6 +50,7 @@ export const SectorPerformanceChart = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -95,6 +96,7 @@ export const SectorGrowthPatternChart = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",

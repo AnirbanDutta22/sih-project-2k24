@@ -206,9 +206,14 @@ const Reports = () => {
         </form>
         <div className="grid grid-cols-4 gap-6 mt-4">
           {analytics.map((analy, index) => (
-            <div className="gridBox" key={index}>
+            <div
+              className={`gridBox ${
+                index >= analytics.length - 2 && "col-span-2"
+              }`}
+              key={index}
+            >
               <h1 className="text-lg font-semibold">{analy.metricName}</h1>
-              <span className="text-3xl">{analy.unit}</span>
+              <span className="text-3xl w-full">{analy.unit}</span>
             </div>
           ))}
         </div>
