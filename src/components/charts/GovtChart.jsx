@@ -1,6 +1,7 @@
 // import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -117,6 +118,98 @@ export const SectorGrowthPatternChart = () => {
         title: {
           display: true,
           text: "Growth Index",
+        },
+      },
+    },
+  };
+
+  return <Line data={data} options={options} />;
+};
+
+export const ComplianceStatusDoughnut = () => {
+  const data = {
+    labels: ["Pending", "Approved", "Rejected"],
+    datasets: [
+      {
+        data: [10, 5, 2], // Example data: number of pending, approved, rejected checks
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "left",
+      },
+    },
+    layout: {
+      padding: {
+        top: 0,
+        bottom: 30,
+      },
+    },
+  };
+
+  return <Doughnut data={data} options={options} />;
+};
+
+export const ComplianceTypeBarChart = () => {
+  const data = {
+    labels: ["Financial", "Regulatory", "Identity", "Health", "Environmental"],
+    datasets: [
+      {
+        label: "Compliance Checks",
+        data: [3, 5, 2, 4, 1], // Example data: number of checks by type
+        backgroundColor: "#42A5F5",
+        borderColor: "#1E88E5",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
+
+  return <Bar data={data} options={options} />;
+};
+
+export const ComplianceTrendLineChart = () => {
+  const data = {
+    labels: ["Aug 1", "Aug 5", "Aug 10", "Aug 15", "Aug 20"],
+    datasets: [
+      {
+        label: "Compliance Reviews Over Time",
+        data: [2, 4, 3, 5, 1], // Example data: trend of compliance reviews
+        fill: false,
+        backgroundColor: "#FF6384",
+        borderColor: "#FF6384",
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: "Date",
+        },
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: "Number of Reviews",
         },
       },
     },

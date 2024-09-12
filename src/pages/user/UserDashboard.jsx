@@ -3,7 +3,6 @@
 import { Link } from "react-router-dom";
 import ProgressCircleChart from "../../components/charts/CircleChart";
 import Guide from "../../components/Guide";
-import FAQ from "../../components/FAQ";
 
 const UserDashboard = () => {
   const documents = [
