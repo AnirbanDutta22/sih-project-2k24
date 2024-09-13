@@ -3,8 +3,15 @@
 import { Link } from "react-router-dom";
 import ProgressCircleChart from "../../components/charts/CircleChart";
 import Guide from "../../components/Guide";
+import useTour from "../../hooks/useTour";
+import { Steps } from "intro.js-react";
+import "intro.js/introjs.css";
+import { useTranslation } from "react-i18next";
 
 const UserDashboard = () => {
+  const { t } = useTranslation();
+  const [enabled, setEnabled, handleExit] = useTour("dashboardTour");
+
   const documents = [
     {
       name: "GST File",
@@ -29,6 +36,45 @@ const UserDashboard = () => {
     },
   ];
 
+  const stepsForTour = [
+    {
+      element: "#currentStatus",
+      intro: "Here you can check current status of your latest application",
+      position: "right",
+      tooltipClass: "customTourTooltip",
+    },
+    {
+      element: "#pendingAction",
+      intro: "Here you can check pending actions from your latest application",
+      position: "bottom",
+      tooltipClass: "customTourTooltip",
+    },
+    {
+      element: "#submissionProgress",
+      intro:
+        "Here you can check submission progress from your latest application",
+      tooltipClass: "customTourTooltip",
+    },
+    {
+      element: "#row0",
+      intro: "Here you can check your documents from your latest application",
+      tooltipClass: "customTourTooltip",
+    },
+  ];
+
+  //start video tutorial
+  const startVideo = () => {
+    console.log("video started");
+  };
+  //start tour
+  const startTour = () => {
+    setEnabled(true);
+  };
+  //start video tutorial
+  const openDocs = () => {
+    console.log("docs opened");
+  };
+
   return (
     <div className="h-full">
       <h1 className="welcomeText">welcome to user dashboard !</h1>
@@ -38,12 +84,16 @@ const UserDashboard = () => {
           <Link to="notifications">3 unread notifications !</Link>
         </span>
       </p>
-      <Guide />
+      <Guide
+        onDocsClick={openDocs}
+        onTourClick={startTour}
+        onVideoClick={startVideo}
+      />
       <div className="grid grid-cols-10 grid-rows-12 gap-8 h-full mt-6 mb-6">
         {/* current status */}
         <div className={`col-span-6 row-span-3 gridBox`}>
           <h1 className="text-2xl">CURRENT STATUS</h1>
-          <div className="statusBar">
+          <div className="statusBar" id="currentStatus">
             <span className="text-black">ministry of AYUSH</span>
             <span className="text-black">Date : 12/04/2024</span>
             <span className="yellowSign">under review</span>
@@ -53,7 +103,10 @@ const UserDashboard = () => {
           </Link>
         </div>
         {/* progress chart */}
-        <div className={`col-span-4 row-span-6 gridBox`}>
+        <div
+          className={`col-span-4 row-span-6 gridBox`}
+          id="submissionProgress"
+        >
           <h1 className="text-2xl">Submission progress</h1>
           <span className="bg-violet-100 text-violet-500 text-sm font-medium me-2 px-2.5 py-0.5 rounded">
             Latest
@@ -66,7 +119,7 @@ const UserDashboard = () => {
         {/* pending actions */}
         <div className={`col-span-6 row-span-3 gridBox`}>
           <h1 className="text-2xl">pending actions</h1>
-          <div className="statusBar">
+          <div className="statusBar" id="pendingAction">
             <span>no pending actions</span>
           </div>
           <Link to="applications" className="gridBoxLink">
@@ -106,7 +159,11 @@ const UserDashboard = () => {
               </thead>
               <tbody>
                 {documents.map((doc, index) => (
-                  <tr className="bg-white border-b" key={index}>
+                  <tr
+                    className="bg-white border-b"
+                    key={index}
+                    id={`row` + index}
+                  >
                     <th scope="row" className="px-6 py-4 whitespace-nowrap">
                       <Link
                         to="/document.pdf" // Replace with the path to your document
@@ -146,6 +203,20 @@ const UserDashboard = () => {
           </div>
         </div>
       </div>
+      {/* Intro.js Steps Component */}
+      <Steps
+        enabled={enabled}
+        steps={stepsForTour}
+        initialStep={0}
+        onExit={handleExit}
+        options={{
+          nextLabel: t("Next"),
+          prevLabel: t("Back"),
+          skipLabel: t("Skip"),
+          doneLabel: t("Finish"),
+          showBullets: true,
+        }}
+      />
     </div>
   );
 };

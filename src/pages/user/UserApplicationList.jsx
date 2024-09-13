@@ -5,14 +5,16 @@ import ProgressTracker from "../../components/ProgressTracker";
 import formData from "../../../public/data/formData.json";
 import Guide from "../../components/Guide";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Steps } from "intro.js-react";
 import "intro.js/introjs.css";
 import { useTranslation } from "react-i18next";
+import useTour from "../../hooks/useTour";
 
 const UserApplicationList = () => {
   const collapseRef = useRef(null);
   const { t } = useTranslation("steps");
+  const [enabled, setEnabled, handleExit] = useTour("applicationPageTour");
 
   const applications = [
     {
@@ -51,6 +53,12 @@ const UserApplicationList = () => {
 
   const stepsForTour = [
     {
+      element: "#newApplication",
+      intro: t("By clicking here you can start new application"),
+      position: "left",
+      tooltipClass: "customTourTooltip",
+    },
+    {
       element: "#action",
       intro: t(
         "here you can <b>view</b>, <b>edit</b> or <b>withdraw</b> you application"
@@ -80,17 +88,25 @@ const UserApplicationList = () => {
   ];
 
   // Step state and initialization
-  const [enabled, setEnabled] = useState(false);
-
-  // const [isFirstLoad, setIsFirstLoad] = useState(true);
+  // const [enabled, setEnabled] = useState(false);
+  // const [isTourCompleted, setIsTourCompleted] = useState(false);
 
   // useEffect(() => {
-  //   // Check if it's the first load
-  //   if (isFirstLoad) {
-  //     setEnabled(true); // Enable the tour on first load
-  //     setIsFirstLoad(false); // Set the flag to false after the first load
+  //   const tourCompleted = localStorage.getItem("tourCompleted");
+
+  //   if (!tourCompleted) {
+  //     setEnabled(true);
+  //   } else {
+  //     setIsTourCompleted(true);
   //   }
-  // }, [isFirstLoad]);
+  // }, []);
+
+  // // Handle the completion of the tour
+  // const handleExit = () => {
+  //   localStorage.setItem("tourCompleted", "true"); // Set the flag in localStorage
+  //   setEnabled(false); // Disable the steps after completion
+  //   setIsTourCompleted(true); // Update state to show the tour has been completed
+  // };
 
   //start video tutorial
   const startVideo = () => {
@@ -112,7 +128,7 @@ const UserApplicationList = () => {
           <h1 className="welcomeText">my applications</h1>
           <p className="welcomeSubText">all applications and their details</p>
         </div>
-        <Link to="new-application" className="btn-primary">
+        <Link to="new-application" id="newApplication" className="btn-primary">
           new application
         </Link>
       </div>
@@ -271,7 +287,7 @@ const UserApplicationList = () => {
         enabled={enabled}
         steps={stepsForTour}
         initialStep={0}
-        onExit={() => setEnabled(false)}
+        onExit={handleExit}
         options={{
           nextLabel: t("Next"),
           prevLabel: t("Back"),
