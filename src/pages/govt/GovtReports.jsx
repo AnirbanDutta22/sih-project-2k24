@@ -175,12 +175,12 @@ const reports = [
   },
 ];
 
-const Reports = () => {
+const GovtReports = () => {
   return (
     <div>
       {/* analytics section */}
       <h1 className="welcomeText">analytics</h1>
-      <div className="mt-4">
+      <div className="mt-4 mb-6">
         <form className="flex justify-start items-center gap-x-6">
           {analytics_category.map((cat, index) => (
             <div key={index}>
@@ -296,4 +296,4 @@ const Reports = () => {
   );
 };
 
-export default Reports;
+export default GovtReports;

@@ -8,20 +8,19 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import Profile from "./layouts/Profile.jsx";
 import Support from "./layouts/Support.jsx";
 import Notification from "./layouts/Notification.jsx";
+import ApplicationList from "./layouts/ApplicationList.jsx";
 //pages
 import {
   UserApplicationList,
   UserDashboard,
-  UserList,
+  UserManagement,
   GovtDashboard,
   AdminDashboard,
   Documents,
-  AllApplicationList,
   PortalManagement,
-  StartupApplicationList,
   ComplianceList,
-  Reports,
-  AllReports,
+  GovtReports,
+  AdminReports,
   Status,
 } from "./pages/index.js";
 import StartupRegistrationForm from "./components/form/StartupRegistrationForm.jsx";
@@ -51,9 +50,12 @@ const App = () => {
         </Route>
         <Route exact path="/govt" element={<DashboardLayout userType="govt" />}>
           <Route index element={<GovtDashboard />} />
-          <Route path="applications" element={<StartupApplicationList />} />
+          <Route
+            path="applications"
+            element={<ApplicationList userType="govt" />}
+          />
           <Route path="compliances" element={<ComplianceList />} />
-          <Route path="reports-analytics" element={<Reports />} />
+          <Route path="reports-analytics" element={<GovtReports />} />
           <Route path="support" element={<Support />} />
           <Route
             path="notifications"
@@ -67,10 +69,13 @@ const App = () => {
           element={<DashboardLayout userType="admin" />}
         >
           <Route index element={<AdminDashboard />} />
-          <Route path="users" element={<UserList />} />
-          <Route path="applications" element={<AllApplicationList />} />
+          <Route path="users" element={<UserManagement />} />
+          <Route
+            path="applications"
+            element={<ApplicationList userType="admin" />}
+          />
           <Route path="portal-settings" element={<PortalManagement />} />
-          <Route path="reports-analytics" element={<AllReports />} />
+          <Route path="reports-analytics" element={<AdminReports />} />
           <Route
             path="notifications"
             element={<Notification userType="admin" />}

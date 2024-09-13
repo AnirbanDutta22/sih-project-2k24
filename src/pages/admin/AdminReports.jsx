@@ -173,7 +173,7 @@ const reports = [
   },
 ];
 
-const Reports = () => {
+const AdminReports = () => {
   return (
     <div>
       <h1 className="welcomeText">analytics</h1>
@@ -292,4 +292,4 @@ const Reports = () => {
   );
 };
 
-export default Reports;
+export default AdminReports;

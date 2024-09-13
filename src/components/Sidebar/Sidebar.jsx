@@ -14,7 +14,6 @@ import { GrCompliance, GrNotification, GrStatusInfo } from "react-icons/gr";
 import { LuUser2 } from "react-icons/lu";
 import { PiUsersThree } from "react-icons/pi";
 import { RiListSettingsLine } from "react-icons/ri";
-import DropdownNotification from "../Header/DropdownNotification";
 
 const menuText = `group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-xl duration-300 ease-in-out`;
 

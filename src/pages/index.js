@@ -4,28 +4,24 @@ import Documents from "./user/Documents";
 import Status from "./user/Status.jsx";
 
 import AdminDashboard from "./admin/AdminDashboard.jsx";
-import AllApplicationList from "./admin/AllApplicationList";
-import AllReports from "./admin/AllReports.jsx";
-import UserList from "./admin/UserList.jsx";
+import AdminReports from "./admin/AdminReports.jsx";
+import UserManagement from "./admin/UserManagement.jsx";
 import PortalManagement from "./admin/PortalManagement.jsx";
 
 import GovtDashboard from "./govt/GovtDashboard.jsx";
-import StartupApplicationList from "./govt/StartupApplicationList.jsx";
 import ComplianceList from "./govt/ComplianceList.jsx";
-import Reports from "./govt/Reports.jsx";
+import GovtReports from "./govt/GovtReports.jsx";
 
 export {
   UserApplicationList,
   UserDashboard,
-  UserList,
+  UserManagement,
   GovtDashboard,
   AdminDashboard,
   Documents,
-  AllApplicationList,
   PortalManagement,
-  StartupApplicationList,
   ComplianceList,
-  Reports,
-  AllReports,
+  GovtReports,
+  AdminReports,
   Status,
 };
