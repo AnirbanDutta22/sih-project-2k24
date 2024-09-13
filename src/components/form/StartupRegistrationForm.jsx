@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // import React from "react";
 import FormWizard from "react-form-wizard-component";
 import "react-form-wizard-component/dist/style.css";
@@ -8,6 +9,7 @@ import { useTranslation } from "react-i18next";
 
 import StepForm from "./StepForm";
 import "./FormWizard.css";
+import useTour from "../../hooks/useTour";
 
 const steps = [
   { stepno: "Step1", heading: "Basic Startup Information" },
@@ -20,41 +22,9 @@ const steps = [
 
 const formButton = `h-9 text-sm text-white capitalize font-semibold px-12 py-1.5 bg-violet-500/70 hover:bg-violet-500 rounded-[0.250rem]`;
 
-const StartupRegistrationForm = () => {
+const StartupRegistrationForm = ({ onModalClose }) => {
   const { t } = useTranslation("steps");
-
-  const stepsForTour = [
-    {
-      element: ".wizard-navigation ul span.active",
-      intro: t("This is the Step Marker !"),
-      position: "top",
-    },
-    {
-      element: ".step1",
-      intro: t("Fill all the input fields !"),
-    },
-    {
-      element: ".base-button",
-      intro: t("Then click on the next button !"),
-    },
-  ];
-
-  // Step state and initialization
-  const [enabled, setEnabled] = useState(false);
-
-  // const [isFirstLoad, setIsFirstLoad] = useState(true);
-
-  // useEffect(() => {
-  //   // Check if it's the first load
-  //   if (isFirstLoad) {
-  //     setEnabled(true); // Enable the tour on first load
-  //     setIsFirstLoad(false); // Set the flag to false after the first load
-  //   }
-  // }, [isFirstLoad]);
-
-  const startTour = () => {
-    setEnabled(true);
-  };
+  const [enabled, setEnabled, handleExit] = useTour("formTour");
 
   const [formValues, setFormValues] = useState({
     step1: {
@@ -94,6 +64,30 @@ const StartupRegistrationForm = () => {
       bankDetails: "",
     },
   });
+
+  const stepsForTour = [
+    {
+      element: ".wizard-navigation ul span.active",
+      intro: t("This is the Step Marker !"),
+      position: "top",
+      tooltipClass: "customTourTooltip",
+    },
+    {
+      element: ".step1",
+      intro: t("Fill all the input fields !"),
+      tooltipClass: "customTourTooltip",
+    },
+    {
+      element: ".base-button",
+      intro: t("Then click on the next button !"),
+      position: "top",
+      tooltipClass: "customTourTooltip",
+    },
+  ];
+
+  const startTour = () => {
+    setEnabled(false);
+  };
 
   // Generic handleChange for nested form state
   const handleChange = (step, field, event) => {
@@ -135,12 +129,6 @@ const StartupRegistrationForm = () => {
 
   return (
     <div>
-      <button
-        onClick={startTour}
-        className="px-3 py-2 bg-violet-400 rounded-md"
-      >
-        {t("Need Guide")}
-      </button>
       {/* multi-step form */}
       <div className="w-[70vw] mx-auto max-h-[80vh] p-7 bg-violet-200 rounded-lg">
         <FormWizard
@@ -185,6 +173,8 @@ const StartupRegistrationForm = () => {
                 stepno={stepno.stepno}
                 onChange={handleChange}
                 formValues={formValues}
+                onTourClick={startTour}
+                onClose={onModalClose}
               />
             </FormWizard.TabContent>
           ))}
@@ -199,7 +189,7 @@ const StartupRegistrationForm = () => {
         enabled={enabled}
         steps={stepsForTour}
         initialStep={0}
-        onExit={() => setEnabled(false)}
+        onExit={handleExit}
         options={{
           nextLabel: t("Next"),
           prevLabel: t("Back"),

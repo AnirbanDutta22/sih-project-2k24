@@ -2,12 +2,14 @@
 // import React from "react";
 // import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { FaCross } from "react-icons/fa";
+import { GrClose } from "react-icons/gr";
 
 const formHeading = `text-left text-3xl font-semibold`;
 const formSubHeading = `text-left text-base font-normal mb-6`;
 const mandatory = `text-red-600 text-lg ml-1`;
 
-const StepForm = ({ stepno, onChange, formValues }) => {
+const StepForm = ({ stepno, onChange, formValues, onTourClick, onClose }) => {
   const { t } = useTranslation("formTranslation");
 
   const step1 = [
@@ -188,12 +190,25 @@ const StepForm = ({ stepno, onChange, formValues }) => {
   const renderStepForm = (stepno) => {
     const stepName = stepno[0].stepNo;
     return (
-      <>
-        <h1 className={formHeading}>{stepno[0].heading}</h1>
-        <p className={formSubHeading}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
-          ullam.
-        </p>
+      <div className="relative">
+        <GrClose
+          className="absolute -top-10 -right-4 text-2xl cursor-pointer"
+          onClick={onClose}
+        />
+        <div className="flex justify-between">
+          <div>
+            <h1 className={formHeading}>{stepno[0].heading}</h1>
+            <p className={formSubHeading}>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic eos,
+              ullam.
+            </p>
+          </div>
+          <div>
+            <button onClick={onTourClick} className="btn-primary px-3">
+              {t("Need Guide")}
+            </button>
+          </div>
+        </div>
         {stepno.map((data, index) => {
           return (
             <div key={index} className="step1 mb-5">
@@ -236,7 +251,7 @@ const StepForm = ({ stepno, onChange, formValues }) => {
             </div>
           );
         })}
-      </>
+      </div>
     );
   };
 
