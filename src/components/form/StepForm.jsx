@@ -2,14 +2,20 @@
 // import React from "react";
 // import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FaCross } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
 
 const formHeading = `text-left text-3xl font-semibold`;
 const formSubHeading = `text-left text-base font-normal mb-6`;
 const mandatory = `text-red-600 text-lg ml-1`;
 
-const StepForm = ({ stepno, onChange, formValues, onTourClick, onClose }) => {
+const StepForm = ({
+  stepno,
+  onChange,
+  formValues,
+  errors,
+  onTourClick,
+  onClose,
+}) => {
   const { t } = useTranslation("formTranslation");
 
   const step1 = [
@@ -190,7 +196,7 @@ const StepForm = ({ stepno, onChange, formValues, onTourClick, onClose }) => {
   const renderStepForm = (stepno) => {
     const stepName = stepno[0].stepNo;
     return (
-      <div className="relative">
+      <div className="relative h-auto">
         <GrClose
           className="absolute -top-10 -right-4 text-2xl cursor-pointer"
           onClick={onClose}
@@ -220,33 +226,41 @@ const StepForm = ({ stepno, onChange, formValues, onTourClick, onClose }) => {
                 <span className={mandatory}>*</span>
               </label>
               {data.type === "select" ? (
-                <select
-                  id={data.id}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                >
-                  <option value={t(data.placeholder)}>
-                    {t(data.placeholder)}
-                  </option>
-                  {data.values?.map((value, i) => (
-                    <option
-                      key={i}
-                      value={formValues[stepno]?.[data.id]}
-                      onChange={(event) => onChange(stepName, data.id, event)}
-                    >
-                      {t(value)}
+                <>
+                  <select
+                    id={data.id}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                    defaultValue={formValues[stepno]?.[data.id]}
+                    onChange={(event) => onChange(stepName, data.id, event)}
+                  >
+                    <option value={t(data.placeholder)}>
+                      {t(data.placeholder)}
                     </option>
-                  ))}
-                </select>
+                    {data.values?.map((value, i) => (
+                      <option key={i} value={value.value}>
+                        {t(value)}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="text-red-500 font-medium">
+                    {errors?.[data.id]}
+                  </span>
+                </>
               ) : (
-                <input
-                  type={data.type}
-                  id={data.id}
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                  value={formValues[stepno]?.[data.id] || ""}
-                  onChange={(event) => onChange(stepName, data.id, event)}
-                  placeholder={t(data.placeholder)}
-                  required
-                />
+                <>
+                  <input
+                    type={data.type}
+                    id={data.id}
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                    defaultValue={formValues[stepno]?.[data.id] || ""}
+                    onChange={(event) => onChange(stepName, data.id, event)}
+                    placeholder={t(data.placeholder)}
+                    required
+                  />
+                  <span className="text-red-500 font-medium">
+                    {errors?.[data.id]}
+                  </span>
+                </>
               )}
             </div>
           );

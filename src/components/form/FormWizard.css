@@ -3,8 +3,12 @@
   width: 15%;
 }
 
+.react-form-wizard {
+  height: 100%;
+}
+
 .react-form-wizard .wizard-navigation {
-  height: 40rem;
+  height: 100%;
 }
 
 .react-form-wizard .wizard-navigation .wizard-tab-content {

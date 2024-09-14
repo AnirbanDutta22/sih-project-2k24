@@ -26,6 +26,9 @@ const StartupRegistrationForm = ({ onModalClose }) => {
   const { t } = useTranslation("steps");
   const [enabled, setEnabled, handleExit] = useTour("formTour");
 
+  const [currentStep, setCurrentStep] = useState(1);
+  const [errors, setErrors] = useState({});
+
   const [formValues, setFormValues] = useState({
     step1: {
       startupName: "",
@@ -107,37 +110,48 @@ const StartupRegistrationForm = ({ onModalClose }) => {
   // Handle form submission
   const handleSubmit = () => {
     console.log(formValues);
+    console.log(Object.keys(formValues.step1).length);
     // Validation logic here
     const errors = validateForm(formValues);
-    if (Object.keys(errors).length === formValues.length) {
-      console.log("Form submitted successfully:", formValues);
-      return true;
-    } else {
+    if (Object.keys(errors).length) {
       console.log("Form errors:", errors);
       return false;
+    } else {
+      console.log("Form submitted successfully:", formValues);
+      setCurrentStep((prev) => prev + 1);
+      return true;
     }
   };
 
   // Basic validation function
   const validateForm = (values) => {
+    const currentStepValues = values[`step${currentStep}`];
     const errors = {};
     // Example validation rules
-    if (!values.step1.startupName)
-      errors.startupName = "Startup Name is required";
+    Object.keys(currentStepValues).forEach((key) => {
+      if (!currentStepValues[key]) {
+        errors[key] = `${key} is required`;
+      }
+    });
+
+    setErrors(errors);
     return errors;
   };
 
   return (
     <div>
       {/* multi-step form */}
-      <div className="w-[70vw] mx-auto max-h-[80vh] p-7 bg-violet-200 rounded-lg">
+      <div className="w-[70vw] mx-auto h-[90vh] p-7 bg-violet-200 rounded-lg">
         <FormWizard
           startIndex={0}
           layout="vertical"
           backButtonTemplate={(handlePrevious) => (
             <button
               className={`back-button mr-5 ${formButton} px-4`}
-              onClick={handlePrevious}
+              onClick={()=>{
+                handlePrevious();
+                setCurrentStep((prev) => prev - 1);
+              }}
             >
               back
             </button>
@@ -175,6 +189,7 @@ const StartupRegistrationForm = ({ onModalClose }) => {
                 formValues={formValues}
                 onTourClick={startTour}
                 onClose={onModalClose}
+                errors={errors}
               />
             </FormWizard.TabContent>
           ))}
