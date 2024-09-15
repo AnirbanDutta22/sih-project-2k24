@@ -11,7 +11,7 @@ const DashboardLayout = ({ userType }) => {
 
   return (
     // common dashboard layout
-    <div className="">
+    <div>
       <div className="flex h-screen overflow-hidden">
         {/* Sidebar  */}
         <Sidebar
