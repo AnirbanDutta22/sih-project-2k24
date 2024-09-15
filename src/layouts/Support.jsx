@@ -1,15 +1,25 @@
-import React from "react";
+// import React from "react";
 import FAQ from "../components/FAQ";
+import support from "../assets/support.jpg";
+import supportData from "../../public/data/supportData.json";
 
 const Support = () => {
   return (
     <div>
-      <div className="p-10 bg-white flex flex-row dashboard-box">
-        <div className="basis-3/6">
+      <div className="p-10 bg-white flex flex-row items-center dashboard-box max-h-[28rem]">
+        <div className="basis-4/6 self-start h-full flex flex-col gap-y-8">
           <h1 className="text-3xl mb-6 font-semibold">
             Welcome to AYUSH Startup Support
           </h1>
-          <form className="">
+          <p className="w-4/5 text-xl capitalize">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed odio
+            quasi repellat eum ab similique tempore quae ullam cumque
+            doloremque! Rerum, officiis. Corrupti, accusantium quaerat culpa
+            quisquam, dolorem eligendi obcaecati eos laudantium natus suscipit
+            officia dolores voluptate excepturi facere quasi aliquid magni.
+            Beatae tenetur nam dicta cum repellat dolorum nihil.
+          </p>
+          <form className="w-1/2 ">
             <label
               htmlFor="default-search"
               className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -50,8 +60,8 @@ const Support = () => {
             </div>
           </form>
         </div>
-        <div className="">
-          <img src="" alt="support_img" />
+        <div className="basis-2/6 h-full">
+          <img src={support} alt="support_img" className="h-[25rem]" />
         </div>
       </div>
       <div className="py-10 flex flex-col gap-y-3">
@@ -63,17 +73,16 @@ const Support = () => {
           beatae.
         </p>
         <div className="w-full h-auto grid grid-cols-4 grid-rows-2 gap-8 bg-transparent">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((div, i) => (
+          {supportData.map((support, i) => (
             <div
               key={i}
               className="flex flex-col items-center text-center gap-y-5 px-10 py-8 bg-white dashboard-box capitalize"
             >
-              <img src="" alt="help_icon" />
-              <h2 className="text-xl text-violet-600">Account settings</h2>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam
-                id eligendi maiores minus.
-              </p>
+              <img src={support.icon} alt="help_icon" className="size-20" />
+              <h2 className="text-xl text-violet-600 font-medium">
+                {support.heading}
+              </h2>
+              <p>{support.description}</p>
             </div>
           ))}
         </div>
