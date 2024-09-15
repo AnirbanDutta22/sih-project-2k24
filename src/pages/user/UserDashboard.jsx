@@ -9,7 +9,7 @@ import "intro.js/introjs.css";
 import { useTranslation } from "react-i18next";
 
 const UserDashboard = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("dashboardTranslation");
   const [enabled, setEnabled, handleExit] = useTour("dashboardTour");
 
   const documents = [
@@ -77,9 +77,9 @@ const UserDashboard = () => {
 
   return (
     <div className="h-full">
-      <h1 className="welcomeText">welcome to user dashboard !</h1>
+      <h1 className="welcomeText">{t("welcome to user dashboard !")}</h1>
       <p className="welcomeSubText">
-        all systems are running smoothly ! You have{" "}
+        {t("all systems are running smoothly !")} You have{" "}
         <span className="text-violet-500">
           <Link to="notifications">3 unread notifications !</Link>
         </span>
@@ -92,14 +92,14 @@ const UserDashboard = () => {
       <div className="grid grid-cols-10 grid-rows-12 gap-8 h-full mt-6 mb-6">
         {/* current status */}
         <div className={`col-span-6 row-span-3 gridBox`}>
-          <h1 className="text-2xl">CURRENT STATUS</h1>
+          <h1 className="text-2xl">{t("CURRENT STATUS")}</h1>
           <div className="statusBar" id="currentStatus">
-            <span className="text-black">ministry of AYUSH</span>
-            <span className="text-black">Date : 12/04/2024</span>
-            <span className="yellowSign">under review</span>
+            <span className="text-black">{t("ministry of AYUSH")}</span>
+            <span className="text-black">{t("Date")} : 12/04/2024</span>
+            <span className="yellowSign">{t("under review")}</span>
           </div>
           <Link to="status" className="gridBoxLink">
-            check
+            {t("check")}
           </Link>
         </div>
         {/* progress chart */}
@@ -107,29 +107,29 @@ const UserDashboard = () => {
           className={`col-span-4 row-span-6 gridBox`}
           id="submissionProgress"
         >
-          <h1 className="text-2xl">Submission progress</h1>
+          <h1 className="text-2xl">{t("Submission progress")}</h1>
           <span className="bg-violet-100 text-violet-500 text-sm font-medium me-2 px-2.5 py-0.5 rounded">
-            Latest
+            {t("Latest")}
           </span>
           <ProgressCircleChart percentage={100} className="self-center" />
           <Link to="applications" className={`gridBoxLink self-center`}>
-            click here to know more
+            {t("click here to know more")}
           </Link>
         </div>
         {/* pending actions */}
         <div className={`col-span-6 row-span-3 gridBox`}>
-          <h1 className="text-2xl">pending actions</h1>
+          <h1 className="text-2xl">{t("pending actions")}</h1>
           <div className="statusBar" id="pendingAction">
             <span>no pending actions</span>
           </div>
           <Link to="applications" className="gridBoxLink">
-            check
+            {t("check")}
           </Link>
         </div>
         {/* documents table */}
         <div className={`col-span-10 row-span-6 gridBox`}>
           <div className="w-full flex justify-between">
-            <h1 className="text-2xl">documents</h1>
+            <h1 className="text-2xl">{t("documents")}</h1>
             <button className="btn-primary">Filter & Sort</button>
           </div>
           {/* table */}
@@ -138,22 +138,22 @@ const UserDashboard = () => {
               <thead className="text-sm text-gray-500 uppercase border-b">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    Document
+                    {t("Document")}
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Application ID
+                    {t("Application ID")}
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Startup name
+                    {t("Startup name")}
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Upload date
+                    {t("Upload date")}
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Status
+                    {t("Status")}
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    actions
+                    {t("Actions")}
                   </th>
                 </tr>
               </thead>
