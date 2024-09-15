@@ -2,7 +2,11 @@
 // import React from "react";
 
 const Notification = ({ userType }) => {
-  return <div>{userType}Notification</div>;
+  return (
+    <div>
+      <h1 className="welcomeText">notifications</h1>
+    </div>
+  );
 };
 
 export default Notification;
