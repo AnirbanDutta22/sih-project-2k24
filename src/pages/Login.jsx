@@ -7,12 +7,11 @@ const Login = () => {
   const [role, setRole] = useState("user");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
-  const [otpSent, setOtpSent] = useState(false); // State to check if OTP has been sent
+  const [otpSent, setOtpSent] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission based on role
     switch (role) {
       case "user":
         navigate("/user");
@@ -29,119 +28,140 @@ const Login = () => {
   };
 
   const handleSendOtp = () => {
-    // Add logic to send OTP to the provided phone number
     console.log(`Sending OTP to ${phoneNumber}`);
     setOtpSent(true);
   };
 
   const handleVerifyOtp = () => {
-    // Add logic to verify the OTP
     console.log(`Verifying OTP: ${otp}`);
-    // For now, just log the OTP
   };
+
+  const greeting =
+    {
+      user: "Hello, User",
+      admin: "Hello, Admin",
+      government: "Hello, Government Official",
+    }[role] || "Hello";
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.header}>Sign In</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.formGroup}>
-          <label htmlFor="email" style={styles.label}>
-            Email:
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={styles.input}
-            required
-          />
-        </div>
-        <div style={styles.formGroup}>
-          <label htmlFor="password" style={styles.label}>
-            Password:
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
-            required
-          />
-        </div>
-        <div style={styles.formGroup}>
-          <label htmlFor="role" style={styles.label}>
-            Role:
-          </label>
-          <select
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            style={styles.select}
-          >
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-            <option value="government">Government</option>
-          </select>
-        </div>
+      <div style={styles.card}>
+        <div style={styles.formContainer}>
+          <h2 style={styles.header}>Sign In</h2>
+          <form onSubmit={handleSubmit} style={styles.form}>
+            <div style={styles.formGroup}>
+              <label htmlFor="email" style={styles.label}>
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </div>
+            <div style={styles.formGroup}>
+              <label htmlFor="password" style={styles.label}>
+                Password:
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={styles.input}
+                required
+              />
+            </div>
+            <div style={styles.formGroup}>
+              <label htmlFor="role" style={styles.label}>
+                Role:
+              </label>
+              <select
+                id="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                style={styles.select}
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+                <option value="government">Government</option>
+              </select>
+            </div>
 
-        {/* Phone number and OTP section */}
-        <div style={styles.formGroup}>
-          <label htmlFor="phoneNumber" style={styles.label}>
-            Phone Number:
-          </label>
-          <input
-            type="text"
-            id="phoneNumber"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            style={styles.input}
-            placeholder="Enter your phone number"
-            required
-          />
-          <button
-            type="button"
-            style={styles.otpButton}
-            onClick={handleSendOtp}
-          >
-            Send OTP
-          </button>
-        </div>
+            <div style={styles.formGroup}>
+              <label htmlFor="phoneNumber" style={styles.label}>
+                Phone Number:
+              </label>
+              <input
+                type="text"
+                id="phoneNumber"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                style={styles.input}
+                placeholder="Enter your phone number"
+                required
+              />
+              <button
+                type="button"
+                style={styles.otpButton}
+                onClick={handleSendOtp}
+              >
+                Send OTP
+              </button>
+            </div>
 
-        {otpSent && (
-          <div style={styles.formGroup}>
-            <label htmlFor="otp" style={styles.label}>
-              OTP:
-            </label>
-            <input
-              type="text"
-              id="otp"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              style={styles.input}
-              placeholder="Enter the OTP"
-              required
-            />
+            {otpSent && (
+              <div style={styles.formGroup}>
+                <label htmlFor="otp" style={styles.label}>
+                  OTP:
+                </label>
+                <input
+                  type="text"
+                  id="otp"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  style={styles.input}
+                  placeholder="Enter the OTP"
+                  required
+                />
+                <button
+                  type="button"
+                  style={styles.verifyOtpButton}
+                  onClick={handleVerifyOtp}
+                >
+                  Verify OTP
+                </button>
+              </div>
+            )}
+
+            <button type="submit" style={styles.submitButton}>
+              Sign In
+            </button>
+          </form>
+        </div>
+        <div style={styles.imageContainer}>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5TqGDEZLmzospdqiDjEoFYuNddQjr5KKZGA&s"
+            alt="Login"
+            style={styles.image}
+          />
+          <div style={styles.infoTextContainer}>
+            <h3 style={styles.infoHeader}>{greeting}</h3>
+            <p style={styles.infoText}>
+              Register with your personal details and start your journey with
+              us.
+            </p>
             <button
-              type="button"
-              style={styles.verifyOtpButton}
-              onClick={handleVerifyOtp}
+              style={styles.transparentButton}
+              onClick={() => navigate("/signup")}
             >
-              Verify OTP
+              Sign Up
             </button>
           </div>
-        )}
-
-        <button type="submit" style={styles.submitButton}>
-          Sign In
-        </button>
-      </form>
-      <div style={styles.signupText}>
-        Do not have an account?{" "}
-        <span style={styles.signupLink} onClick={() => navigate("/signup")}>
-          Sign up
-        </span>
+        </div>
       </div>
     </div>
   );
@@ -156,18 +176,67 @@ const styles = {
     height: "100vh",
     backgroundColor: "#f5f5f5",
   },
+  card: {
+    display: "flex",
+    flexDirection: "row",
+    width: "80%",
+    maxWidth: "1000px",
+    backgroundColor: "white",
+    borderRadius: "8px",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+    overflow: "hidden",
+  },
+  formContainer: {
+    width: "50%",
+    padding: "40px",
+  },
+  imageContainer: {
+    width: "50%",
+    backgroundColor: "#ccffcc",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "20px",
+    textAlign: "center",
+  },
+  image: {
+    width: "80%",
+    maxWidth: "400px",
+    height: "auto",
+    borderRadius: "8px",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+    marginBottom: "20px",
+  },
+  infoTextContainer: {
+    padding: "20px",
+  },
+  infoHeader: {
+    marginBottom: "10px",
+    fontSize: "18px",
+    color: "#333",
+  },
+  infoText: {
+    marginBottom: "15px",
+    fontSize: "14px",
+    color: "#555",
+  },
+  transparentButton: {
+    padding: "10px",
+    border: "2px solid #007bff",
+    borderRadius: "4px",
+    backgroundColor: "transparent",
+    color: "#007bff",
+    fontSize: "16px",
+    cursor: "pointer",
+    textAlign: "center",
+  },
   header: {
     marginBottom: "20px",
     fontSize: "24px",
     color: "#333",
   },
   form: {
-    width: "70%", // Adjusted to cover 70% of the screen width
-    maxWidth: "600px", // Ensure it doesn't get too wide on large screens
-    padding: "20px",
-    backgroundColor: "white",
-    borderRadius: "8px",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
     display: "flex",
     flexDirection: "column",
   },
@@ -225,16 +294,6 @@ const styles = {
     fontSize: "16px",
     cursor: "pointer",
     marginTop: "10px",
-  },
-  signupText: {
-    marginTop: "15px",
-    fontSize: "14px",
-    color: "#333",
-  },
-  signupLink: {
-    color: "#007bff",
-    cursor: "pointer",
-    textDecoration: "underline",
   },
 };
 
