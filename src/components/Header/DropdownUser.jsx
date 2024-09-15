@@ -1,17 +1,37 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 
 const DropdownUser = ({ userType }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const triggerRef = useRef(null);
+
+  //outside click
+  const outsideClickHandler = (event) => {
+    if (!dropdownRef.current || !triggerRef.current) return;
+    if (
+      dropdownRef.current.contains(event.target) ||
+      triggerRef.current.contains(event.target)
+    )
+      return;
+
+    setDropdownOpen((prev) => !prev);
+  };
+
+  // close on click outside
+  useEffect(() => {
+    document.addEventListener("mousedown", outsideClickHandler);
+    return () => document.removeEventListener("mousedown", outsideClickHandler);
+  }, []);
 
   return (
     <div className="relative">
-      <Link
+      <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="flex items-center"
-        to="#"
+        ref={triggerRef}
       >
         <FaUserCircle className="text-2xl mr-2" />
         <svg
@@ -29,17 +49,18 @@ const DropdownUser = ({ userType }) => {
             fill=""
           />
         </svg>
-      </Link>
+      </button>
 
       {/* <!-- Dropdown Start --> */}
       {dropdownOpen && (
         <div
+          ref={dropdownRef}
           className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`}
         >
           <ul className="flex flex-col gap-5 border-b border-stroke p-6 dark:border-strokedark">
             <li>
               <Link
-                to="/profile"
+                to="profile"
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <svg
@@ -64,7 +85,7 @@ const DropdownUser = ({ userType }) => {
             </li>
             <li>
               <Link
-                to="/settings"
+                to="settings"
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <svg
