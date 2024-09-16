@@ -1,6 +1,6 @@
 // import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Collapse from "../../components/Collapse";
 import { BsDownload } from "react-icons/bs";
 
@@ -58,13 +58,19 @@ const documents = [
 ];
 
 const Documents = () => {
+  const navigate = useNavigate();
+
+  const openDocs = () => {
+    navigate("../support");
+  };
+
   return (
     <div>
       <h1 className="welcomeText">documents management</h1>
       <p className="welcomeSubText">
         see and manage all of your documents here
       </p>
-      <Guide />
+      <Guide onDocsClick={openDocs} />
       <div className="mt-6 py-4 gridBox">
         <div className="w-full flex justify-between">
           <div className="flex justify-start gap-x-5 uppercase text-xl">

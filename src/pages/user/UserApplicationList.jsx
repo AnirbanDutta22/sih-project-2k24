@@ -1,5 +1,5 @@
 // import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Collapse from "../../components/Collapse";
 import ProgressTracker from "../../components/ProgressTracker";
 import formData from "../../../public/data/formData.json";
@@ -13,6 +13,7 @@ import useTour from "../../hooks/useTour";
 import StartupRegistrationForm from "../../components/form/StartupRegistrationForm";
 
 const UserApplicationList = () => {
+  const navigate = useNavigate();
   const collapseRef = useRef(null);
   const { t } = useTranslation("steps");
 
@@ -122,6 +123,8 @@ const UserApplicationList = () => {
   //start video tutorial
   const openDocs = () => {
     console.log("docs opened");
+
+    navigate("../support");
   };
 
   return (

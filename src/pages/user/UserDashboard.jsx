@@ -1,6 +1,6 @@
 // import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProgressCircleChart from "../../components/charts/CircleChart";
 import Guide from "../../components/Guide";
 import useTour from "../../hooks/useTour";
@@ -9,6 +9,7 @@ import "intro.js/introjs.css";
 import { useTranslation } from "react-i18next";
 
 const UserDashboard = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation("dashboardTranslation");
   const [enabled, setEnabled, handleExit] = useTour("dashboardTour");
 
@@ -73,6 +74,7 @@ const UserDashboard = () => {
   //start video tutorial
   const openDocs = () => {
     console.log("docs opened");
+    navigate("support");
   };
 
   return (

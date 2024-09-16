@@ -1,8 +1,9 @@
 // import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Guide from "../../components/Guide";
 
 const Status = () => {
+  const navigate = useNavigate();
   const applications = [
     {
       id: "01apl",
@@ -120,13 +121,22 @@ const Status = () => {
     { action: "Document Verification Started", date: "2024-09-08 09:00 AM" },
   ];
 
+  const startTour = () => {
+    console.log("Tour started");
+  };
+
+  const openDocs = () => {
+    console.log("Doc is opened");
+    navigate("../support");
+  };
+
   return (
     <div>
       <h1 className="welcomeText">application status</h1>
       <p className="welcomeSubText">
         Overview of all applications with their current status.
       </p>
-      <Guide />
+      <Guide onDocsClick={openDocs} onTourClick={startTour} />
       {/* alerts */}
       <div className="dashboard-box mt-6">
         <h1 className="text-2xl">ALERTS</h1>
