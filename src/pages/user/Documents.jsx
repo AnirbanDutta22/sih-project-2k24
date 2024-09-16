@@ -3,8 +3,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import Collapse from "../../components/Collapse";
 import { BsDownload } from "react-icons/bs";
+import VideoTutorial from "../../components/VideoTutorial";
 
 import Guide from "../../components/Guide";
+import { useState } from "react";
 
 const documents = [
   {
@@ -60,8 +62,14 @@ const documents = [
 const Documents = () => {
   const navigate = useNavigate();
 
+  const [isVideoStarted, setVideoStarted] = useState(false);
+
   const openDocs = () => {
     navigate("../support");
+  };
+
+  const startVideo = () => {
+    setVideoStarted(!isVideoStarted);
   };
 
   return (
@@ -70,7 +78,7 @@ const Documents = () => {
       <p className="welcomeSubText">
         see and manage all of your documents here
       </p>
-      <Guide onDocsClick={openDocs} />
+      <Guide onDocsClick={openDocs} onVideoClick={startVideo} />
       <div className="mt-6 py-4 gridBox">
         <div className="w-full flex justify-between">
           <div className="flex justify-start gap-x-5 uppercase text-xl">
@@ -159,6 +167,7 @@ const Documents = () => {
           </Collapse>
         ))}
       </div>
+      {isVideoStarted && <VideoTutorial onClose={startVideo} />}
     </div>
   );
 };
