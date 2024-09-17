@@ -4,6 +4,7 @@
 import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
 import { Link } from "react-router-dom";
+import DropdownLang from "../Header/DropdownLang";
 
 const formHeading = `text-left text-3xl font-semibold`;
 const formSubHeading = `text-left text-base font-normal mb-6`;
@@ -204,6 +205,9 @@ const StepForm = ({
             onClick={onClose}
           />
         )}
+        {location.pathname === "/new-registration" && (
+          <DropdownLang className="absolute -top-10 -right-[20rem] sm:-right-[40rem] lg:-right-[60rem] w-fit" />
+        )}
         <div className="flex justify-between">
           <div>
             <h1 className={formHeading}>{stepno[0].heading}</h1>
@@ -212,12 +216,15 @@ const StepForm = ({
               ullam.
             </p>
           </div>
-          <div>
-            <button onClick={onTourClick} className="btn-primary px-3">
+          <div className="flex gap-x-4">
+            <div
+              onClick={onTourClick}
+              className="btn-primary px-3 flex items-center cursor-pointer"
+            >
               {t("Need Guide")}
-            </button>
+            </div>
             {location.pathname === "/new-registration" && (
-              <Link to="/user" className="btn-primary ml-4 px-3 py-[0.540rem]">
+              <Link to="/user" className="btn-primary px-3 py-[0.540rem]">
                 {t("I'll do it later")}
               </Link>
             )}

@@ -38,7 +38,7 @@
   margin-right: 20px;
 }
 
-.react-form-wizard .wizard-navigation ul {
+.react-form-wizard .wizard-navigation > ul {
   padding: 20px;
   background: rgb(174, 140, 241);
   border-radius: 0.5rem;
@@ -46,14 +46,14 @@
   text-align: left;
 }
 
-.react-form-wizard .wizard-navigation ul span {
+.react-form-wizard .wizard-navigation > ul span {
   color: rgb(231, 228, 228) !important;
 }
-.react-form-wizard .wizard-navigation ul span.active {
+.react-form-wizard .wizard-navigation > ul span.active {
   color: #000 !important;
 }
 
-.react-form-wizard .wizard-navigation ul li a {
+.react-form-wizard .wizard-navigation > ul li a {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -61,12 +61,12 @@
   gap: 0 1rem;
 }
 
-.react-form-wizard .wizard-navigation ul li a span {
+.react-form-wizard .wizard-navigation > ul li a span {
   margin-top: 0px !important;
   flex-grow: 1;
 }
 
-.react-form-wizard .wizard-navigation ul li a .wizard-icon-circle {
+.react-form-wizard .wizard-navigation > ul li a .wizard-icon-circle {
   width: 2rem;
   height: 2rem;
   background-color: #fff !important;
@@ -74,7 +74,7 @@
 
 .react-form-wizard
   .wizard-navigation
-  ul
+  > ul
   li
   a
   .wizard-icon-circle.checked
@@ -84,7 +84,7 @@
 
 .react-form-wizard
   .wizard-navigation
-  ul
+  > ul
   li
   a
   .wizard-icon-circle.checked

@@ -89,7 +89,7 @@ const StartupRegistrationForm = ({ onModalClose }) => {
   ];
 
   const startTour = () => {
-    setEnabled(false);
+    setEnabled(true);
   };
 
   // Generic handleChange for nested form state
@@ -118,7 +118,7 @@ const StartupRegistrationForm = ({ onModalClose }) => {
       return false;
     } else {
       console.log("Form submitted successfully:", formValues);
-      setCurrentStep((prev) => prev + 1);
+      // setCurrentStep((prev) => prev + 1);
       return true;
     }
   };
@@ -148,7 +148,7 @@ const StartupRegistrationForm = ({ onModalClose }) => {
           backButtonTemplate={(handlePrevious) => (
             <button
               className={`back-button mr-5 ${formButton} px-4`}
-              onClick={()=>{
+              onClick={() => {
                 handlePrevious();
                 setCurrentStep((prev) => prev - 1);
               }}

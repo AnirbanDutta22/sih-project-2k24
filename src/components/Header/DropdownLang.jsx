@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GrLanguage } from "react-icons/gr";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const langLinks = `cursor-pointer border-b border-violet-500 p-2`;
 
-const DropdownLang = () => {
+const DropdownLang = ({ className }) => {
   const { i18n } = useTranslation();
 
   const changeLanguage = (event, lng) => {
@@ -36,10 +37,10 @@ const DropdownLang = () => {
   }, []);
 
   return (
-    <div className="relative">
-      <button
+    <div className={`relative ${className}`}>
+      <i
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center"
+        className="flex items-center cursor-pointer"
         ref={triggerRef}
       >
         <GrLanguage className="text-2xl" />
@@ -58,7 +59,7 @@ const DropdownLang = () => {
             d="m1 1 4 4 4-4"
           />
         </svg>
-      </button>
+      </i>
 
       {/* <!-- Dropdown menu --> */}
       {dropdownOpen && (
