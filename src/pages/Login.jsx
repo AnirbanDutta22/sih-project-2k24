@@ -14,7 +14,7 @@ const Login = () => {
     event.preventDefault();
     switch (role) {
       case "user":
-        navigate("/user");
+        navigate("/new-registration");
         break;
       case "admin":
         navigate("/admin");

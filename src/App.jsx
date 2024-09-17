@@ -23,6 +23,8 @@ import {
   AdminReports,
   Status,
 } from "./pages/index.js";
+import StartupRegistrationForm from "./components/form/StartupRegistrationForm.jsx";
+import NewRegistration from "./pages/user/NewRegistration.jsx";
 
 const App = () => {
   return (
@@ -31,6 +33,7 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/new-registration" element={<NewRegistration />} />
         <Route exact path="/user" element={<DashboardLayout userType="user" />}>
           <Route index element={<UserDashboard />} />
           <Route path="applications" element={<UserApplicationList />} />

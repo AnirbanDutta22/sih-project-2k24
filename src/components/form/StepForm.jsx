@@ -3,6 +3,7 @@
 // import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
+import { Link } from "react-router-dom";
 
 const formHeading = `text-left text-3xl font-semibold`;
 const formSubHeading = `text-left text-base font-normal mb-6`;
@@ -197,10 +198,12 @@ const StepForm = ({
     const stepName = stepno[0].stepNo;
     return (
       <div className="relative h-auto">
-        <GrClose
-          className="absolute -top-10 -right-4 text-2xl cursor-pointer"
-          onClick={onClose}
-        />
+        {location.pathname !== "/new-registration" && (
+          <GrClose
+            className="absolute -top-10 -right-4 text-2xl cursor-pointer"
+            onClick={onClose}
+          />
+        )}
         <div className="flex justify-between">
           <div>
             <h1 className={formHeading}>{stepno[0].heading}</h1>
@@ -213,6 +216,11 @@ const StepForm = ({
             <button onClick={onTourClick} className="btn-primary px-3">
               {t("Need Guide")}
             </button>
+            {location.pathname === "/new-registration" && (
+              <Link to="/user" className="btn-primary ml-4 px-3 py-[0.540rem]">
+                {t("I'll do it later")}
+              </Link>
+            )}
           </div>
         </div>
         {stepno.map((data, index) => {
