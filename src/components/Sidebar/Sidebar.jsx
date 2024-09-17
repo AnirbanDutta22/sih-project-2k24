@@ -14,10 +14,11 @@ import { GrCompliance, GrNotification, GrStatusInfo } from "react-icons/gr";
 import { LuUser2 } from "react-icons/lu";
 import { PiUsersThree } from "react-icons/pi";
 import { RiListSettingsLine } from "react-icons/ri";
+import bot from "../../assets/bot2.png";
 
 const menuText = `group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-xl duration-300 ease-in-out`;
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
+const Sidebar = ({ sidebarOpen, setSidebarOpen, userType, handleChatBot }) => {
   const { t } = useTranslation("common");
   const location = useLocation(); // Get the current location
 
@@ -208,6 +209,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType }) => {
               {userType === "admin" && renderSidebarMenu(adminSidebar)}
             </ul>
           </div>
+          {userType !== "admin" && (
+            <div
+              onClick={handleChatBot}
+              className="mx-8 mt-28 px-5 py-3 flex justify-center w-fit gap-x-2 items-center bg-white shadow-md shadow-violet-500 rounded-xl rounded-tr-none cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1.5"
+            >
+              <img src={bot} alt="chatbot" className="size-12" />
+            </div>
+          )}
         </nav>
       </div>
     </aside>

@@ -4,10 +4,43 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Header from "../components/Header/Header";
-import FAQ from "../components/FAQ";
+import ChatBot from "react-simple-chatbot";
+import { useTranslation } from "react-i18next";
 
 const DashboardLayout = ({ userType }) => {
+  const { t } = useTranslation("common");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isChatBotOpen, setChatBotOpen] = useState(false);
+
+  const steps = [
+    {
+      id: "0",
+      message: t("Hey ! How can I help you ?"),
+      trigger: "1",
+    },
+    {
+      id: "1",
+      user: true,
+      trigger: "2",
+    },
+    {
+      id: "2",
+      message: `${t("Ok so your problem is ")}{previousValue}`,
+      trigger: 3,
+    },
+    {
+      id: "3",
+      options: [
+        { value: 1, label: t("take a tour") },
+        { value: 2, label: t("watch a video") },
+      ],
+      end: true,
+    },
+  ];
+
+  const handleChatBot = () => {
+    setChatBotOpen((prev) => !prev);
+  };
 
   return (
     // common dashboard layout
@@ -18,6 +51,7 @@ const DashboardLayout = ({ userType }) => {
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
           userType={userType}
+          handleChatBot={handleChatBot}
         />
 
         {/* Content Area */}
@@ -33,6 +67,11 @@ const DashboardLayout = ({ userType }) => {
           <main className="bg-violet-50">
             <div className="mx-auto max-w-screen p-3 md:p-8 min-h-screen">
               <Outlet />
+              {isChatBotOpen && (
+                <div className="absolute top-[50%] translate-y-[-50%] left-8 z-50 ">
+                  <ChatBot steps={steps} />
+                </div>
+              )}
             </div>
           </main>
         </div>

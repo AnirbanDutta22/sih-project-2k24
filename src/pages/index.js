@@ -12,6 +12,8 @@ import GovtDashboard from "./govt/GovtDashboard.jsx";
 import ComplianceList from "./govt/ComplianceList.jsx";
 import GovtReports from "./govt/GovtReports.jsx";
 
+import Error from "./Error.jsx";
+
 export {
   UserApplicationList,
   UserDashboard,
@@ -24,4 +26,5 @@ export {
   GovtReports,
   AdminReports,
   Status,
+  Error,
 };
