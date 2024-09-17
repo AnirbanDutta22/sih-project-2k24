@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-// import React from "react";
 import { useNavigate } from "react-router-dom";
+import AYUSH from "/src/assets/AYUSH transparent.png";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div style={styles.container}>
       <div style={styles.navbar}>
-        <div style={styles.title}>AYUSH</div>
+        <img src={AYUSH} alt="AYUSH Logo" style={styles.logo} />
         <div style={styles.navLinks}>
           <button
             style={styles.navButton}
@@ -228,16 +228,16 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "15px 30px",
-    backgroundColor: "#004d00", // Dark green background
-    color: "#fff", // White text
+    backgroundColor: "#004d00",
+    color: "#fff",
     position: "fixed",
     width: "100%",
     top: 0,
     zIndex: 1000,
   },
-  title: {
-    fontSize: "28px",
-    fontWeight: "bold",
+  logo: {
+    height: "70px",
+    width: "auto",
   },
   navLinks: {
     display: "flex",
@@ -248,7 +248,7 @@ const styles = {
   navButton: {
     background: "none",
     border: "none",
-    color: "#b3e6b3", // Light green text
+    color: "#b3e6b3",
     fontSize: "16px",
     fontWeight: "bold",
     textTransform: "uppercase",
@@ -257,13 +257,13 @@ const styles = {
     transition: "color 0.3s",
   },
   navButtonHover: {
-    color: "#fff", // White text on hover
+    color: "#fff",
   },
   loginButton: {
-    backgroundColor: "#008000", // Green background
+    backgroundColor: "#008000",
     border: "none",
     borderRadius: "5px",
-    color: "#fff", // White text
+    color: "#fff",
     padding: "12px 24px",
     cursor: "pointer",
     fontSize: "18px",
@@ -279,7 +279,7 @@ const styles = {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    marginTop: "70px", // Adjusted for fixed navbar
+    marginTop: "70px",
   },
   textContent: {
     flex: 1,
