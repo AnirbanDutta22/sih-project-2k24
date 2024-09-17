@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -50,32 +51,6 @@ const Login = () => {
           <h2 style={styles.header}>Sign In</h2>
           <form onSubmit={handleSubmit} style={styles.form}>
             <div style={styles.formGroup}>
-              <label htmlFor="email" style={styles.label}>
-                Email:
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                style={styles.input}
-                required
-              />
-            </div>
-            <div style={styles.formGroup}>
-              <label htmlFor="password" style={styles.label}>
-                Password:
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={styles.input}
-                required
-              />
-            </div>
-            <div style={styles.formGroup}>
               <label htmlFor="role" style={styles.label}>
                 Role:
               </label>
@@ -90,20 +65,73 @@ const Login = () => {
                 <option value="government">Government</option>
               </select>
             </div>
-
+            {role === "user" ? (
+              <div style={styles.formGroup}>
+                <label htmlFor="email" style={styles.label}>
+                  Email:
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  style={styles.input}
+                  required
+                />
+              </div>
+            ) : (
+              <div style={styles.formGroup}>
+                <label htmlFor="username" style={styles.label}>
+                  Username:
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUserName(e.target.value)}
+                  style={styles.input}
+                  required
+                />
+              </div>
+            )}
             <div style={styles.formGroup}>
-              <label htmlFor="phoneNumber" style={styles.label}>
-                Phone Number:
+              <label htmlFor="password" style={styles.label}>
+                Password:
               </label>
               <input
-                type="text"
-                id="phoneNumber"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 style={styles.input}
-                placeholder="Enter your phone number"
                 required
               />
+            </div>
+            {role === "user" && (
+              <div style={styles.formGroup}>
+                <label htmlFor="phoneNumber" style={styles.label}>
+                  Phone Number:
+                </label>
+                <input
+                  type="text"
+                  id="phoneNumber"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  style={styles.input}
+                  placeholder="Enter your phone number"
+                  required
+                />
+                <button
+                  type="button"
+                  style={styles.otpButton}
+                  onClick={handleSendOtp}
+                >
+                  Send OTP
+                </button>
+              </div>
+            )}
+
+            {role !== "user" && (
               <button
                 type="button"
                 style={styles.otpButton}
@@ -111,7 +139,7 @@ const Login = () => {
               >
                 Send OTP
               </button>
-            </div>
+            )}
 
             {otpSent && (
               <div style={styles.formGroup}>
@@ -283,6 +311,7 @@ const styles = {
     fontSize: "16px",
     cursor: "pointer",
     marginTop: "10px",
+    marginBottom: "20px",
   },
   verifyOtpButton: {
     width: "100%",
