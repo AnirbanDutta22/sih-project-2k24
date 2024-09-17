@@ -7,11 +7,14 @@ import useTour from "../../hooks/useTour";
 import { Steps } from "intro.js-react";
 import "intro.js/introjs.css";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import VideoTutorial from "../../components/VideoTutorial";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
   const { t } = useTranslation("dashboardTranslation");
   const [enabled, setEnabled, handleExit] = useTour("dashboardTour");
+  const [isVideoStarted, setVideoStarted] = useState(false);
 
   const documents = [
     {
@@ -40,32 +43,37 @@ const UserDashboard = () => {
   const stepsForTour = [
     {
       element: "#currentStatus",
-      intro: "Here you can check current status of your latest application",
+      intro: t("Here you can check current status of your latest application"),
       position: "right",
       tooltipClass: "customTourTooltip",
     },
     {
       element: "#pendingAction",
-      intro: "Here you can check pending actions from your latest application",
+      intro: t(
+        "Here you can check pending actions from your latest application"
+      ),
       position: "bottom",
       tooltipClass: "customTourTooltip",
     },
     {
       element: "#submissionProgress",
-      intro:
-        "Here you can check submission progress from your latest application",
+      intro: t(
+        "Here you can check submission progress from your latest application"
+      ),
       tooltipClass: "customTourTooltip",
     },
     {
       element: "#row0",
-      intro: "Here you can check your documents from your latest application",
+      intro: t(
+        "Here you can check your documents from your latest application"
+      ),
       tooltipClass: "customTourTooltip",
     },
   ];
 
   //start video tutorial
   const startVideo = () => {
-    console.log("video started");
+    setVideoStarted(!isVideoStarted);
   };
   //start tour
   const startTour = () => {
@@ -81,9 +89,9 @@ const UserDashboard = () => {
     <div className="h-full">
       <h1 className="welcomeText">{t("welcome to user dashboard !")}</h1>
       <p className="welcomeSubText">
-        {t("all systems are running smoothly !")} You have{" "}
+        {t("all systems are running smoothly !")} {t("You have")}{" "}
         <span className="text-violet-500">
-          <Link to="notifications">3 unread notifications !</Link>
+          <Link to="notifications">{t("3 unread notifications !")}</Link>
         </span>
       </p>
       <Guide
@@ -122,7 +130,7 @@ const UserDashboard = () => {
         <div className={`col-span-6 row-span-3 gridBox`}>
           <h1 className="text-2xl">{t("pending actions")}</h1>
           <div className="statusBar" id="pendingAction">
-            <span>no pending actions</span>
+            <span>{t("no pending actions")}</span>
           </div>
           <Link to="applications" className="gridBoxLink">
             {t("check")}
@@ -132,7 +140,7 @@ const UserDashboard = () => {
         <div className={`col-span-10 row-span-6 gridBox`}>
           <div className="w-full flex justify-between">
             <h1 className="text-2xl">{t("documents")}</h1>
-            <button className="btn-primary">Filter & Sort</button>
+            <button className="btn-primary">{t("Filter & Sort")}</button>
           </div>
           {/* table */}
           <div className="w-full relative overflow-x-auto flex-1">
@@ -219,6 +227,7 @@ const UserDashboard = () => {
           showBullets: true,
         }}
       />
+      {isVideoStarted && <VideoTutorial onClose={startVideo} />}
     </div>
   );
 };

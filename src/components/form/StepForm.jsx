@@ -205,9 +205,7 @@ const StepForm = ({
             onClick={onClose}
           />
         )}
-        {location.pathname === "/new-registration" && (
-          <DropdownLang className="absolute -top-10 -right-[20rem] sm:-right-[40rem] lg:-right-[60rem] w-fit" />
-        )}
+        <DropdownLang className="absolute -top-10 -right-[20rem] sm:-right-[40rem] lg:-right-[56rem] w-fit" />
         <div className="flex justify-between">
           <div>
             <h1 className={formHeading}>{stepno[0].heading}</h1>

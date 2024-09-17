@@ -11,14 +11,16 @@ import "intro.js/introjs.css";
 import { useTranslation } from "react-i18next";
 import useTour from "../../hooks/useTour";
 import StartupRegistrationForm from "../../components/form/StartupRegistrationForm";
+import VideoTutorial from "../../components/VideoTutorial";
 
 const UserApplicationList = () => {
   const navigate = useNavigate();
   const collapseRef = useRef(null);
-  const { t } = useTranslation("steps");
+  const { t } = useTranslation("dashboardTranslation");
 
   const [enabled, setEnabled, handleExit] = useTour("applicationPageTour");
   const [isModalOpen, setModelOpen] = useState(false);
+  const [isVideoStarted, setVideoStarted] = useState(false);
 
   const applications = [
     {
@@ -31,28 +33,32 @@ const UserApplicationList = () => {
 
   const notifications = [
     {
-      text: "Edit your information in a swipe Sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim.",
+      text:
+        "Edit your information in a swipe Sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim.",
       date: "12 May, 2025",
     },
     {
-      text: "Edit your information in a swipe Sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim.",
+      text:
+        "Edit your information in a swipe Sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim.",
       date: "12 May, 2025",
     },
     {
-      text: "Edit your information in a swipe Sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim.",
+      text:
+        "Edit your information in a swipe Sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim.",
       date: "12 May, 2025",
     },
     {
-      text: "Edit your information in a swipe Sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim.",
+      text:
+        "Edit your information in a swipe Sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim.",
       date: "12 May, 2025",
     },
   ];
 
   const steps = [
-    { stepno: "Step 1", details: "drafted", status: "done" },
-    { stepno: "Step 2", details: "submitted", status: "done" },
-    { stepno: "Step 3", details: "reviewed", status: "" },
-    { stepno: "Step 4", details: "approved", status: "" },
+    { stepno: t("Step 1"), details: t("drafted"), status: t("done") },
+    { stepno: t("Step 2"), details: t("submitted"), status: t("done") },
+    { stepno: t("Step 3"), details: t("reviewed"), status: "" },
+    { stepno: t("Step 4"), details: t("approved"), status: "" },
   ];
 
   const stepsForTour = [
@@ -64,9 +70,7 @@ const UserApplicationList = () => {
     },
     {
       element: "#action",
-      intro: t(
-        "here you can <b>view</b>, <b>edit</b> or <b>withdraw</b> you application"
-      ),
+      intro: t("here you can view, edit or withdraw you application"),
       position: "top",
       tooltipClass: "customTourTooltip",
     },
@@ -114,7 +118,7 @@ const UserApplicationList = () => {
 
   //start video tutorial
   const startVideo = () => {
-    console.log("video started");
+    setVideoStarted(!isVideoStarted);
   };
   //start tour
   const startTour = () => {
@@ -132,8 +136,10 @@ const UserApplicationList = () => {
       <div className="h-full">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="welcomeText">my applications</h1>
-            <p className="welcomeSubText">all applications and their details</p>
+            <h1 className="welcomeText">{t("my applications")}</h1>
+            <p className="welcomeSubText">
+              {t("all applications and their details")}
+            </p>
           </div>
           <button
             onClick={() => {
@@ -142,7 +148,7 @@ const UserApplicationList = () => {
             id="newApplication"
             className="btn-primary"
           >
-            new application
+            {t("new application")}
           </button>
         </div>
         <Guide
@@ -153,25 +159,25 @@ const UserApplicationList = () => {
         <div className="mt-6 z-10">
           {/* application list */}
           <div className="dashboard-box h-auto">
-            <h1 className="text-2xl">APPLICATION LIST</h1>
+            <h1 className="text-2xl">{t("APPLICATION LIST")}</h1>
             <div className="w-full relative overflow-x-auto flex-1">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead className="text-sm text-gray-500 uppercase border-b">
                   <tr>
                     <th scope="col" className="px-3 py-3">
-                      Application ID
+                      {t("Application ID")}
                     </th>
                     <th scope="col" className="px-3 py-3">
-                      Startup Name
+                      {t("Startup name")}
                     </th>
                     <th scope="col" className="px-3 py-3">
-                      Submission date
+                      {t("Submission date")}
                     </th>
                     <th scope="col" className="px-3 py-3">
-                      Status
+                      {t("Status")}
                     </th>
                     <th scope="col" className="px-3 py-3">
-                      actions
+                      {t("Actions")}
                     </th>
                   </tr>
                 </thead>
@@ -212,7 +218,7 @@ const UserApplicationList = () => {
           {/* details*/}
           <div className="grid grid-cols-2 grid-rows-5 gap-8 h-[30rem] mt-8">
             <div className="dashboard-box col-span-1 row-span-5">
-              <h1 className="text-2xl">DETAILS</h1>
+              <h1 className="text-2xl">{t("DETAILS")}</h1>
               {/* details collapse */}
               <div className="w-full overflow-y-scroll scrollbar">
                 <div className="flex justify-start items-center gap-x-5 text-lg uppercase border-b border-gray-200">
@@ -250,7 +256,7 @@ const UserApplicationList = () => {
             </div>
             {/* application progress overview */}
             <div className="dashboard-box w-full row-span-2">
-              <h1 className="text-2xl">progress overview</h1>
+              <h1 className="text-2xl">{t("progress overview")}</h1>
               <ProgressTracker steps={steps} />
               <Link to="../status" className="gridBoxLink self-end">
                 see details
@@ -258,7 +264,7 @@ const UserApplicationList = () => {
             </div>
             {/* documents upload status */}
             <div className="dashboard-box w-full row-span-3">
-              <h1 className="text-2xl">document status</h1>
+              <h1 className="text-2xl">{t("document status")}</h1>
               <div className="w-full">
                 <div className="py-2 flex justify-between items-center border-b border-gray-200">
                   <p>
@@ -278,7 +284,7 @@ const UserApplicationList = () => {
           </div>
           {/* messages and reviews */}
           <div className="dashboard-box mt-8">
-            <h1 className="text-2xl">Messages and reviews</h1>
+            <h1 className="text-2xl">{t("Messages and reviews")}</h1>
             <ul className="flex w-full h-auto flex-col overflow-y-auto">
               {notifications.map((msg, index) => (
                 <li key={index}>
@@ -309,14 +315,15 @@ const UserApplicationList = () => {
             showBullets: true,
           }}
         />
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+            <StartupRegistrationForm
+              onModalClose={() => setModelOpen((prev) => !prev)}
+            />
+          </div>
+        )}
+        {isVideoStarted && <VideoTutorial onClose={startVideo} />}
       </div>
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
-          <StartupRegistrationForm
-            onModalClose={() => setModelOpen((prev) => !prev)}
-          />
-        </div>
-      )}
     </>
   );
 };

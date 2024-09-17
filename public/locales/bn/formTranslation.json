@@ -44,5 +44,10 @@
   "Annual Turnover": "বার্ষিক টার্নওভার",
   "Enter last financial year turnover": "গত অর্থবছরের টার্নওভার লিখুন",
   "Bank Account Details": "ব্যাংক অ্যাকাউন্ট বিবরণ",
-  "Enter basic bank details": "মৌলিক ব্যাংক বিবরণ লিখুন"
+  "Enter basic bank details": "মৌলিক ব্যাংক বিবরণ লিখুন",
+  "Need Guide": "গাইড প্রয়োজন",
+  "I'll do it later": "আমি এটা পরে করব",
+  "save & next": "সংরক্ষণ করুন এবং পরবর্তী",
+  "back": "ফিরে যান",
+  "finish": "সমাপ্ত করুন"
 }

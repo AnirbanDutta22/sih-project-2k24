@@ -153,7 +153,7 @@ const StartupRegistrationForm = ({ onModalClose }) => {
                 setCurrentStep((prev) => prev - 1);
               }}
             >
-              back
+              {t("back")}
             </button>
           )}
           nextButtonTemplate={(handleNext) => (
@@ -164,7 +164,7 @@ const StartupRegistrationForm = ({ onModalClose }) => {
                 if (handleSubmit()) handleNext();
               }}
             >
-              save & next
+              {t("save & next")}
             </button>
           )}
           finishButtonTemplate={(handleComplete) => (
@@ -172,7 +172,7 @@ const StartupRegistrationForm = ({ onModalClose }) => {
               className={`finish-button ${formButton} !bg-violet-500`}
               onClick={handleComplete}
             >
-              finish
+              {t("finish")}
             </button>
           )}
         >
