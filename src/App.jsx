@@ -22,8 +22,8 @@ import {
   GovtReports,
   AdminReports,
   Status,
+  Error,
 } from "./pages/index.js";
-import StartupRegistrationForm from "./components/form/StartupRegistrationForm.jsx";
 import NewRegistration from "./pages/user/NewRegistration.jsx";
 
 const App = () => {
@@ -80,6 +80,7 @@ const App = () => {
           />
           <Route path="profile" element={<Profile userType="admin" />} />
         </Route>
+        <Route exact path="*" element={<Error />} />
       </Routes>
     </Router>
   );
