@@ -228,7 +228,7 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "15px 30px",
-    backgroundColor: "#004d00",
+    backgroundColor: "#ad92eda9",
     color: "#fff",
     position: "fixed",
     width: "100%",
@@ -248,7 +248,7 @@ const styles = {
   navButton: {
     background: "none",
     border: "none",
-    color: "#b3e6b3",
+    color: "#000",
     fontSize: "16px",
     fontWeight: "bold",
     textTransform: "uppercase",
@@ -260,7 +260,7 @@ const styles = {
     color: "#fff",
   },
   loginButton: {
-    backgroundColor: "#008000",
+    backgroundColor: "#8b5cf6",
     border: "none",
     borderRadius: "5px",
     color: "#fff",
@@ -316,7 +316,7 @@ const styles = {
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
   },
   joinButton: {
-    backgroundColor: "#008000",
+    backgroundColor: "#8b5cf6",
     border: "none",
     borderRadius: "5px",
     color: "#fff",
