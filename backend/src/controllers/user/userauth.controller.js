@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const bcrypt = require("bcrypt");
+const twilio = require("twilio");
 //local imports
-const { ApiError, NotFoundError } = require("../../utils/customErrorHandler");
+const { ApiError } = require("../../utils/customErrorHandler");
 const ResponseHandler = require("../../utils/responseHandler");
 const asyncHandler = require("../../utils/asyncHandler");
 const User = require("../../models/user.model");
@@ -52,7 +52,7 @@ const sendEmailVerificationOTP = asyncHandler(async ({ _id, email }, res) => {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "AYUSH Startup Registration Portal OTP Code",
-      html: `<p>Your OTP code is <b>${otp}</b>. It expires in 2 minutes.</p>`,
+      html: `<p>Your OTP code is <b>${otp}</b>. It expires in 10 minutes.</p>`,
     };
 
     const sentMail = await transporter.sendMail(mailOptions);
@@ -63,55 +63,51 @@ const sendEmailVerificationOTP = asyncHandler(async ({ _id, email }, res) => {
 
     return res
       .status(200)
-      .json(new ResponseHandler(201, "OTP sent successfully !", res));
+      .json(new ResponseHandler(201, "OTP sent successfully !", {}));
   } catch (error) {
     throw new ApiError(500, "Something went wrong ! Resend OTP !");
   }
 });
 
-//verify email otp
-const verifyEmailOTP = asyncHandler(async (req, res) => {
-  const { userId, inputOTP } = req.body;
-  console.log(userId);
+//send otp to phone
+const sendPhoneVerificationOTP = asyncHandler(async ({ _id, phone }, res) => {
+  const accountSid = process.env.TWILIO_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const client = twilio(accountSid, authToken);
+
   try {
-    if (!userId || !inputOTP) {
-      throw new ApiError(500, "All fields are required !");
+    // Generate a 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = Date.now() + 5 * 60 * 1000;
+
+    // Save the OTP in the database
+    const newOtp = new Otp({
+      userId: _id,
+      userType: "user",
+      otp,
+      expiresAt,
+    });
+    await newOtp.save();
+
+    // Send the OTP via SMS using Twilio
+    const sentOTP = await client.messages.create({
+      body: `Your OTP is ${otp}. It expires in 5 minutes.`,
+      from: process.env.TWILIO_PH,
+      to: `+91${phone}`,
+    });
+
+    if (!sentOTP) {
+      throw new ApiError(500, "Failed to send OTP !");
     }
-
-    const otpDetails = await Otp.findOne({ userId });
-    console.log(otpDetails);
-    if (!otpDetails) {
-      throw new ApiError(404, "Invalid OTP or email !");
-    }
-
-    // checking if given OTP is valid
-    const isOTPValid = await bcrypt.compare(inputOTP, otpDetails.otp);
-    // console.log(isOTPValid);
-    if (!isOTPValid) {
-      throw new ApiError(409, "Invalid OTP !");
-    }
-
-    // Check if the OTP has expired
-    if (otpDetails.expiresAt < Date.now()) {
-      throw new ApiError(409, "OTP has expired !");
-    }
-
-    const user = await User.findById(userId);
-    console.log(user);
-    if (!user) {
-      throw new NotFoundError("User not found !");
-    }
-
-    user.isEmailVerified = true;
-    await user.save();
-
-    await Otp.deleteOne({ userId });
 
     return res
       .status(200)
-      .json(new ResponseHandler(201, "OTP Verified successfully !", {}));
+      .json(new ResponseHandler(201, "OTP sent successfully !", {}));
   } catch (error) {
-    throw new ApiError(500, "Something went wrong ! OTP Verification failed !");
+    throw new ApiError(
+      500,
+      error.message || "Something went wrong ! Resend OTP !"
+    );
   }
 });
 
@@ -144,12 +140,48 @@ const registerUser = asyncHandler(async (req, res) => {
       sendEmailVerificationOTP({ _id: response._id, email: response.email });
       res.json({
         status: 201,
-        message: "User registered successfully",
+        message: "User registered successfully ! Please Verify Email !",
       });
     })
     .catch((error) => {
-      console.log(error);
+      res.json({
+        status: 500,
+        message:
+          error.message ||
+          "User registered successfully ! Please Verify Email !",
+      });
     });
+});
+
+//add phone number
+const addPhone = asyncHandler(async (req, res) => {
+  const { _id, phone } = req.body;
+
+  if (!_id || !phone) {
+    throw new ApiError(400, "All fields are required !");
+  }
+
+  const user = await User.findById(_id);
+
+  if (!user || !user.isEmailVerified) {
+    throw new ApiError(404, "User not found or email not verified!");
+  }
+
+  user.phone = phone;
+
+  await sendPhoneVerificationOTP({ _id, phone }, res);
+
+  await user.save();
+
+  return res
+    .status(200)
+    .json(
+      new ResponseHandler(
+        201,
+        "Phone number added successfully ! Please verify phone number !",
+        {}
+      )
+    );
 });
 
 //login user
@@ -293,7 +325,7 @@ const changeUserPassword = asyncHandler(async (req, res) => {
 
 module.exports = {
   registerUser,
-  verifyEmailOTP,
+  addPhone,
   loginUser,
   logoutUser,
   refreshAccessToken,

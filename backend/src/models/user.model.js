@@ -16,20 +16,29 @@ const userSchema = new Schema(
       unique: true,
       validate: [validator.isEmail, "Enter an valid email"],
     },
-    isEmailVerified: {
-      type: Boolean,
-      default: false,
+    phone: {
+      type: String,
+      validate: [validator.isMobilePhone, "Enter an valid phone number"],
+      required: function () {
+        return this.isProfileComplete; // Only required when profile is complete
+      },
     },
-    // phone: {
-    //   type: String,
-    //   required: [true, "Enter email"],
-    //   unique: true,
-    //   validate: [validator.isMobilePhone, "Enter an valid phone number"],
-    // },
     password: {
       type: String,
       required: [true, "Enter password"],
       minLength: [8, "Password must be of at least 8 characters"],
+    },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    isPhoneVerified: {
+      type: Boolean,
+      default: false,
+    },
+    isProfileComplete: {
+      type: Boolean,
+      default: false,
     },
     refreshToken: { type: String },
   },
