@@ -16,12 +16,16 @@ const userSchema = new Schema(
       unique: true,
       validate: [validator.isEmail, "Enter an valid email"],
     },
-    phone: {
-      type: String,
-      required: [true, "Enter email"],
-      unique: true,
-      validate: [validator.isMobilePhone, "Enter an valid phone number"],
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
     },
+    // phone: {
+    //   type: String,
+    //   required: [true, "Enter email"],
+    //   unique: true,
+    //   validate: [validator.isMobilePhone, "Enter an valid phone number"],
+    // },
     password: {
       type: String,
       required: [true, "Enter password"],

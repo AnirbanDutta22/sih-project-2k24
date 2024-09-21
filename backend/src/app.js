@@ -8,6 +8,7 @@ const defaultErrorHandler = require("./middlewares/defaultErrorHandler");
 const userRouter = require("./routes/user.route");
 const testRouter = require("./routes/test.route");
 const adminRouter = require("./routes/admin.route");
+const govtRouter = require("./routes/govt.route");
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(cookieParser());
 //routes
 app.use("/api/v1", userRouter);
 app.use("/api/v1", adminRouter);
+app.use("/api/v1", govtRouter);
 app.use("/api/v1", testRouter);
 
 //errors handler

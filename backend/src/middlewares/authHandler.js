@@ -3,6 +3,7 @@ const { ApiError } = require("../utils/customErrorHandler");
 const User = require("../models/user.model");
 const Admin = require("../models/admin.model");
 const asyncHandler = require("../utils/asyncHandler");
+const Govt = require("../models/govt.model");
 
 const authHandler = ({ userType }) =>
   asyncHandler(async (req, res, next) => {
@@ -37,6 +38,14 @@ const authHandler = ({ userType }) =>
         }
 
         req.admin = admin;
+      } else if (userType === "govt") {
+        const govt = await Govt.findById(decodedToken?._id);
+        //checking if admin exists
+        if (!govt) {
+          throw new ApiError(401, "Invalid access token !");
+        }
+
+        req.govt = govt;
       }
 
       next();
