@@ -7,10 +7,9 @@ const Collapse = forwardRef(
   ({ collapseText, document, className, children }, ref) => {
     const [isCollapseOpen, setCollapseOpen] = useState(false);
 
-    const collapseToggle = () => {
+    const toggleCollapse = () => {
       setCollapseOpen((prev) => !prev);
     };
-
     return (
       <div className="relative w-full bg-gray-200 h-auto">
         <div
@@ -39,7 +38,7 @@ const Collapse = forwardRef(
               viewBox="0 0 10 6"
               ref={ref}
               id="collapse-icon"
-              onClick={collapseToggle}
+              onClick={toggleCollapse}
             >
               <path
                 stroke="currentColor"
@@ -56,7 +55,7 @@ const Collapse = forwardRef(
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 10 6"
-              onClick={collapseToggle}
+              onClick={toggleCollapse}
             >
               <path
                 stroke="currentColor"

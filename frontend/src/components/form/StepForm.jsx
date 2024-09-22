@@ -92,6 +92,20 @@ const StepForm = ({
       label: t("Registration Type"),
       type: "select",
       id: "registrationType",
+      values: [
+        "Sole Proprietorship",
+        "Partnership Firm",
+        "Private Limited Company (Pvt Ltd)",
+        "Limited Liability Partnership (LLP)",
+        "One Person Company (OPC)",
+        "Public Limited Company",
+        "Section 8 Company (Non-Profit Organization)",
+        "Hindu Undivided Family (HUF)",
+        "Co-operative Society",
+        "Trust",
+        "Society",
+        "Other",
+      ],
       placeholder: t("Select registration type"),
     },
     {
@@ -151,29 +165,6 @@ const StepForm = ({
 
   const step5 = [
     {
-      stepNo: "step5",
-      heading: t("AYUSH Compliance"),
-      label: t("AYUSH Approval Status"),
-      type: "select",
-      id: "ayushApprovalStatus",
-      placeholder: t("Select approval status"),
-    },
-    {
-      label: t("Compliance Certifications"),
-      type: "file",
-      id: "complianceCertifications",
-      placeholder: "",
-    },
-    {
-      label: t("Regulatory Compliance Checklist"),
-      type: "checkbox",
-      id: "regulatoryChecklist",
-      placeholder: "",
-    },
-  ];
-
-  const step6 = [
-    {
       stepNo: "step6",
       heading: t("Financial Details (Optional)"),
       label: t("Investment Raised"),
@@ -192,6 +183,70 @@ const StepForm = ({
       type: "text",
       id: "bankDetails",
       placeholder: t("Enter basic bank details"),
+    },
+  ];
+
+  const step6 = [
+    {
+      stepNo: "step5",
+      heading: t("AYUSH Compliance"),
+      label: t("AYUSH Approval Status"),
+      type: "select",
+      id: "ayushApprovalStatus",
+      values: ["Approved", "Pending", "Not Required"],
+      placeholder: t("Select approval status"),
+    },
+    {
+      label: t("Compliance Certifications"),
+      type: "file",
+      id: "complianceCertifications",
+      placeholder: "",
+    },
+    {
+      label: t("I have completed all required AYUSH compliance steps"),
+      type: "checkbox",
+      id: "regulatoryCheck",
+      placeholder: "",
+    },
+  ];
+
+  const step7 = [
+    {
+      stepNo: "step7",
+      heading: t("Startup Innovation and Goals"),
+      label: t("Innovation Summary"),
+      type: "textarea",
+      id: "innovation",
+      placeholder: t("Explain what makes your startup innovative"),
+    },
+    {
+      label: t("Startup Goals"),
+      type: "textarea",
+      id: "startupGoals",
+      placeholder: t("Enter Short-term and long-term goals"),
+    },
+    {
+      label: t("Target Audience"),
+      type: "text",
+      id: "targetAudience",
+      placeholder: t("Primary demographic focus"),
+    },
+  ];
+
+  const step8 = [
+    {
+      stepNo: "step8",
+      heading: t("Legal and Terms"),
+      label: t("I agree to the terms and conditions"),
+      type: "checkbox",
+      id: "tAndC1",
+      placeholder: "",
+    },
+    {
+      label: t("I declare all provided information is accurate"),
+      type: "checkbox",
+      id: "tAndC2",
+      placeholder: "",
     },
   ];
 
@@ -230,10 +285,16 @@ const StepForm = ({
         </div>
         {stepno.map((data, index) => {
           return (
-            <div key={index} className="step1 mb-5">
+            <div
+              key={index}
+              className={`step1 mb-5 ${data.type === "checkbox" &&
+                "flex flex-row-reverse justify-end gap-x-2 items-center"}`}
+            >
               <label
                 htmlFor={data.id}
-                className="block mb-2 text-left text-sm font-medium text-gray-900"
+                className={`block ${
+                  data.type === "checkbox" ? "mb-0" : "mb-2"
+                } text-left text-sm font-medium text-gray-900`}
               >
                 {t(data.label)}
                 <span className={mandatory}>*</span>
@@ -255,6 +316,37 @@ const StepForm = ({
                       </option>
                     ))}
                   </select>
+                  <span className="text-red-500 font-medium">
+                    {errors?.[data.id]}
+                  </span>
+                </>
+              ) : data.type === "textarea" ? (
+                <>
+                  <textarea
+                    type={data.type}
+                    id={data.id}
+                    rows={5}
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                    defaultValue={formValues[stepno]?.[data.id] || ""}
+                    onChange={(event) => onChange(stepName, data.id, event)}
+                    placeholder={t(data.placeholder)}
+                    required
+                  />
+                  <span className="text-red-500 font-medium">
+                    {errors?.[data.id]}
+                  </span>
+                </>
+              ) : data.type === "checkbox" ? (
+                <>
+                  <input
+                    type={data.type}
+                    id={data.id}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg cursor-pointer"
+                    defaultValue={formValues[stepno]?.[data.id] || ""}
+                    onChange={(event) => onChange(stepName, data.id, event)}
+                    placeholder={t(data.placeholder)}
+                    required
+                  />
                   <span className="text-red-500 font-medium">
                     {errors?.[data.id]}
                   </span>
@@ -291,6 +383,8 @@ const StepForm = ({
         {stepno === "Step4" && renderStepForm(step4)}
         {stepno === "Step5" && renderStepForm(step5)}
         {stepno === "Step6" && renderStepForm(step6)}
+        {stepno === "Step7" && renderStepForm(step7)}
+        {stepno === "Step8" && renderStepForm(step8)}
       </form>
     </>
   );
