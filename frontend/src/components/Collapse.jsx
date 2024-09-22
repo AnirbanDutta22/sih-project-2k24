@@ -13,7 +13,8 @@ const Collapse = forwardRef(
     return (
       <div className="relative w-full bg-gray-200 h-auto">
         <div
-          className={`px-5 py-3 flex items-center justify-between ${className}`}
+          className={`px-5 py-3 flex items-center justify-between ${className} cursor-pointer`}
+          onClick={toggleCollapse}
         >
           <div className="flex items-center gap-x-6">
             <span>{collapseText}</span>
@@ -31,14 +32,13 @@ const Collapse = forwardRef(
           </div>
           {!isCollapseOpen ? (
             <svg
-              className="w-2.5 h-2.5 ms-3 cursor-pointer"
+              className="w-2.5 h-2.5 ms-3"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 10 6"
               ref={ref}
               id="collapse-icon"
-              onClick={toggleCollapse}
             >
               <path
                 stroke="currentColor"
@@ -50,12 +50,11 @@ const Collapse = forwardRef(
             </svg>
           ) : (
             <svg
-              className="w-2.5 h-2.5 ms-3 cursor-pointer"
+              className="w-2.5 h-2.5 ms-3"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 10 6"
-              onClick={toggleCollapse}
             >
               <path
                 stroke="currentColor"
