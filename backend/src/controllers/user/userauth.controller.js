@@ -24,7 +24,7 @@ const generateTokens = async (userId) => {
 };
 
 //send otp to email
-const sendEmailVerificationOTP = asyncHandler(async ({ _id, email }, res) => {
+const sendEmailVerificationOTP = async ({ _id, email }) => {
   try {
     // Generate OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
@@ -61,16 +61,14 @@ const sendEmailVerificationOTP = asyncHandler(async ({ _id, email }, res) => {
       throw new ApiError(500, "Failed to send OTP !");
     }
 
-    return res
-      .status(200)
-      .json(new ResponseHandler(201, "OTP sent successfully !", {}));
+    console.log("OTP sent successfully !");
   } catch (error) {
     throw new ApiError(500, "Something went wrong ! Resend OTP !");
   }
-});
+};
 
 //send otp to phone
-const sendPhoneVerificationOTP = asyncHandler(async ({ _id, phone }, res) => {
+const sendPhoneVerificationOTP = async ({ _id, phone }) => {
   const accountSid = process.env.TWILIO_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const client = twilio(accountSid, authToken);
@@ -78,7 +76,7 @@ const sendPhoneVerificationOTP = asyncHandler(async ({ _id, phone }, res) => {
   try {
     // Generate a 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = Date.now() + 5 * 60 * 1000;
+    const expiresAt = Date.now() + 10 * 60 * 1000;
 
     // Save the OTP in the database
     const newOtp = new Otp({
@@ -91,7 +89,7 @@ const sendPhoneVerificationOTP = asyncHandler(async ({ _id, phone }, res) => {
 
     // Send the OTP via SMS using Twilio
     const sentOTP = await client.messages.create({
-      body: `Your OTP is ${otp}. It expires in 5 minutes.`,
+      body: `Your OTP is ${otp}. It expires in 10 minutes.`,
       from: process.env.TWILIO_PH,
       to: `+91${phone}`,
     });
@@ -100,16 +98,11 @@ const sendPhoneVerificationOTP = asyncHandler(async ({ _id, phone }, res) => {
       throw new ApiError(500, "Failed to send OTP !");
     }
 
-    return res
-      .status(200)
-      .json(new ResponseHandler(201, "OTP sent successfully !", {}));
+    console.log("OTP sent successfully !");
   } catch (error) {
-    throw new ApiError(
-      500,
-      error.message || "Something went wrong ! Resend OTP !"
-    );
+    throw new ApiError(500, "Something went wrong ! Resend OTP !");
   }
-});
+};
 
 //register user
 const registerUser = asyncHandler(async (req, res) => {
@@ -146,9 +139,7 @@ const registerUser = asyncHandler(async (req, res) => {
     .catch((error) => {
       res.json({
         status: 500,
-        message:
-          error.message ||
-          "User registered successfully ! Please Verify Email !",
+        message: error?.message || "User registration failed ! Try Again !",
       });
     });
 });
@@ -169,19 +160,20 @@ const addPhone = asyncHandler(async (req, res) => {
 
   user.phone = phone;
 
-  await sendPhoneVerificationOTP({ _id, phone }, res);
+  try {
+    await user.save();
 
-  await user.save();
-
-  return res
-    .status(200)
-    .json(
-      new ResponseHandler(
-        201,
-        "Phone number added successfully ! Please verify phone number !",
-        {}
-      )
-    );
+    await sendPhoneVerificationOTP({ _id, phone });
+    res.json({
+      status: 201,
+      message: "Phone number added successfully ! Please verify phone number !",
+    });
+  } catch (error) {
+    res.json({
+      status: 500,
+      message: error?.message || "Phone number add failed ! Try Again !",
+    });
+  }
 });
 
 //login user
