@@ -219,14 +219,14 @@ const StartupRegistrationForm = ({ onModalClose }) => {
       {/* multi-step form */}
       <div className="w-[70vw] mx-auto h-[90vh] p-7 bg-violet-200 rounded-lg">
         {isFormFinished ? (
-          <div className="flex flex-col items-center h-full gap-y-10">
-            <div className="flex gap-x-3 font-semibold text-3xl">
+          <div className="flex flex-col justify-center h-full gap-y-10">
+            <div className="flex items-center justify-center gap-x-3 font-semibold text-3xl">
               Form Submitted Successfully{" "}
               <span className="text-green-600 text-4xl">
                 <RiVerifiedBadgeFill />
               </span>
             </div>
-            <div className="w-full overflow-y-scroll h-[80%] scrollbar">
+            <div className="w-full overflow-y-scroll h-[85%] scrollbar">
               <span className="text-2xl">Summary : </span>
               {Object.keys(formValues).map((stepKey) => (
                 <Collapse
