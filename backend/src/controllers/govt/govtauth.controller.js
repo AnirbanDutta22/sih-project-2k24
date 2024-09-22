@@ -145,8 +145,8 @@ const logoutGovt = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
+    .clearCookie("govtAccessToken", options)
+    .clearCookie("govtRefreshToken", options)
     .json(new ResponseHandler(200, "Govt user logged Out", {}));
 });
 

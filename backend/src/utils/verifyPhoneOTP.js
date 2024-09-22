@@ -79,8 +79,8 @@ const verifyPhoneOTP = ({ authType }) => {
 
         return res
           .status(200)
-          .cookie("accessToken", accessToken, options)
-          .cookie("refreshToken", refreshToken, options)
+          .cookie("userAccessToken", accessToken, options)
+          .cookie("userRefreshToken", refreshToken, options)
           .json(
             new ResponseHandler(
               201,

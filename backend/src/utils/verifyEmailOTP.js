@@ -66,7 +66,10 @@ const verifyEmailOTP = asyncHandler(async (req, res) => {
       }
 
       //generate tokens
-      const { accessToken, refreshToken } = await generateTokens(admin._id);
+      const { accessToken, refreshToken } = await generateTokens(
+        userType,
+        admin._id
+      );
 
       //fetching logged in admin
       const loggedInAdmin = await Admin.findById(admin._id).select(
@@ -82,8 +85,8 @@ const verifyEmailOTP = asyncHandler(async (req, res) => {
 
       return res
         .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
+        .cookie("adminAccessToken", accessToken, options)
+        .cookie("adminRefreshToken", refreshToken, options)
         .json(
           new ResponseHandler(
             201,
@@ -119,8 +122,8 @@ const verifyEmailOTP = asyncHandler(async (req, res) => {
 
       return res
         .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
+        .cookie("govtAccessToken", accessToken, options)
+        .cookie("govtRefreshToken", refreshToken, options)
         .json(
           new ResponseHandler(
             201,

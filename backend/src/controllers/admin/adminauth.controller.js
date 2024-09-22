@@ -183,8 +183,8 @@ const logoutAdmin = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
+    .clearCookie("adminAccessToken", options)
+    .clearCookie("adminRefreshToken", options)
     .json(new ResponseHandler(200, "Admin logged Out", {}));
 });
 
