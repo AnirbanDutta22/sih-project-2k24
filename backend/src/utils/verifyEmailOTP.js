@@ -40,6 +40,8 @@ const verifyEmailOTP = asyncHandler(async (req, res) => {
 
     const { userType } = otpDetails;
 
+    await Otp.deleteOne({ userId: _id });
+
     if (userType === "user") {
       const user = await User.findById(_id);
       console.log(user);
@@ -49,27 +51,89 @@ const verifyEmailOTP = asyncHandler(async (req, res) => {
 
       user.isEmailVerified = true;
       await user.save();
+
+      return res
+        .status(200)
+        .json(
+          new ResponseHandler(201, "Email OTP Verified successfully !", {})
+        );
     } else if (userType === "admin") {
+      //checking if admin exists
       const admin = await Admin.findById(_id);
       console.log(admin);
       if (!admin) {
         throw new NotFoundError("Admin not found !");
       }
+
+      //generate tokens
+      const { accessToken, refreshToken } = await generateTokens(admin._id);
+
+      //fetching logged in admin
+      const loggedInAdmin = await Admin.findById(admin._id).select(
+        "-password -refreshToken"
+      );
+
+      //configuring cookie options
+      const options = {
+        httpOnly: true,
+        secure: false,
+        expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
+      };
+
+      return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+          new ResponseHandler(
+            201,
+            "Email OTP Verified successfully ! Admin logged in !",
+            loggedInAdmin
+          )
+        );
     } else if (userType === "govt") {
+      //checking govt exists or not
       const govt = await Govt.findById(_id);
       console.log(govt);
       if (!govt) {
         throw new NotFoundError("Govt User not found !");
       }
+
+      //generate tokens
+      const { accessToken, refreshToken } = await generateTokens(
+        userType,
+        govt._id
+      );
+
+      //fetching logged in govt
+      const loggedInGovt = await Govt.findById(govt._id).select(
+        "-password -refreshToken"
+      );
+
+      //configuring cookie options
+      const options = {
+        httpOnly: true,
+        secure: false,
+        expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
+      };
+
+      return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+          new ResponseHandler(
+            201,
+            "Email OTP Verified successfully ! Govt logged in !",
+            loggedInGovt
+          )
+        );
     } else {
       throw new ApiError(500, "User Type Error !");
     }
-
-    await Otp.deleteOne({ userId: _id });
-
-    return res
-      .status(200)
-      .json(new ResponseHandler(201, "Email OTP Verified successfully !", {}));
+    // return res
+    //   .status(200)
+    //   .json(new ResponseHandler(201, "Email OTP Verified successfully !", {}));
   } catch (error) {
     throw new ApiError(
       500,
@@ -77,6 +141,33 @@ const verifyEmailOTP = asyncHandler(async (req, res) => {
     );
   }
 });
+
+//access token refresh token generating utility method
+const generateTokens = async (userType, userId) => {
+  try {
+    if (userType === "admin") {
+      const admin = await Admin.findById(userId);
+      const accessToken = admin.generateAccessToken();
+      const refreshToken = admin.generateRefreshToken();
+
+      admin.refreshToken = refreshToken;
+      await admin.save({ validateBeforeSave: false });
+      return { accessToken, refreshToken };
+    } else if (userType === "govt") {
+      const govt = await Govt.findById(userId);
+      const accessToken = govt.generateAccessToken();
+      const refreshToken = govt.generateRefreshToken();
+
+      govt.refreshToken = refreshToken;
+      await govt.save({ validateBeforeSave: false });
+      return { accessToken, refreshToken };
+    } else {
+      throw new NotFoundError("User type not found !");
+    }
+  } catch (error) {
+    throw new ApiError(500, "Access token, Refresh token generating failed !");
+  }
+};
 
 module.exports = {
   verifyEmailOTP,

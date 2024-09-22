@@ -2,17 +2,35 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
 
 const adminSchema = new Schema(
   {
-    adminName: {
+    username: {
       type: String,
-      required: [true, "Enter admin name"],
+      required: [true, "Enter admin username"],
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: [true, "Enter email"],
+      unique: true,
+      validate: [validator.isEmail, "Enter an valid email"],
     },
     password: {
       type: String,
       required: [true, "Enter password"],
       minLength: [8, "Password must be of at least 8 characters"],
+    },
+    roles: {
+      type: [String],
+      enum: ["superAdmin", "systemAdmin", "supportAdmin"], // Admin roles may differ
+      required: true,
+    },
+    permissions: {
+      type: [String],
+      enum: ["manageOfficials", "viewReports", "manageUsers", "viewAuditLogs"], // Define what the admin can do
+      required: true,
     },
     refreshToken: { type: String },
   },
@@ -35,7 +53,7 @@ adminSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
       _id: this._id,
-      adminName: this.adminName,
+      username: this.username,
     },
     process.env.ACCESS_TOKEN_SECRET,
     {

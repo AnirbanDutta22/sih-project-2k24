@@ -1,9 +1,11 @@
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 //local imports
 const { ApiError } = require("../../utils/customErrorHandler");
 const ResponseHandler = require("../../utils/responseHandler");
 const asyncHandler = require("../../utils/asyncHandler");
 const Admin = require("../../models/admin.model");
+const Otp = require("../../models/otp.model");
 
 //access token refresh token generating utility method
 const generateTokens = async (adminId) => {
@@ -22,27 +24,32 @@ const generateTokens = async (adminId) => {
 
 //add admin
 const addAdmin = asyncHandler(async (req, res) => {
-  const { adminName, password } = req.body;
+  const { username, roles, permissions, email, password } = req.body;
 
   //checking if any field is unfilled
-  if (!adminName || !password) {
+  if (!email || !username || !password || !roles || !permissions) {
     throw new ApiError(400, "All fields are required !");
   }
 
   //checking if the admin already exists
-  const existingAdmin = await Admin.findOne({ adminName });
+  const existingAdmin = await Admin.findOne({ email });
   if (existingAdmin) {
     throw new ApiError(409, "Admin already exists");
   }
 
   //creating new admin
   const admin = await Admin.create({
-    adminName,
+    username,
+    email,
     password,
+    roles,
+    permissions,
   });
 
   //checking if admin is added successfully
-  const addedAdmin = await Admin.findById(admin._id).select("-password");
+  const addedAdmin = await Admin.findById(admin._id).select(
+    "-roles -permissions -password"
+  );
   if (!addedAdmin) {
     throw new ApiError(500, "Something went wrong!");
   }
@@ -53,17 +60,61 @@ const addAdmin = asyncHandler(async (req, res) => {
     );
 });
 
+//send otp to email
+const sendEmailVerificationOTP = async ({ _id, email }) => {
+  try {
+    // Generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
+    const expiresAt = Date.now() + 10 * 60 * 1000; // OTP expires in 2 minutes
+
+    // Save OTP in the database
+    const newOtp = new Otp({
+      userId: _id,
+      userType: "admin",
+      otp,
+      expiresAt,
+    });
+    await newOtp.save();
+
+    // Send OTP via email using nodemailer
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER, // sender email
+        pass: process.env.EMAIL_PASS, // sender password
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "AYUSH Startup Registration Portal OTP Code",
+      html: `<p>Your OTP code is <b>${otp}</b>. It expires in 10 minutes.</p>`,
+    };
+
+    const sentMail = await transporter.sendMail(mailOptions);
+
+    if (!sentMail) {
+      throw new ApiError(500, "Failed to send OTP !");
+    }
+
+    console.log("OTP sent successfully !");
+  } catch (error) {
+    throw new ApiError(500, "Something went wrong ! Resend OTP !");
+  }
+};
+
 //login admin
 const loginAdmin = asyncHandler(async (req, res) => {
-  const { adminName, password } = req.body;
+  const { username, password } = req.body;
 
   //checking if any field is unfilled
-  if (!adminName || !password) {
+  if (!username || !password) {
     throw new ApiError(400, "All fields are required !");
   }
 
   //checking if the admin exists or not
-  const admin = await Admin.findOne({ adminName });
+  const admin = await Admin.findOne({ username });
   if (!admin) {
     throw new ApiError(409, "User not exists ! Please register !");
   }
@@ -74,28 +125,41 @@ const loginAdmin = asyncHandler(async (req, res) => {
     throw new ApiError(409, "Invalid login credentials");
   }
 
-  //generate tokens
-  const { accessToken, refreshToken } = await generateTokens(admin._id);
+  try {
+    await sendEmailVerificationOTP({ _id: admin._id, email: admin.email });
+    res.json({
+      status: 201,
+      message: "OTP sent to email successfully !",
+    });
+  } catch (error) {
+    res.json({
+      status: 500,
+      message: error?.message || "OTP send failed ! Try Again !",
+    });
+  }
 
-  //fetching logged in admin
-  const loggedInAdmin = await Admin.findById(admin._id).select(
-    "-password -refreshToken"
-  );
+  // //generate tokens
+  // const { accessToken, refreshToken } = await generateTokens(admin._id);
 
-  //configuring cookie options
-  const options = {
-    httpOnly: true,
-    secure: false,
-    expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
-  };
+  // //fetching logged in admin
+  // const loggedInAdmin = await Admin.findById(admin._id).select(
+  //   "-password -refreshToken"
+  // );
 
-  return res
-    .status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
-    .json(
-      new ResponseHandler(201, "Admin logged in successfully", loggedInAdmin)
-    );
+  // //configuring cookie options
+  // const options = {
+  //   httpOnly: true,
+  //   secure: false,
+  //   expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
+  // };
+
+  // return res
+  //   .status(200)
+  //   .cookie("accessToken", accessToken, options)
+  //   .cookie("refreshToken", refreshToken, options)
+  //   .json(
+  //     new ResponseHandler(201, "Admin logged in successfully", loggedInAdmin)
+  //   );
 });
 
 //logout admin
@@ -140,16 +204,16 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       process.env.REFRESH_TOKEN_SECRET
     );
 
-    //finding user
-    const user = await User.findById(decodedToken?._id);
+    //finding admin
+    const admin = await Admin.findById(decodedToken?._id);
 
     //checking if user exists
-    if (!user) {
+    if (!admin) {
       throw new ApiError(401, "Access token not found");
     }
 
     //checking if both refresh token matches
-    if (incomingRefreshToken !== user.refreshToken) {
+    if (incomingRefreshToken !== admin.refreshToken) {
       throw new ApiError(401, "Invalid access token");
     }
 

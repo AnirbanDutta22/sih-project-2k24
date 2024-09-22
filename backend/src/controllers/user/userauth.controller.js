@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const twilio = require("twilio");
 //local imports
-const { ApiError } = require("../../utils/customErrorHandler");
+const { ApiError, NotFoundError } = require("../../utils/customErrorHandler");
 const ResponseHandler = require("../../utils/responseHandler");
 const asyncHandler = require("../../utils/asyncHandler");
 const User = require("../../models/user.model");
@@ -154,8 +154,12 @@ const addPhone = asyncHandler(async (req, res) => {
 
   const user = await User.findById(_id);
 
-  if (!user || !user.isEmailVerified) {
-    throw new ApiError(404, "User not found or email not verified!");
+  if (!user) {
+    throw new NotFoundError("User not found !");
+  }
+
+  if (!user.isEmailVerified) {
+    throw new NotFoundError("User email not verified!");
   }
 
   user.phone = phone;
@@ -219,6 +223,34 @@ const loginUser = asyncHandler(async (req, res) => {
     .json(
       new ResponseHandler(201, "User logged in successfully", loggedInUser)
     );
+});
+
+//login user with phone otp
+const loginUserWithOTP = asyncHandler(async (req, res) => {
+  const { phone } = req.body;
+
+  if (!phone) {
+    throw new ApiError(409, "All fields are required !");
+  }
+
+  //checking if the user exists or not
+  const user = await User.findOne({ phone });
+  if (!user) {
+    throw new ApiError(409, "User not exists ! Please register !");
+  }
+
+  try {
+    await sendPhoneVerificationOTP({ _id: user._id, phone: phone });
+    res.json({
+      status: 201,
+      message: "OTP sent to phone number successfully !",
+    });
+  } catch (error) {
+    res.json({
+      status: 500,
+      message: error?.message || "OTP send failed ! Try Again !",
+    });
+  }
 });
 
 //logout user
@@ -316,9 +348,11 @@ const changeUserPassword = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  generateTokens,
   registerUser,
   addPhone,
   loginUser,
+  loginUserWithOTP,
   logoutUser,
   refreshAccessToken,
   changeUserPassword,
