@@ -7,7 +7,10 @@
     @apply h-9 text-sm text-black border capitalize font-semibold px-12 py-1.5 rounded-[0.250rem];
   }
   .btn-primary {
-    @apply h-9 text-sm text-white capitalize font-semibold px-12 py-1.5 bg-violet-500/70 hover:bg-violet-500 rounded-[0.250rem];
+    @apply h-9 text-sm text-white capitalize font-semibold px-12 py-1.5 bg-violet-500/70 hover:bg-violet-500 rounded-[0.250rem] transition-all ease-in-out duration-300;
+  }
+  .btn-secondary {
+    @apply h-9 text-sm text-violet-500 capitalize font-semibold px-12 py-1.5 bg-white hover:bg-violet-500 hover:text-white border border-violet-500 rounded-[0.250rem] transition-all ease-in-out duration-300;
   }
   .dashboard-box {
     @apply flex flex-col justify-start gap-y-3 items-start p-4 uppercase bg-white border border-gray-300 shadow-md rounded;
