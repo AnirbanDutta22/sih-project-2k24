@@ -25,12 +25,25 @@ import {
   Error,
 } from "./pages/index.js";
 import NewRegistration from "./pages/user/NewRegistration.jsx";
+import HomeContent from "./pages/HomeContent.jsx";
+import About from "./pages/About.jsx";
+import HelpCenter from "./pages/HelpCenter.jsx";
+import Resources from "./pages/Resources.jsx";
+import Funding from "./pages/Funding.jsx";
+import Events from "./pages/Events.jsx";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<Home />}>
+          <Route index element={<HomeContent />} />
+          <Route path="about" element={<About />} />
+          <Route path="help" element={<HelpCenter />} />
+          <Route path="resources" element={<Resources />} />
+          <Route path="funding" element={<Funding />} />
+          <Route path="events" element={<Events />} />
+        </Route>
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/new-registration" element={<NewRegistration />} />
