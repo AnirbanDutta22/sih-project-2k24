@@ -172,7 +172,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, userType, handleChatBot }) => {
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       } shadow-lg`}
     >
-      <div className="flex items-center justify-between gap-2 px-16 py-5.5 lg:py-6.5">
+      <div className="flex items-center justify-between gap-2 px-16 py-4 lg:py-3">
         <NavLink to="/">
           <img src={AYUSH} alt="Logo" />
         </NavLink>
