@@ -7,9 +7,11 @@ const Govt = require("../models/govt.model");
 
 const authHandler = ({ userType }) =>
   asyncHandler(async (req, res, next) => {
+    const accessToken = userType + "AccessToken";
+
     try {
       const token =
-        req.cookies?.accessToken || req.headers.authorization?.split(" ")[1];
+        req.cookies?.[accessToken] || req.headers.authorization?.split(" ")[1];
 
       console.log(token);
 
