@@ -1,47 +1,123 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [formValues, setFormValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    phone: "",
+  });
+  // const [username, setUserName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("user");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [isEmailLogin, setIsEmailLogin] = useState(true);
+  const [formRes, setFormRes] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    switch (role) {
-      case "user":
+    if (isEmailLogin) {
+      try {
+        const res = await axios.post(
+          "/api/v1/user-login",
+          { email: formValues.email, password: formValues.password },
+          { withCredentials: true }
+        );
+        console.log(res);
         navigate("/new-registration");
-        break;
-      case "admin":
-        navigate("/admin");
-        break;
-      case "government":
-        navigate("/govt");
-        break;
-      default:
-        alert("Invalid role");
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      if (otpSent) {
+        console.log("otp sent");
+      } else {
+        setOtpSent(true);
+      }
     }
   };
 
-  const handleSendOtp = () => {
-    console.log(`Sending OTP to ${phoneNumber}`);
+  const handleSendOtp = async () => {
+    if (isEmailLogin) {
+      console.log(`Sending OTP to ${formValues.email}`);
+    } else {
+      console.log(`Sending OTP to ${formValues.phone}`);
+      try {
+        if (role === "admin") {
+          const res = await axios.post(
+            "/api/v1/admin-login",
+            { username: formValues.username, password: formValues.password },
+            { withCredentials: true }
+          );
+          console.log(res);
+          setFormRes(res.data.response);
+        } else if (role === "govt") {
+          const res = await axios.post(
+            "/api/v1/govt-login",
+            { username: formValues.username, password: formValues.password },
+            { withCredentials: true }
+          );
+          console.log(res);
+          setFormRes(res.data.response);
+        } else if (role === "user") {
+          const res = await axios.post(
+            "/api/v1/user-login-phone",
+            { phone: formValues.phone },
+            { withCredentials: true }
+          );
+          console.log(res);
+          setFormRes(res.data.response);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
     setOtpSent(true);
   };
 
-  const handleVerifyOtp = () => {
-    console.log(`Verifying OTP: ${otp}`);
+  const handleVerifyOtp = async () => {
+    try {
+      if (role === "admin") {
+        const res = await axios.post(
+          "/api/v1/admin-login/email-verify",
+          { _id: formRes._id, inputOTP: otp },
+          { withCredentials: true }
+        );
+        console.log(res);
+        navigate("/admin");
+      } else if (role === "govt") {
+        const res = await axios.post(
+          "/api/v1/govt-login/email-verify",
+          { _id: formRes._id, inputOTP: otp },
+          { withCredentials: true }
+        );
+        console.log(res);
+        navigate("/govt");
+      } else if (role === "user") {
+        const res = await axios.post(
+          "/api/v1/user-login-phone/verify-phone",
+          { _id: formRes._id, inputOTP: otp },
+          { withCredentials: true }
+        );
+        console.log(res);
+        navigate("/user");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const greeting =
     {
       user: "Hello, User",
       admin: "Hello, Admin",
-      government: "Hello, Government Official",
+      govt: "Hello, Government Official",
     }[role] || "Hello";
 
   return (
@@ -57,117 +133,208 @@ const Login = () => {
               <select
                 id="role"
                 value={role}
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e) => {
+                  setRole(e.target.value);
+                  setOtpSent(false); // Reset OTP state on role change
+                  setFormValues({
+                    ...formValues,
+                    email: "",
+                    password: "",
+                    username: "",
+                  });
+                  setIsEmailLogin(e.target.value === "user"); // Default to email login for user role
+                }}
                 style={styles.select}
               >
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
-                <option value="government">Government</option>
+                <option value="govt">Government</option>
               </select>
             </div>
+
             {role === "user" ? (
-              <div style={styles.formGroup}>
-                <label htmlFor="email" style={styles.label}>
-                  Email:
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  style={styles.input}
-                  required
-                />
-              </div>
+              <>
+                {isEmailLogin ? (
+                  <>
+                    <div style={styles.formGroup}>
+                      <label htmlFor="email" style={styles.label}>
+                        Email:
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        value={formValues.email}
+                        onChange={(e) =>
+                          setFormValues({
+                            ...formValues,
+                            email: e.target.value,
+                          })
+                        }
+                        style={styles.input}
+                        required
+                      />
+                    </div>
+                    <div style={styles.formGroup}>
+                      <label htmlFor="password" style={styles.label}>
+                        Password:
+                      </label>
+                      <input
+                        type="password"
+                        id="password"
+                        value={formValues.password}
+                        onChange={(e) =>
+                          setFormValues({
+                            ...formValues,
+                            password: e.target.value,
+                          })
+                        }
+                        style={styles.input}
+                        required
+                      />
+                    </div>
+                    <button type="submit" style={styles.submitButton}>
+                      Sign In
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div style={styles.formGroup}>
+                      <label htmlFor="phone" style={styles.label}>
+                        Phone:
+                      </label>
+                      <input
+                        type="text"
+                        id="phone"
+                        value={formValues.phone}
+                        onChange={(e) =>
+                          setFormValues({
+                            ...formValues,
+                            phone: e.target.value,
+                          })
+                        }
+                        style={styles.input}
+                        required
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      style={styles.otpButton}
+                      onClick={handleSendOtp}
+                    >
+                      Continue
+                    </button>
+                  </>
+                )}
+
+                {!isEmailLogin && otpSent && (
+                  <div style={styles.formGroup}>
+                    <label htmlFor="otp" style={styles.label}>
+                      OTP:
+                    </label>
+                    <input
+                      type="text"
+                      id="otp"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                      style={styles.input}
+                      placeholder="Enter the OTP"
+                      required
+                    />
+                    <button
+                      type="button"
+                      style={styles.verifyOtpButton}
+                      onClick={handleVerifyOtp}
+                    >
+                      Verify OTP
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
-              <div style={styles.formGroup}>
-                <label htmlFor="username" style={styles.label}>
-                  Username:
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUserName(e.target.value)}
-                  style={styles.input}
-                  required
-                />
-              </div>
-            )}
-            <div style={styles.formGroup}>
-              <label htmlFor="password" style={styles.label}>
-                Password:
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={styles.input}
-                required
-              />
-            </div>
-            {role === "user" && (
-              <div style={styles.formGroup}>
-                <label htmlFor="phoneNumber" style={styles.label}>
-                  Phone Number:
-                </label>
-                <input
-                  type="text"
-                  id="phoneNumber"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  style={styles.input}
-                  placeholder="Enter your phone number"
-                  required
-                />
+              <>
+                <div style={styles.formGroup}>
+                  <label htmlFor="username" style={styles.label}>
+                    Username:
+                  </label>
+                  <input
+                    type="text"
+                    id="username"
+                    value={formValues.username}
+                    onChange={(e) =>
+                      setFormValues({
+                        ...formValues,
+                        username: e.target.value,
+                      })
+                    }
+                    style={styles.input}
+                    required
+                  />
+                </div>
+                <div style={styles.formGroup}>
+                  <label htmlFor="password" style={styles.label}>
+                    Password:
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    value={formValues.password}
+                    onChange={(e) =>
+                      setFormValues({
+                        ...formValues,
+                        password: e.target.value,
+                      })
+                    }
+                    style={styles.input}
+                    required
+                  />
+                </div>
                 <button
-                  type="button"
-                  style={styles.otpButton}
+                  type="submit"
+                  style={styles.submitButton}
                   onClick={handleSendOtp}
                 >
-                  Send OTP
+                  Sign In
                 </button>
-              </div>
+                {otpSent && (
+                  <div style={styles.formGroup} className="mt-5">
+                    <label htmlFor="otp" style={styles.label}>
+                      OTP:
+                    </label>
+                    <input
+                      type="text"
+                      id="otp"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                      style={styles.input}
+                      placeholder="Enter the OTP"
+                      required
+                    />
+                    <button
+                      type="button"
+                      style={styles.verifyOtpButton}
+                      onClick={handleVerifyOtp}
+                    >
+                      Verify OTP
+                    </button>
+                  </div>
+                )}
+              </>
             )}
 
-            {role !== "user" && (
-              <button
-                type="button"
-                style={styles.otpButton}
-                onClick={handleSendOtp}
-              >
-                Send OTP
-              </button>
-            )}
-
-            {otpSent && (
-              <div style={styles.formGroup}>
-                <label htmlFor="otp" style={styles.label}>
-                  OTP:
-                </label>
-                <input
-                  type="text"
-                  id="otp"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  style={styles.input}
-                  placeholder="Enter the OTP"
-                  required
-                />
+            {role === "user" && (
+              <p style={styles.toggleMethod}>
+                {isEmailLogin
+                  ? "Use phone number for OTP instead."
+                  : "Use email/password instead."}
                 <button
                   type="button"
-                  style={styles.verifyOtpButton}
-                  onClick={handleVerifyOtp}
+                  style={styles.toggleButton}
+                  onClick={() => setIsEmailLogin(!isEmailLogin)}
                 >
-                  Verify OTP
+                  Switch
                 </button>
-              </div>
+              </p>
             )}
-
-            <button type="submit" style={styles.submitButton}>
-              Sign In
-            </button>
           </form>
         </div>
         <div style={styles.imageContainer}>
@@ -203,6 +370,7 @@ const styles = {
     justifyContent: "center",
     height: "100vh",
     backgroundColor: "#f5f5f5",
+    overflowY: "auto",
   },
   card: {
     display: "flex",
@@ -213,10 +381,12 @@ const styles = {
     borderRadius: "8px",
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
     overflow: "hidden",
+    maxHeight: "90vh",
   },
   formContainer: {
     width: "50%",
     padding: "40px",
+    overflowY: "auto",
   },
   imageContainer: {
     width: "50%",
@@ -300,6 +470,7 @@ const styles = {
     color: "white",
     fontSize: "16px",
     cursor: "pointer",
+    marginTop: "10px",
   },
   otpButton: {
     width: "100%",
@@ -323,6 +494,20 @@ const styles = {
     fontSize: "16px",
     cursor: "pointer",
     marginTop: "10px",
+  },
+  toggleMethod: {
+    marginTop: "10px",
+    fontSize: "14px",
+    color: "#555",
+    textAlign: "center",
+  },
+  toggleButton: {
+    marginLeft: "5px",
+    color: "#007bff",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    textDecoration: "underline",
   },
 };
 

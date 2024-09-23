@@ -92,6 +92,7 @@ const loginGovt = asyncHandler(async (req, res) => {
     res.json({
       status: 201,
       message: "OTP sent to email successfully !",
+      response: { _id: govt._id },
     });
   } catch (error) {
     res.json({

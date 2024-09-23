@@ -134,6 +134,7 @@ const registerUser = asyncHandler(async (req, res) => {
       res.json({
         status: 201,
         message: "User registered successfully ! Please Verify Email !",
+        response,
       });
     })
     .catch((error) => {
@@ -244,6 +245,7 @@ const loginUserWithOTP = asyncHandler(async (req, res) => {
     res.json({
       status: 201,
       message: "OTP sent to phone number successfully !",
+      response: { _id: user._id },
     });
   } catch (error) {
     res.json({

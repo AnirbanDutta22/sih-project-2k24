@@ -130,6 +130,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
     res.json({
       status: 201,
       message: "OTP sent to email successfully !",
+      response: { _id: admin._id },
     });
   } catch (error) {
     res.json({
