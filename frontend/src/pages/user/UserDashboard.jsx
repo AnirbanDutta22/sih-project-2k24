@@ -121,7 +121,7 @@ const UserDashboard = () => {
           <span className="bg-violet-100 text-violet-500 text-sm font-medium me-2 px-2.5 py-0.5 rounded">
             {t("Latest")}
           </span>
-          <ProgressCircleChart percentage={100} className="self-center" />
+          <ProgressCircleChart percentage={85} className="self-center" />
           <Link to="applications" className={`gridBoxLink self-center`}>
             {t("click here to know more")}
           </Link>
