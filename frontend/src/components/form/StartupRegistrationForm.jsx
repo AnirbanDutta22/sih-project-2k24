@@ -2,7 +2,7 @@
 // import React from "react";
 import FormWizard from "react-form-wizard-component";
 import "react-form-wizard-component/dist/style.css";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Steps } from "intro.js-react";
 import "intro.js/introjs.css";
 import { useTranslation } from "react-i18next";
@@ -10,8 +10,10 @@ import { useTranslation } from "react-i18next";
 import StepForm from "./StepForm";
 import "./FormWizard.css";
 import useTour from "../../hooks/useTour";
-import Collapse from "../Collapse";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { GrClose, GrDownload } from "react-icons/gr";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const steps = [
   { stepno: "Step1", heading: "Basic Startup Information" },
@@ -66,10 +68,6 @@ const fieldLabels = {
   innovation: "Innovation",
   startupGoals: "Startup Goals",
   targetAudience: "Target Audience",
-
-  // Step 8
-  tAndC1: "Terms and Conditions 1",
-  tAndC2: "Terms and Conditions 2",
 };
 const stepLabels = {
   step1: "Basic Startup Information",
@@ -79,16 +77,43 @@ const stepLabels = {
   step5: "AYUSH Compliance",
   step6: "Financial Details (Optional)",
   step7: "Startup Innovation and Goals",
-  step8: "Terms and Conditions",
 };
 
 const StartupRegistrationForm = ({ onModalClose }) => {
   const { t } = useTranslation("steps");
-  const collapseRef = useRef(null);
   const [enabled, setEnabled, handleExit] = useTour("formTour");
 
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
+
+  // Exporting data to PDF
+  const exportToPDF = (formValues, fieldLabels, stepLabels) => {
+    const doc = new jsPDF();
+
+    doc.text("Startup Registration Form Data", 10, 10);
+
+    Object.keys(formValues).forEach((stepKey, stepIndex) => {
+      const stepData = formValues[stepKey];
+
+      // Add step header
+      doc.text(stepLabels[stepKey] || stepKey, 10, 25 + stepIndex * 50); // Adjust the position based on stepIndex
+
+      const tableData = [];
+
+      Object.keys(stepData).forEach((fieldKey) => {
+        tableData.push([fieldLabels[fieldKey] || fieldKey, stepData[fieldKey]]);
+      });
+
+      doc.autoTable({
+        head: [["Field", "Value"]],
+        body: tableData,
+        startY: 30 + stepIndex * 50, // Adjust table start position
+      });
+    });
+
+    // Save the PDF
+    doc.save("startup_registration_data.pdf");
+  };
 
   const [formValues, setFormValues] = useState({
     step1: {
@@ -217,45 +242,33 @@ const StartupRegistrationForm = ({ onModalClose }) => {
   return (
     <div>
       {/* multi-step form */}
-      <div className="w-[70vw] mx-auto h-[90vh] p-7 bg-violet-200 rounded-lg">
+      <div
+        className={`${
+          isFormFinished
+            ? "w-[35vw] mx-auto h-[30vh]"
+            : "w-[70vw] mx-auto h-[90vh]"
+        } p-7 bg-violet-200 rounded-lg`}
+      >
         {isFormFinished ? (
-          <div className="flex flex-col justify-center h-full gap-y-10">
+          <div className="relative flex flex-col justify-center items-center h-full gap-y-10 bg-white p-20 rounded-md">
             <div className="flex items-center justify-center gap-x-3 font-semibold text-3xl">
               Form Submitted Successfully{" "}
               <span className="text-green-600 text-4xl">
                 <RiVerifiedBadgeFill />
               </span>
             </div>
-            <div className="w-full overflow-y-scroll h-[85%] scrollbar">
-              <span className="text-2xl">Summary : </span>
-              {Object.keys(formValues).map((stepKey) => (
-                <Collapse
-                  ref={collapseRef}
-                  key={stepKey}
-                  collapseText={stepLabels[stepKey] || stepKey}
-                  className="collapseClass mt-3"
-                >
-                  {Object.keys(formValues[stepKey]).map((fieldKey) => (
-                    <div
-                      key={fieldKey}
-                      className="flex justify-between items-center border-b border-violet-200 px-4 py-2"
-                    >
-                      <span className="font-medium">
-                        {fieldLabels[fieldKey] || fieldKey}
-                      </span>
-                      <span className="normal-case">
-                        {formValues[stepKey][fieldKey] !== null
-                          ? formValues[stepKey][fieldKey].toString()
-                          : "N/A"}
-                      </span>
-                    </div>
-                  ))}
-                </Collapse>
-              ))}
+            <div
+              className="flex absolute top-5 right-4 cursor-pointer"
+              onClick={onModalClose}
+            >
+              <GrClose />
             </div>
-            <div className="flex justify-end items-end">
-              <button className="btn-primary" onClick={onModalClose}>
-                Done
+            <div className="flex">
+              <button
+                className="btn-secondary flex justify-center items-center gap-x-5"
+                onClick={() => exportToPDF(formValues, fieldLabels, stepLabels)}
+              >
+                <GrDownload /> Download your response as PDF
               </button>
             </div>
           </div>
