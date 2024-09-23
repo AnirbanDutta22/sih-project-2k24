@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/no-unknown-property */
+import { useState } from "react";
 import { FaChartLine } from "react-icons/fa";
 import { GrCompliance, GrDocumentPerformance } from "react-icons/gr";
 import { HiOutlineDocumentCheck } from "react-icons/hi2";
@@ -102,23 +103,22 @@ const analytics_category = [
 const report_category = [
   {
     icon: <HiOutlineDocumentCheck />,
-    title: "Application Status Report",
-    count: 10,
+    title: "User Activity Report",
+    count: 0,
   },
   {
     icon: <GrCompliance />,
-    title: "Compliance Adherence Report",
-    count: 5,
+    title: "Startup Approval Analytics Report",
+    count: 0,
   },
-
   {
     icon: <GrDocumentPerformance />,
-    title: "Sector Performance Report",
-    count: 9,
+    title: "Funding and Support Status Report",
+    count: 0,
   },
   {
     icon: <FaChartLine />,
-    title: "Custom report",
+    title: "Custom Report",
     count: 0,
   },
 ];
@@ -173,14 +173,79 @@ const reports = [
     report_type: "application status report",
     date: "12/04/2024",
   },
+  {
+    id: "01apl",
+    name: "innovate health",
+    startup_type: "ayurveda",
+    report_type: "application status report",
+    date: "12/04/2024",
+  },
+  {
+    id: "01apl",
+    name: "innovate health",
+    startup_type: "ayurveda",
+    report_type: "application status report",
+    date: "12/04/2024",
+  },
+  {
+    id: "01apl",
+    name: "innovate health",
+    startup_type: "ayurveda",
+    report_type: "application status report",
+    date: "12/04/2024",
+  },
 ];
 
 const GovtReports = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reportType, setReportType] = useState(null);
+  const [newReport, setNewReport] = useState({
+    title: "",
+    date: "",
+    userRole: [],
+    activityType: [],
+    approvalStatus: [],
+    fundingStatus: [],
+    startDate: "",
+    endDate: "",
+    industryCategory: "",
+    exportFormat: "PDF",
+  });
+
+  const userRoleOptions = ["Startups", "Government Officials"];
+  const activityTypeOptions = ["Registrations", "Document Submissions"];
+  const approvalStatusOptions = ["Approved", "Rejected"];
+  const fundingStatusOptions = ["Funded", "Not Funded"];
+  const industryCategoryOptions = ["AYUSH Category 1", "AYUSH Category 2"];
+  const exportFormatOptions = ["PDF", "Excel"];
+
+  const handleCreateReport = (e) => {
+    e.preventDefault();
+    console.log(newReport); // Replace with actual logic
+    setIsModalOpen(false);
+    setNewReport({
+      title: "",
+      date: "",
+      userRole: [],
+      activityType: [],
+      approvalStatus: [],
+      fundingStatus: [],
+      startDate: "",
+      endDate: "",
+      industryCategory: "",
+      exportFormat: "PDF",
+    });
+  };
+
+  const openModal = (type) => {
+    setReportType(type);
+    setIsModalOpen(true);
+  };
+
   return (
     <div>
-      {/* analytics section */}
-      <h1 className="welcomeText">analytics</h1>
-      <div className="mt-4 mb-6">
+      <h1 className="welcomeText">Analytics</h1>
+      <div className="mt-4">
         <form className="flex justify-start items-center gap-x-6">
           {analytics_category.map((cat, index) => (
             <div key={index}>
@@ -207,9 +272,8 @@ const GovtReports = () => {
         <div className="grid grid-cols-4 gap-6 mt-4">
           {analytics.map((analy, index) => (
             <div
-              className={`gridBox ${
-                index >= analytics.length - 2 && "col-span-2"
-              }`}
+              className={`gridBox ${index >= analytics.length - 2 &&
+                "col-span-2"}`}
               key={index}
             >
               <h1 className="text-lg font-semibold">{analy.metricName}</h1>
@@ -218,80 +282,349 @@ const GovtReports = () => {
           ))}
         </div>
       </div>
-      {/* reports section */}
-      <h1 className="welcomeText">reports</h1>
+
+      <h1 className="welcomeText">Reports</h1>
       <div className="grid grid-cols-4 gap-8 mt-6">
-        {report_category.map((cat, index) => (
-          <div className="gridBox" key={index}>
+        {report_category.map((cat) => (
+          <div className="gridBox" key={cat.title}>
             <div className="w-full flex justify-between items-center bg-green-200 px-4 py-3">
               <span className="text-[4.5rem]">{cat.icon}</span>
               <span className="text-2xl">{cat.count}</span>
             </div>
             <div className="w-full text-sm font-semibold flex justify-between items-center">
               {cat.title}
-              <button className="btn-primary px-3">create</button>
+              <button
+                className="btn-primary px-3"
+                onClick={() => openModal(cat.title)}
+              >
+                Create
+              </button>
             </div>
           </div>
         ))}
-        <div className="py-6 col-span-4">
-          {/* header */}
-          <div className="flex flex-row justify-between items-center bg-white shadow-md px-6 py-3">
-            <h1 className="text-3xl flex-1">ALL REPORTS</h1>
-            <div className="hidden sm:block">
-              <form
-                action="https://formbold.com/s/unique_form_id"
-                method="POST"
-              >
-                <div className="relative">
-                  <button className="absolute left-0 top-1/2 -translate-y-1/2">
-                    <svg
-                      className="fill-body fill-gray-500"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z"
-                        fill=""
-                      />
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z"
-                        fill=""
-                      />
-                    </svg>
-                  </button>
+      </div>
 
-                  <input
-                    type="text"
-                    placeholder="Type to search..."
-                    className="w-full bg-transparent pl-9 pr-4 text-black focus:outline-none"
-                  />
-                </div>
-              </form>
-            </div>
-            <button className="btn-primary">filter & sort</button>
-          </div>
-          {/* reports list */}
-          <div className="grid grid-cols-4 gap-6 mt-6">
-            {reports.map((report, index) => (
-              <ReportCard
-                key={index}
-                startup_type={report.startup_type}
-                report_type={report.report_type}
-                id={report.id}
-                name={report.name}
-                date={report.date}
-              />
-            ))}
+      {/* Modal for Creating Reports */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="text-xl font-bold">Create {reportType}</h2>
+            <form onSubmit={handleCreateReport}>
+              <div className="mb-4">
+                <label className="block mb-1">Report Title:</label>
+                <input
+                  type="text"
+                  value={newReport.title}
+                  onChange={(e) =>
+                    setNewReport({ ...newReport, title: e.target.value })
+                  }
+                  className="w-full border border-gray-300 p-2 rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-1">Report Date:</label>
+                <input
+                  type="date"
+                  value={newReport.date}
+                  onChange={(e) =>
+                    setNewReport({ ...newReport, date: e.target.value })
+                  }
+                  className="w-full border border-gray-300 p-2 rounded"
+                  required
+                />
+              </div>
+
+              {reportType === "User Activity Report" && (
+                <>
+                  <div className="mb-4">
+                    <label className="block mb-1">User Role:</label>
+                    <select
+                      multiple
+                      value={newReport.userRole}
+                      onChange={(e) => {
+                        const selectedOptions = Array.from(
+                          e.target.selectedOptions,
+                          (option) => option.value
+                        );
+                        setNewReport({
+                          ...newReport,
+                          userRole: selectedOptions,
+                        });
+                      }}
+                      className="w-full border border-gray-300 p-2 rounded"
+                    >
+                      {userRoleOptions.map((role) => (
+                        <option key={role} value={role}>
+                          {role}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mb-4">
+                    <label className="block mb-1">Activity Type:</label>
+                    <select
+                      multiple
+                      value={newReport.activityType}
+                      onChange={(e) => {
+                        const selectedOptions = Array.from(
+                          e.target.selectedOptions,
+                          (option) => option.value
+                        );
+                        setNewReport({
+                          ...newReport,
+                          activityType: selectedOptions,
+                        });
+                      }}
+                      className="w-full border border-gray-300 p-2 rounded"
+                    >
+                      {activityTypeOptions.map((activity) => (
+                        <option key={activity} value={activity}>
+                          {activity}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mb-4">
+                    <label className="block mb-1">Date Range:</label>
+                    <div className="flex space-x-4">
+                      <input
+                        type="date"
+                        value={newReport.startDate}
+                        onChange={(e) =>
+                          setNewReport({
+                            ...newReport,
+                            startDate: e.target.value,
+                          })
+                        }
+                        className="border border-gray-300 p-2 rounded"
+                        required
+                      />
+                      <input
+                        type="date"
+                        value={newReport.endDate}
+                        onChange={(e) =>
+                          setNewReport({
+                            ...newReport,
+                            endDate: e.target.value,
+                          })
+                        }
+                        className="border border-gray-300 p-2 rounded"
+                        required
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {reportType === "Startup Approval Analytics Report" && (
+                <>
+                  <div className="mb-4">
+                    <label className="block mb-1">Approval Status:</label>
+                    <select
+                      multiple
+                      value={newReport.approvalStatus}
+                      onChange={(e) => {
+                        const selectedOptions = Array.from(
+                          e.target.selectedOptions,
+                          (option) => option.value
+                        );
+                        setNewReport({
+                          ...newReport,
+                          approvalStatus: selectedOptions,
+                        });
+                      }}
+                      className="w-full border border-gray-300 p-2 rounded"
+                    >
+                      {approvalStatusOptions.map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mb-4">
+                    <label className="block mb-1">Date Range:</label>
+                    <div className="flex space-x-4">
+                      <input
+                        type="date"
+                        value={newReport.startDate}
+                        onChange={(e) =>
+                          setNewReport({
+                            ...newReport,
+                            startDate: e.target.value,
+                          })
+                        }
+                        className="border border-gray-300 p-2 rounded"
+                        required
+                      />
+                      <input
+                        type="date"
+                        value={newReport.endDate}
+                        onChange={(e) =>
+                          setNewReport({
+                            ...newReport,
+                            endDate: e.target.value,
+                          })
+                        }
+                        className="border border-gray-300 p-2 rounded"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <label className="block mb-1">Industry Category:</label>
+                    <select
+                      value={newReport.industryCategory}
+                      onChange={(e) =>
+                        setNewReport({
+                          ...newReport,
+                          industryCategory: e.target.value,
+                        })
+                      }
+                      className="w-full border border-gray-300 p-2 rounded"
+                    >
+                      <option value="">Select Industry Category</option>
+                      {industryCategoryOptions.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </>
+              )}
+
+              {reportType === "Funding and Support Status Report" && (
+                <>
+                  <div className="mb-4">
+                    <label className="block mb-1">Funding Status:</label>
+                    <select
+                      multiple
+                      value={newReport.fundingStatus}
+                      onChange={(e) => {
+                        const selectedOptions = Array.from(
+                          e.target.selectedOptions,
+                          (option) => option.value
+                        );
+                        setNewReport({
+                          ...newReport,
+                          fundingStatus: selectedOptions,
+                        });
+                      }}
+                      className="w-full border border-gray-300 p-2 rounded"
+                    >
+                      {fundingStatusOptions.map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mb-4">
+                    <label className="block mb-1">Date Range:</label>
+                    <div className="flex space-x-4">
+                      <input
+                        type="date"
+                        value={newReport.startDate}
+                        onChange={(e) =>
+                          setNewReport({
+                            ...newReport,
+                            startDate: e.target.value,
+                          })
+                        }
+                        className="border border-gray-300 p-2 rounded"
+                        required
+                      />
+                      <input
+                        type="date"
+                        value={newReport.endDate}
+                        onChange={(e) =>
+                          setNewReport({
+                            ...newReport,
+                            endDate: e.target.value,
+                          })
+                        }
+                        className="border border-gray-300 p-2 rounded"
+                        required
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <div className="mb-4">
+                <label className="block mb-1">Export Format:</label>
+                <select
+                  value={newReport.exportFormat}
+                  onChange={(e) =>
+                    setNewReport({ ...newReport, exportFormat: e.target.value })
+                  }
+                  className="w-full border border-gray-300 p-2 rounded"
+                >
+                  {exportFormatOptions.map((format) => (
+                    <option key={format} value={format}>
+                      {format}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex justify-end">
+                <button type="submit" className="btn-primary mr-2">
+                  Create
+                </button>
+                <button
+                  type="button"
+                  className="bg-gray-300 p-2 rounded"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </div>
+      )}
+
+      <div className="py-6 col-span-4">
+        <div className="flex flex-row justify-between items-center bg-white shadow-md px-6 py-3">
+          <h1 className="text-3xl flex-1">ALL REPORTS</h1>
+          <button className="btn-primary">Filter & Sort</button>
+        </div>
+        <div className="grid grid-cols-4 gap-6 mt-6">
+          {reports.map((report, index) => (
+            <ReportCard
+              key={index}
+              startup_type={report.startup_type}
+              report_type={report.report_type}
+              id={report.id}
+              name={report.name}
+              date={report.date}
+            />
+          ))}
+        </div>
       </div>
+
+      {/* Styles */}
+      <style jsx>{`
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .modal-content {
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          width: 400px;
+        }
+      `}</style>
     </div>
   );
 };
