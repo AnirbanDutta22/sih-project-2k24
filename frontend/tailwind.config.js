@@ -1,6 +1,12 @@
+/* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
+// import withMT from "@material-tailwind/react/utils/withMT";
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite/**/*.js",
+  ],
   theme: {
     extend: {
       colors: {
@@ -13,7 +19,10 @@ export default {
         primaryBg1: "#D3D3D3",
         primaryBg1Light1: "#F5F5F5",
       },
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"],
+      },
     },
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 };
