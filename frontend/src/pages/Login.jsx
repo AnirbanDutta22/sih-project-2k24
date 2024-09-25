@@ -9,10 +9,6 @@ const Login = () => {
     password: "",
     phone: "",
   });
-  // const [username, setUserName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState("user");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -122,9 +118,12 @@ const Login = () => {
 
   return (
     <div style={styles.container}>
+      <h1 className="relative welcomeText text-[2.5rem] self-start before:absolute before:content-[''] before:w-20 before:h-1 before:-bottom-4 before:left-0 before:translate-x-0 before:bg-violet-500 mb-6">
+        Login
+      </h1>
       <div style={styles.card}>
         <div style={styles.formContainer}>
-          <h2 style={styles.header}>Sign In</h2>
+          {/* <h2 style={styles.header}>Sign In</h2> */}
           <form onSubmit={handleSubmit} style={styles.form}>
             <div style={styles.formGroup}>
               <label htmlFor="role" style={styles.label}>
@@ -367,8 +366,9 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
+    justifyContent: "flex-start",
+    height: "100%",
+    padding: "4rem",
     backgroundColor: "#f5f5f5",
     overflowY: "auto",
   },
@@ -390,7 +390,7 @@ const styles = {
   },
   imageContainer: {
     width: "50%",
-    backgroundColor: "#ccffcc",
+    backgroundColor: "#4CAF50",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -421,10 +421,10 @@ const styles = {
   },
   transparentButton: {
     padding: "10px",
-    border: "2px solid #007bff",
+    border: "2px solid #fff",
     borderRadius: "4px",
     backgroundColor: "transparent",
-    color: "#007bff",
+    color: "#fff",
     fontSize: "16px",
     cursor: "pointer",
     textAlign: "center",
@@ -464,7 +464,7 @@ const styles = {
   submitButton: {
     width: "100%",
     padding: "10px",
-    backgroundColor: "#007bff",
+    backgroundColor: "#8b5cf6",
     border: "none",
     borderRadius: "4px",
     color: "white",

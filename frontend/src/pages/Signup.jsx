@@ -374,6 +374,9 @@ const Signup = () => {
 
   return (
     <div style={styles.container}>
+      <h1 className="relative welcomeText text-[2.5rem] self-start before:absolute before:content-[''] before:w-20 before:h-1 before:-bottom-4 before:left-0 before:translate-x-0 before:bg-violet-500 mb-6">
+        Register
+      </h1>
       <div style={styles.card}>
         <div style={styles.imageContainer}>
           <img
@@ -386,13 +389,12 @@ const Signup = () => {
               Hello, {role.charAt(0).toUpperCase() + role.slice(1)}
             </h3>
             <p style={styles.infoText}>
-              Register with your personal details and start your journey with
-              us.
+              Register with details and start your journey with us.
             </p>
           </div>
         </div>
         <div style={styles.formContainer}>
-          <h2 style={styles.header}>Sign Up</h2>
+          {/* <h2 style={styles.header}>Sign Up</h2> */}
           {!showPhoneVerification && (
             <form onSubmit={handleSubmit} style={styles.form}>
               <div style={styles.formGroup}>
@@ -472,7 +474,7 @@ const Signup = () => {
                 </select>
               </div>
               <button type="submit" style={styles.submitButton}>
-                Send Verification Email
+                Continue
               </button>
             </form>
           )}
@@ -593,10 +595,10 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    minHeight: "100vh",
+    justifyContent: "flex-start",
+    height: "100%",
     backgroundColor: "#f5f5f5",
-    padding: "20px",
+    padding: "4rem",
     overflowY: "auto",
   },
   card: {
@@ -611,7 +613,7 @@ const styles = {
   },
   imageContainer: {
     width: "50%",
-    backgroundColor: "#b3e6b3",
+    backgroundColor: "#4CAF50",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -633,15 +635,16 @@ const styles = {
   infoHeader: {
     margin: "0",
     fontSize: "24px",
-    color: "#333",
+    color: "#fff",
+    fontWeigth: "bold",
   },
   infoText: {
     fontSize: "16px",
-    color: "#666",
+    color: "#fff",
   },
   formContainer: {
     width: "50%",
-    padding: "20px",
+    padding: "40px",
   },
   header: {
     textAlign: "center",
@@ -674,7 +677,7 @@ const styles = {
   submitButton: {
     padding: "10px",
     fontSize: "16px",
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#8b5cf6",
     color: "white",
     border: "none",
     borderRadius: "4px",

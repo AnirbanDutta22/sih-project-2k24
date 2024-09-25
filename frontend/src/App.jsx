@@ -43,9 +43,9 @@ const App = () => {
           <Route path="resources" element={<Resources />} />
           <Route path="funding" element={<Funding />} />
           <Route path="events" element={<Events />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
         </Route>
-        <Route exact path="/signup" element={<Signup />} />
-        <Route exact path="/login" element={<Login />} />
         <Route exact path="/new-registration" element={<NewRegistration />} />
         <Route exact path="/user" element={<DashboardLayout userType="user" />}>
           <Route index element={<UserDashboard />} />
