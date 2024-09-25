@@ -1,6 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 
 import { useRef } from "react";
+import Slider from "react-slick"; // Import Slick
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import ayurveda from "../assets/ayurveda.jpg";
 import yoga from "../assets/yoga.jpeg";
 import BarChartHome from "../components/charts/BarChartHome";
@@ -8,6 +12,8 @@ import { LuClipboardSignature } from "react-icons/lu";
 import { FaClock, FaShieldAlt } from "react-icons/fa";
 import { FaFolderOpen } from "react-icons/fa";
 import { GrLanguage } from "react-icons/gr";
+import homeimg from "../assets/slide1.jpg";
+import homeimg2 from "../assets/slide2.jpg";
 import MarqueeItem from "../components/MarqueeItem";
 import mii from "../assets/mii.png";
 import data_gov from "../assets/data_gov.png";
@@ -227,13 +233,98 @@ const HomeContent = () => {
     }
   };
 
+  const NextArrow = (props) => {
+    const { onClick } = props;
+    return (
+      <div
+        className="absolute right-4 top-[25%] cursor-pointer bg-transparent z-10"
+        onClick={onClick}
+      >
+        <svg width="40" height="40" fill="white" className="opacity-50">
+          <polygon points="10,0 10,40 40,20" />
+        </svg>
+      </div>
+    );
+  };
+
+  const PrevArrow = (props) => {
+    const { onClick } = props;
+    return (
+      <div
+        className="absolute left-4 top-[25%] cursor-pointer bg-transparent z-10"
+        onClick={onClick}
+      >
+        <svg width="40" height="40" fill="white" className="opacity-50">
+          <polygon points="40,0 40,40 10,20" />
+        </svg>
+      </div>
+    );
+  };
+
+  const slides = [
+    {
+      heading: "Empower Your AYUSH Startup Journey",
+      subtext:
+        "AYUSH startups are redefining the future of healthcare by blending traditional wisdom with modern innovations. Our platform is dedicated to empowering you to bring your ideas to life. Register your startup today, navigate a seamless onboarding process, and access valuable resources that will help shape your entrepreneurial journey from idea to execution.",
+      buttonText: "Register Now",
+      buttonLink: "/register",
+      image: ayurveda,
+    },
+    {
+      heading: "Real-Time Status Tracking",
+      subtext:
+        "We understand the importance of staying informed throughout the registration process. With our real-time status tracking system, you can easily monitor each step of your application. Receive live updates and notifications, ensuring that you are always aware of any actions required or progress made. No more delays or uncertainty — stay ahead with our transparent and efficient tracking system.",
+      buttonText: "Track Your Status",
+      buttonLink: "/track-status",
+      image: homeimg2,
+    },
+    {
+      heading: "Access Resources and Funding Opportunities",
+      subtext:
+        "Starting a business requires not only passion but also the right knowledge and support. Our resource hub is designed to equip you with everything you need to succeed, including guidelines for startup registration, access to funding opportunities tailored for AYUSH entrepreneurs, and expert advice on overcoming challenges in the early stages of your venture. Take advantage of this invaluable knowledge base and secure the future of your startup.",
+      buttonText: "Explore Resources",
+      buttonLink: "/resources",
+      image: homeimg,
+    },
+  ];
+
+  // Slider settings
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
+
   return (
     <section className="h-full">
       {/* Slider */}
-      <div className="h-[75vh]">
-        <div className="h-full">
-          <img src={ayurveda} alt="" className="w-full h-full" />
-        </div>
+      <div className="relative h-[75vh] overflow-hidden">
+        <Slider {...settings}>
+          {slides.map((slide, index) => (
+            <div key={index} className="relative">
+              <img
+                src={slide.image}
+                alt={`Slide ${index}`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-[20%] left-1/3 -translate-x-1/3 z-50 flex flex-col gap-y-5">
+                <h1 className="text-5xl font-bold whitespace-nowrap">
+                  {slide.heading}
+                </h1>
+                <p className="text-xl w-3/4">{slide.subtext}</p>
+                <button className="w-fit btn-primary bg-violet-800 text-white">
+                  {slide.buttonText}
+                </button>
+              </div>
+            </div>
+          ))}
+        </Slider>
       </div>
 
       {/* About */}
