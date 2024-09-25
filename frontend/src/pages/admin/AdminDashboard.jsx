@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const cardContainer = `flex flex-col p-4 bg-white border border-gray-300 shadow-md rounded-md`;
 const cardHeader = `text-xl font-semibold mb-4`;
 const cardContent = `mb-4`;
-const cardAction = `text-blue-500 hover:underline`;
+const cardAction = `text-violet-700 hover:underline`;
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([
