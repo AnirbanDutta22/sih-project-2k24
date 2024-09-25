@@ -47,7 +47,7 @@ const BarChartHome = () => {
   return (
     <div className="w-[60rem] mx-auto bg-white p-6">
       <h2 className="text-3xl font-semibold text-center mb-4">
-        AYUSH Startup Application Report
+        AYUSH Startup Application Report 2024
       </h2>
       <Bar data={data} options={options} />
     </div>
