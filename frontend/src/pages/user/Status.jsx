@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 // import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Guide from "../../components/Guide";
@@ -144,13 +145,13 @@ const Status = () => {
           {alerts.map((alert, index) => (
             <div
               key={index}
-              className={
+              className={`animate-scroll-Y ${
                 alert.status === "success"
                   ? "approval-alert"
                   : alert.status === "info"
                   ? "status-alert"
                   : "reminder-alert"
-              }
+              }`}
             >
               <span className="alert-icon">{alert.icon}</span>
               <span className="alert-text">{alert.message}</span>
@@ -159,6 +160,22 @@ const Status = () => {
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        .animate-scroll-Y {
+          animation: scroll-Y 2s linear infinite; /* Slower scroll */
+        }
+
+        @keyframes scroll-Y {
+          0% {
+            transform: translateY(20%);
+          }
+          100% {
+            transform: translateY(-100%);
+          }
+        }
+      `}</style>
+
       <div className="grid grid-cols-5 grid-rows-2 gap-8 mt-6">
         {/* application details */}
         <div className="gridBox col-span-3 row-span-2">
