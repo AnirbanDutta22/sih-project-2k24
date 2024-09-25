@@ -347,8 +347,8 @@ const Home = () => {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About AYUSH", path: "/about" },
-    { name: "Startup Registration", path: "/login" },
-    { name: "Application Status", path: "/login" },
+    { name: "Startup Registration", path: "/new-registration" },
+    { name: "Application Status", path: "/user/status" },
     {
       name: "Resources",
       path: "/resources",
@@ -377,7 +377,7 @@ const Home = () => {
       ],
     },
     { name: "Help Center", path: "/help" },
-    { name: "User Dashboard", path: "/login" },
+    { name: "User Dashboard", path: "/user" },
   ];
 
   const [isNavFixed, setNavFixed] = useState(false);
@@ -551,7 +551,7 @@ const Home = () => {
           </div>
         </div>
       </nav>
-      <main className="min-h-screen overflow-x-hidden">
+      <main className="h-auto overflow-x-hidden">
         <Outlet />
       </main>
       <footer className="bg-slate-900 text-center text-neutral-100 lg:text-left">

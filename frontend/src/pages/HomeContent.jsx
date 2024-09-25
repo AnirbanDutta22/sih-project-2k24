@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable react/no-unknown-property */
+
+import { useRef } from "react";
 import ayurveda from "../assets/ayurveda.jpg";
 import yoga from "../assets/yoga.jpeg";
 import BarChartHome from "../components/charts/BarChartHome";
@@ -20,6 +22,15 @@ import unani from "../assets/unani.png";
 import yoga_icon from "../assets/yoga.png";
 import sidha_icon from "../assets/sidha_icon.png";
 import sowa_rigpa from "../assets/sowa_rigpa.png";
+import thumbnail1 from "../assets/THUMBNAIL1.jpg";
+import thumbnail2 from "../assets/THUMBNAIL2.jpg";
+import thumbnail3 from "../assets/THUMBNAIL3.jpg";
+import thumbnail4 from "../assets/THUMBNAIL4.jpg";
+import thumbnail5 from "../assets/THUMBNAIL5.jpg";
+import showcase1 from "../assets/showcase1.jpg";
+import showcase2 from "../assets/showcase2.jpg";
+import showcase3 from "../assets/showcase3.jpg";
+import showcase4 from "../assets/showcase4.jpeg";
 
 const sectors = [
   {
@@ -28,24 +39,9 @@ const sectors = [
     iconType: "image",
     color: "bg-[#55ed55]",
   },
-  {
-    name: "Yoga",
-    icon: yoga_icon,
-    iconType: "image",
-    color: "bg-[#fcfc6d]",
-  },
-  {
-    name: "Unani",
-    icon: unani,
-    iconType: "image",
-    color: "bg-[#ff8093]",
-  },
-  {
-    name: "Sidha",
-    icon: sidha_icon,
-    iconType: "image",
-    color: "bg-[#ffb574]",
-  },
+  { name: "Yoga", icon: yoga_icon, iconType: "image", color: "bg-[#fcfc6d]" },
+  { name: "Unani", icon: unani, iconType: "image", color: "bg-[#ff8093]" },
+  { name: "Sidha", icon: sidha_icon, iconType: "image", color: "bg-[#ffb574]" },
   {
     name: "Homeopathy",
     icon: homeopathy_icon,
@@ -98,16 +94,149 @@ const marqueeList = [
   pm_gati,
 ];
 
+const latestUpdates = [
+  {
+    id: 1,
+    message: "AYUSH Ministry announces new funding opportunities for startups.",
+    date: new Date("2024-09-22").toLocaleDateString(),
+  },
+  {
+    id: 2,
+    message:
+      'Webinar on "Best Practices for Startup Registration" scheduled for October.',
+    date: new Date("2024-09-24").toLocaleDateString(),
+  },
+  {
+    id: 3,
+    message:
+      "New guidelines for AYUSH startups released. Check the resource hub for details.",
+    date: new Date("2024-09-20").toLocaleDateString(),
+  },
+  {
+    id: 4,
+    message:
+      "Multilingual chatbot support added for better user accessibility.",
+    date: new Date("2024-09-18").toLocaleDateString(),
+  },
+  {
+    id: 5,
+    message: "Real-time tracking feature now live for all registered startups.",
+    date: new Date("2024-09-15").toLocaleDateString(),
+  },
+  {
+    id: 6,
+    message:
+      "New guidelines for AYUSH startups released. Check the resource hub for details.",
+    date: new Date("2024-09-20").toLocaleDateString(),
+  },
+  {
+    id: 7,
+    message:
+      "Multilingual chatbot support added for better user accessibility.",
+    date: new Date("2024-09-18").toLocaleDateString(),
+  },
+];
+
+const userTestimonials = [
+  {
+    id: 1,
+    message:
+      "The AYUSH startup portal made it so easy to track my application status. A seamless experience!",
+    user: "Rajesh K.",
+  },
+  {
+    id: 2,
+    message:
+      "Very impressed with the multilingual support. It made navigating the process much simpler.",
+    user: "Aisha P.",
+  },
+  {
+    id: 3,
+    message:
+      "The real-time updates were a lifesaver. I knew exactly where my application was at every step.",
+    user: "Sandeep M.",
+  },
+  {
+    id: 4,
+    message:
+      "Secure document upload feature gave me peace of mind. I trust the system completely.",
+    user: "Pooja S.",
+  },
+  {
+    id: 5,
+    message:
+      "An intuitive interface that’s perfect for non-tech users like me. Highly recommended!",
+    user: "Naveen R.",
+  },
+];
+
+const blogPosts = [
+  {
+    id: 1,
+    title: "How AYUSH Startups Are Transforming Healthcare",
+    description:
+      "Discover how AYUSH startups are driving innovation in alternative healthcare.",
+    thumbnail: thumbnail1,
+    link: "/blog/ayush-healthcare-transform",
+  },
+  {
+    id: 2,
+    title: "Funding Opportunities for AYUSH Entrepreneurs",
+    description: "Explore new funding options available for AYUSH startups.",
+    thumbnail: thumbnail2,
+    link: "/blog/ayush-funding-opportunities",
+  },
+  {
+    id: 3,
+    title: "AYUSH Ministry’s New Guidelines for Startups",
+    description:
+      "Learn about the latest guidelines set by the AYUSH Ministry for new startups.",
+    thumbnail: thumbnail3,
+    link: "/blog/ayush-guidelines",
+  },
+  {
+    id: 4,
+    title: "Success Stories from the AYUSH Startup Ecosystem",
+    description:
+      "Read inspiring success stories of entrepreneurs in the AYUSH sector.",
+    thumbnail: thumbnail4,
+    link: "/blog/ayush-success-stories",
+  },
+  {
+    id: 5,
+    title: "Webinar: Best Practices for Startup Registration",
+    description:
+      "Join our upcoming webinar to learn how to streamline your registration process.",
+    thumbnail: thumbnail5,
+    link: "/blog/webinar-startup-registration",
+  },
+];
+
 const HomeContent = () => {
+  const testimonialsRef = useRef();
+
+  const scrollLeft = () => {
+    if (testimonialsRef.current) {
+      testimonialsRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (testimonialsRef.current) {
+      testimonialsRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="h-full">
-      {/* slider */}
+      {/* Slider */}
       <div className="h-[75vh]">
         <div className="h-full">
           <img src={ayurveda} alt="" className="w-full h-full" />
         </div>
       </div>
-      {/* about */}
+
+      {/* About */}
       <div className="w-full bg-violet-50 p-6">
         <div className="w-[65%] mx-auto my-6 flex justify-center items-center gap-x-10">
           <img
@@ -116,28 +245,22 @@ const HomeContent = () => {
             className="w-[36rem] h-[20rem] border-l-[30px] border-b-[30px] border-violet-500/70 shadow-lg"
           />
           <div className="flex flex-col gap-y-4">
-            <h1 className="relative welcomeText before:absolute before:content-[''] before:w-24 before:h-1 before:-bottom-2 before:left-0 before:translate-x-0  before:bg-violet-500">
+            <h1 className="relative welcomeText before:absolute before:content-[''] before:w-24 before:h-1 before:-bottom-2 before:left-0 before:translate-x-0 before:bg-violet-500">
               About AYUSH Startup Portal
             </h1>
             <p className="text-lg">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Provident consequatur sunt repellat reprehenderit voluptatem,
               nesciunt consequuntur incidunt neque unde doloremque, excepturi
-              quis. Minima laudantium atque excepturi consequatur qui nulla
-              sit!excepturi quis. Minima laudantium atque excepturi consequatur
-              qui nulla sit!excepturi quis. Minima laudantium atque excepturi
-              consequatur qui nulla sit!excepturi quis. Minima laudantium atque
-              excepturi consequatur qui nulla sit
+              quis.
             </p>
             <button className="btn-secondary w-fit">read more</button>
           </div>
         </div>
       </div>
-      {/* features highlight */}
+
+      {/* Features Highlight */}
       <div className="w-full my-[3rem]">
-        {/* <h1 className="relative welcomeText text-center before:absolute before:content-[''] before:w-14 before:h-1 before:-bottom-2 before:left-[48%] before:translate-x-[-48%]  before:bg-violet-500">
-          features
-        </h1> */}
         <div className="w-[75%] mx-auto flex justify-center mt-12">
           {portalFeatures.map((feature, i) => (
             <div
@@ -157,10 +280,11 @@ const HomeContent = () => {
           ))}
         </div>
       </div>
-      {/* ayush sectors */}
+
+      {/* AYUSH Sectors */}
       <div className="w-full p-6 bg-violet-50">
         <div className="w-[75%] mx-auto my-12 flex flex-col justify-center items-center gap-y-10">
-          <h1 className="relative welcomeText text-center before:absolute before:content-[''] before:w-28 before:h-1 before:-bottom-2 before:left-0 before:translate-x-0  before:bg-violet-500">
+          <h1 className="relative welcomeText text-center before:absolute before:content-[''] before:w-28 before:h-1 before:-bottom-2 before:left-0 before:translate-x-0 before:bg-violet-500">
             AYUSH Startup Sectors
           </h1>
           <div className="grid grid-cols-3 gap-10">
@@ -189,29 +313,138 @@ const HomeContent = () => {
           </div>
         </div>
       </div>
-      {/* latest updates */}
-      <div className="w-full p-6">
-        <h1 className="relative welcomeText text-center before:absolute before:content-[''] before:w-24 before:h-1 before:-bottom-2 before:left-[46%] before:translate-x-[-46%]  before:bg-violet-500">
-          Latest Updates
-        </h1>
+
+      {/* Latest Updates */}
+      <div className="w-full px-[4rem] py-6 flex gap-x-20">
+        <div className="grid grid-cols-2 grid-rows-2 basis-7/12 gap-3">
+          <img src={showcase1} alt="img1" className="w-[40rem] h-[20rem]" />
+          <img src={showcase2} alt="img2" className="w-[40rem] h-[20rem]" />
+          <img src={showcase3} alt="img3" className="w-[40rem] h-[20rem]" />
+          <img src={showcase4} alt="img4" className="w-[40rem] h-[20rem]" />
+        </div>
+        <div className="bg-violet-500/70 basis-5/12">
+          <h1 className="relative welcomeText text-left px-5 py-3 text-white before:absolute before:content-[''] before:w-24 before:h-1 before:-bottom-0 before:left-5 before:translate-x-0 before:bg-yellow-200">
+            Latest Updates
+          </h1>
+          <div className="w-full h-[30rem] mx-auto mt-8 p-3 flex flex-col gap-y-4 overflow-y-hidden bg-white">
+            {/* Sample updates */}
+            {latestUpdates.map((update, i) => (
+              <div
+                key={i}
+                className="bg-violet-50 px-4 py-2 rounded shadow-md flex flex-col items-start animate-scroll-Y"
+              >
+                <p className="text-gray-700 mt-1 text-lg">{update.message}</p>
+                <p className="text-gray-500 mt-1 font-bold">
+                  Date: {update.date}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      {/* user testimonials */}
-      <div className="w-full p-6 bg-violet-500 text-white">
-        <h1 className="relative welcomeText text-center before:absolute before:content-[''] before:w-24 before:h-1 before:-bottom-2 before:left-[44.5%] before:translate-x-[-44.5%] before:bg-yellow-200">
+
+      <style jsx>{`
+        .animate-scroll-Y {
+          display: flex;
+          flex-direction: column;
+          animation: scroll-Y 5s linear infinite; /* Slower scroll */
+        }
+
+        @keyframes scroll-Y {
+          0% {
+            transform: translateY(20%);
+          }
+          100% {
+            transform: translateY(-100%);
+          }
+        }
+      `}</style>
+
+      {/* News and Blogs */}
+      <div className="w-full px-6 py-[6rem] bg-gray-100">
+        <h1 className="relative welcomeText text-center before:absolute before:content-[''] before:w-24 before:h-1 before:-bottom-2 before:left-[45.5%] before:translate-x-[-45.5%]  before:bg-violet-500">
+          News and Blogs
+        </h1>
+        <div className="w-[75%] mx-auto mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Sample blog posts with thumbnails */}
+          {blogPosts.map((blog, i) => (
+            <div
+              key={i}
+              className="bg-white flex flex-col justify-between p-4 rounded-md shadow-md"
+            >
+              <img
+                src={blog.thumbnail}
+                alt={`Thumbnail ${i + 1}`}
+                className="mb-2 w-full h-40 object-cover rounded-md"
+              />
+              <h2 className="text-xl font-semibold">{blog.title}</h2>
+              <p className="text-gray-700 h-[3rem]">{blog.description}</p>
+              <button className="btn-primary mt-2">Read More</button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* User Testimonials */}
+      <div className="w-full p-6 bg-violet-500/70 text-white relative">
+        <h1 className="relative welcomeText text-center before:absolute before:content-[''] before:w-24 before:h-1 before:-bottom-2 before:left-[44.5%] before:translate-x-[-44.5%] before:bg-yellow-200 mb-6">
           User Testimonials
         </h1>
+        <button
+          onClick={scrollLeft}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-l-full"
+        >
+          &#10094;
+        </button>
+        <button
+          onClick={scrollRight}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-r-full"
+        >
+          &#10095;
+        </button>
+        <div className="overflow-hidden">
+          <div
+            ref={testimonialsRef}
+            className="whitespace-nowrap animate-scroll"
+          >
+            {/* User testimonials */}
+            {userTestimonials.map((testimonial, i) => (
+              <div
+                key={i}
+                className="bg-white p-4 rounded-md shadow-md text-gray-800 mx-2 w-30 h-38 flex flex-col justify-center"
+              >
+                <p className="flex-grow text-lg">
+                  &quot;{testimonial.message}&quot;
+                </p>
+                <p className="font-semibold mt-2">— {testimonial.user}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      {/* news and blogs */}
-      <div className="w-full p-6">
-        <h1 className="relative welcomeText text-center before:absolute before:content-[''] before:w-24 before:h-1 before:-bottom-2 before:left-[45.5%] before:translate-x-[-45.5%]  before:bg-violet-500">
-          News and blogs
-        </h1>
-      </div>
-      {/* trends and charts */}
+
+      <style jsx>{`
+        .animate-scroll {
+          display: flex;
+          animation: scroll 60s linear infinite; /* Slower scroll */
+        }
+
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-100%);
+          }
+        }
+      `}</style>
+
+      {/* Trends and Charts */}
       <div className="flex items-center justify-center p-6 shadow-xl">
         <BarChartHome />
       </div>
-      {/* associate govs */}
+
+      {/* Associate Govs */}
       <div className="container mx-auto my-6 flex justify-center items-center gap-x-3 overflow-hidden">
         <MarqueeItem images={marqueeList} from={0} to={"-100%"} />
       </div>
