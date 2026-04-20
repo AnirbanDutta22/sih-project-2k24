@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from "react";
-import vid1 from "../assets/vid1.mp4";
+import vid2 from "../assets/vid2.mp4";
 import { GrClose } from "react-icons/gr";
 
 const VideoTutorial = ({ onClose }) => {
@@ -29,7 +29,7 @@ const VideoTutorial = ({ onClose }) => {
         className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-[51]"
         ref={dropdownRef}
       >
-        <video src={vid1} className="w-[100rem] h-[40rem]" autoPlay></video>
+        <video src={vid2} className="w-[100rem] h-[40rem]" autoPlay></video>
       </div>
       <GrClose
         className="absolute -top-96 right-80 z-[52] text-3xl cursor-pointer"

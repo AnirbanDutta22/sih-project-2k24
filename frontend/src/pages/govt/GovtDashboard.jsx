@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import ComplianceChart from "../../components/charts/ComplianceChart";
+import GovtReport from "../../components/charts/GovtReport";
 
 const appText = `text-lg font-medium`;
 const statusText = `text-xs font-medium`;
@@ -8,8 +10,8 @@ const sliderWrapper = `flex items-center ml-auto`;
 
 const GovtDashboard = () => {
   const [applications, setApplications] = useState([
-    { id: 1, name: "ABC Applications", status: "Pending" },
-    { id: 2, name: "ABC Applications", status: "Reviewed" },
+    { id: 1, name: "YogaRoots", status: "Pending" },
+    { id: 2, name: "HerbalCare", status: "Reviewed" },
   ]);
 
   const handleStatusChange = (id) => {
@@ -34,16 +36,14 @@ const GovtDashboard = () => {
           <Link>10 unread notifications !</Link>
         </span>
       </p>
-      <div className="grid grid-cols-10 grid-rows-12 gap-8 h-full mt-6">
-        <div className={`col-span-6 row-span-3 gridBox`}>
+      <div className="grid grid-cols-10 grid-rows-3 gap-8 h-full mt-6">
+        <div className={`col-span-6 row-span-1 gridBox`}>
           <h1 className="text-2xl">Application Manager</h1>
 
           <div className="statusBar">
             <div className="flex items-center w-full mb-2">
               <div className="flex-grow flex items-center">
-                <span className={`text-black ${appText}`}>
-                  ABC Applications
-                </span>
+                <span className={`text-black ${appText}`}>HerbalCare</span>
                 <span className="ml-2">
                   <div
                     className={`text-xs ${statusText} ${statusContainer} ${
@@ -85,9 +85,7 @@ const GovtDashboard = () => {
           <div className="statusBar">
             <div className="flex items-center w-full mb-2">
               <div className="flex-grow flex items-center">
-                <span className={`text-black ${appText}`}>
-                  XYZ Applications
-                </span>
+                <span className={`text-black ${appText}`}>YogaRoots</span>
                 <span className="ml-2">
                   <div
                     className={`text-xs ${statusText} ${statusContainer} ${
@@ -131,15 +129,17 @@ const GovtDashboard = () => {
           </Link>
         </div>
 
-        <div className={`col-span-4 row-span-6 gridBox`}>
+        <div className={`col-span-4 row-span-3 gridBox`}>
           <h1 className="text-2xl">Compliance</h1>
+          <ComplianceChart />
           <Link to="compliances" className={`gridBoxLink self-center`}>
             Click here for more details
           </Link>
         </div>
 
-        <div className={`col-span-6 row-span-3 gridBox`}>
+        <div className={`col-span-6 row-span-2 gridBox`}>
           <h1 className="text-2xl">Reports</h1>
+          <GovtReport />
           <Link to="reports-analytics" className="gridBoxLink">
             View Reports
           </Link>

@@ -104,17 +104,17 @@ const report_category = [
   {
     icon: <HiOutlineDocumentCheck />,
     title: "User Activity Report",
-    count: 0,
+    count: 5,
   },
   {
     icon: <GrCompliance />,
     title: "Startup Approval Analytics Report",
-    count: 0,
+    count: 1,
   },
   {
     icon: <GrDocumentPerformance />,
     title: "Funding and Support Status Report",
-    count: 0,
+    count: 4,
   },
   {
     icon: <FaChartLine />,
@@ -283,7 +283,7 @@ const GovtReports = () => {
         </div>
       </div>
 
-      <h1 className="welcomeText">Reports</h1>
+      <h1 className="welcomeText mt-5">Reports</h1>
       <div className="grid grid-cols-4 gap-8 mt-6">
         {report_category.map((cat) => (
           <div className="gridBox" key={cat.title}>
@@ -617,12 +617,13 @@ const GovtReports = () => {
           display: flex;
           justify-content: center;
           align-items: center;
+          z-index: 50;
         }
         .modal-content {
           background: white;
           padding: 20px;
           border-radius: 8px;
-          width: 400px;
+          width: 50rem;
         }
       `}</style>
     </div>

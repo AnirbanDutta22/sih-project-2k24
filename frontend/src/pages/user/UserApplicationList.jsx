@@ -95,27 +95,6 @@ const UserApplicationList = () => {
     },
   ];
 
-  // Step state and initialization
-  // const [enabled, setEnabled] = useState(false);
-  // const [isTourCompleted, setIsTourCompleted] = useState(false);
-
-  // useEffect(() => {
-  //   const tourCompleted = localStorage.getItem("tourCompleted");
-
-  //   if (!tourCompleted) {
-  //     setEnabled(true);
-  //   } else {
-  //     setIsTourCompleted(true);
-  //   }
-  // }, []);
-
-  // // Handle the completion of the tour
-  // const handleExit = () => {
-  //   localStorage.setItem("tourCompleted", "true"); // Set the flag in localStorage
-  //   setEnabled(false); // Disable the steps after completion
-  //   setIsTourCompleted(true); // Update state to show the tour has been completed
-  // };
-
   //start video tutorial
   const startVideo = () => {
     setVideoStarted(!isVideoStarted);

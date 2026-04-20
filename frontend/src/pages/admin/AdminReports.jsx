@@ -700,12 +700,13 @@ const AdminReports = () => {
           display: flex;
           justify-content: center;
           align-items: center;
+          z-index: 50;
         }
         .modal-content {
           background: white;
+          width: 50rem;
           padding: 20px;
           border-radius: 8px;
-          width: 400px;
         }
       `}</style>
     </div>

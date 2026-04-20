@@ -7,7 +7,7 @@ const labelText = `font-medium text-sm mr-2`;
 const applications = [
   {
     id: "12345",
-    startupName: "Startup A",
+    startupName: "HerbalCare",
     submissionDate: "2024-09-02",
     reviewDate: "-",
     sector: "Ayurveda",
@@ -19,7 +19,7 @@ const applications = [
   },
   {
     id: "12346",
-    startupName: "Startup B",
+    startupName: "YogaPlus",
     submissionDate: "2024-09-02",
     reviewDate: "-",
     sector: "Yoga",
@@ -31,7 +31,7 @@ const applications = [
   },
   {
     id: "12347",
-    startupName: "Startup C",
+    startupName: "NaturoWellness",
     submissionDate: "2024-09-02",
     reviewDate: "-",
     sector: "Naturopathy",
@@ -43,7 +43,7 @@ const applications = [
   },
   {
     id: "12345",
-    startupName: "Startup A",
+    startupName: "HerbalCare",
     submissionDate: "2024-09-02",
     reviewDate: "2024-09-05",
     sector: "Ayurveda",
@@ -55,7 +55,7 @@ const applications = [
   },
   {
     id: "54321",
-    startupName: "Startup D",
+    startupName: "UnaniMedic",
     submissionDate: "2024-09-02",
     reviewDate: "2024-09-05",
     sector: "Unani",
@@ -67,7 +67,7 @@ const applications = [
   },
   {
     id: "54322",
-    startupName: "Startup E",
+    startupName: "SiddhaHealth",
     submissionDate: "2024-09-02",
     reviewDate: "2024-09-05",
     sector: "Siddha",
@@ -79,7 +79,7 @@ const applications = [
   },
   {
     id: "54323",
-    startupName: "Startup F",
+    startupName: "HomeoClinic",
     submissionDate: "2024-09-02",
     reviewDate: "2024-09-05",
     sector: "Homoeopathy",
@@ -91,7 +91,7 @@ const applications = [
   },
   {
     id: "54322",
-    startupName: "Startup E",
+    startupName: "SiddhaHealth",
     submissionDate: "2024-09-02",
     reviewDate: "2024-09-05",
     sector: "Siddha",
@@ -103,7 +103,7 @@ const applications = [
   },
   {
     id: "12346",
-    startupName: "Startup B",
+    startupName: "YogaPlus",
     submissionDate: "2024-09-02",
     reviewDate: "-",
     sector: "Yoga",
@@ -115,7 +115,7 @@ const applications = [
   },
   {
     id: "12347",
-    startupName: "Startup C",
+    startupName: "NaturoWellness",
     submissionDate: "2024-09-02",
     reviewDate: "-",
     sector: "Naturopathy",
@@ -127,7 +127,7 @@ const applications = [
   },
   {
     id: "54321",
-    startupName: "Startup D",
+    startupName: "UnaniMedic",
     submissionDate: "2024-09-02",
     reviewDate: "2024-09-05",
     sector: "Unani",
@@ -139,7 +139,7 @@ const applications = [
   },
   {
     id: "54322",
-    startupName: "Startup E",
+    startupName: "SiddhaHealth",
     submissionDate: "2024-09-02",
     reviewDate: "2024-09-05",
     sector: "Siddha",
@@ -151,7 +151,7 @@ const applications = [
   },
   {
     id: "54321",
-    startupName: "Startup D",
+    startupName: "UnaniMedic",
     submissionDate: "2024-09-02",
     reviewDate: "2024-09-05",
     sector: "Unani",

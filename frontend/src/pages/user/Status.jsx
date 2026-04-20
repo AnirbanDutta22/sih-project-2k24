@@ -236,9 +236,9 @@ const Status = () => {
           </div>
         </div>
         {/* timeline */}
-        <div className="gridBox col-span-2 row-span-1 max-h-[25rem]">
+        <div className="gridBox col-span-2 row-span-2">
           <h1 className="text-2xl">timeline</h1>
-          <ol className="relative border-s border-gray-200 px-3 py-2 w-full overflow-y-auto">
+          <ol className="relative border-s border-gray-200 px-3 py-2 w-full">
             {statusTracker.reverse().map((stage, index) => (
               <li
                 key={index}
@@ -274,7 +274,7 @@ const Status = () => {
           </ol>
         </div>
         {/* action logs */}
-        <div className="dashboard-box col-span-2 row-span-1">
+        {/* <div className="dashboard-box col-span-2 row-span-1">
           <h1 className="text-2xl">action logs</h1>
           <ul className="w-full">
             {actionLogs.reverse().map((log, index) => (
@@ -288,7 +288,7 @@ const Status = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );

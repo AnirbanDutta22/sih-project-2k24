@@ -1,6 +1,38 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-const initialNotifications = [];
+
+const initialNotifications = [
+  {
+    notification_id: 1,
+    message: "Your profile has been updated successfully.",
+    date: "2024-09-26",
+    status: "read",
+  },
+  {
+    notification_id: 2,
+    message: "You have a new message from support.",
+    date: "2024-09-25",
+    status: "unread",
+  },
+  {
+    notification_id: 3,
+    message: "Your password was changed successfully.",
+    date: "2024-09-24",
+    status: "read",
+  },
+  {
+    notification_id: 4,
+    message: "Your subscription will expire in 3 days.",
+    date: "2024-09-23",
+    status: "unread",
+  },
+  {
+    notification_id: 5,
+    message: "A new update is available for your app.",
+    date: "2024-09-22",
+    status: "read",
+  },
+];
 
 const calculateMetrics = (notifications) => {
   const totalNotifications = notifications.length;
@@ -30,7 +62,7 @@ const Notification = ({ userType }) => {
     userType: "",
     message: "",
     date: "",
-    status: "Unread",
+    status: "unread",
   });
 
   const filteredNotifications = notifications
@@ -58,7 +90,7 @@ const Notification = ({ userType }) => {
   const handleCreateNotification = () => {
     setNotifications((prev) => [
       ...prev,
-      { id: (prev.length + 1).toString(), ...newNotification },
+      { notification_id: (prev.length + 1).toString(), ...newNotification },
     ]);
     setNewNotification({
       userType: "",
@@ -276,17 +308,15 @@ const Notification = ({ userType }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 border rounded-lg bg-white">
               <h3 className="text-lg font-semibold">Total Notifications</h3>
-              <p className="text-2xl font-bold">{metrics.totalNotifications}</p>
+              <p className="text-2xl font-bold">5</p>
             </div>
             <div className="p-4 border rounded-lg bg-white">
               <h3 className="text-lg font-semibold">Unread Notifications</h3>
-              <p className="text-2xl font-bold">
-                {metrics.unreadNotifications}
-              </p>
+              <p className="text-2xl font-bold">2</p>
             </div>
             <div className="p-4 border rounded-lg bg-white">
               <h3 className="text-lg font-semibold">Read Notifications</h3>
-              <p className="text-2xl font-bold">{metrics.readNotifications}</p>
+              <p className="text-2xl font-bold">3</p>
             </div>
           </div>
         </div>
@@ -310,15 +340,15 @@ const Notification = ({ userType }) => {
               </tr>
             </thead>
             <tbody>
-              {filteredNotifications.map((notification) => (
+              {initialNotifications.map((notification) => (
                 <tr key={notification.id} className="border-b hover:bg-gray-50">
-                  <td className="px-3 py-4">{notification.id}</td>
+                  <td className="px-3 py-4">{notification.notification_id}</td>
                   <td className="px-3 py-4">{notification.message}</td>
                   <td className="px-3 py-4">{notification.date}</td>
                   <td className="px-3 py-4">
                     <span
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium ${
-                        notification.status === "Unread"
+                        notification.status === "unread"
                           ? "bg-red-100 text-red-800"
                           : "bg-green-100 text-green-800"
                       }`}

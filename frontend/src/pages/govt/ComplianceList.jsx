@@ -8,7 +8,7 @@ import {
 
 const pendingComplianceReviews = [
   {
-    startupName: "Ayurvedix",
+    startupName: "UnaniMedic",
     applicationId: "APP-1001",
     submissionDate: "2024-08-01",
     requiredAction: "Document Verification",
@@ -16,7 +16,7 @@ const pendingComplianceReviews = [
     linkToDetails: "/compliance-review/APP-1001",
   },
   {
-    startupName: "Herbal Bliss",
+    startupName: "YogaPlus",
     applicationId: "APP-1002",
     submissionDate: "2024-08-05",
     requiredAction: "License Review",
@@ -24,7 +24,7 @@ const pendingComplianceReviews = [
     linkToDetails: "/compliance-review/APP-1002",
   },
   {
-    startupName: "YogaRoots",
+    startupName: "NaturoWellness",
     applicationId: "APP-1003",
     submissionDate: "2024-08-10",
     requiredAction: "Pending Founder ID Verification",
@@ -32,7 +32,7 @@ const pendingComplianceReviews = [
     linkToDetails: "/compliance-review/APP-1003",
   },
   {
-    startupName: "VedaHealth",
+    startupName: "HerbalCare",
     applicationId: "APP-1004",
     submissionDate: "2024-08-15",
     requiredAction: "Compliance Certification Review",
@@ -40,7 +40,7 @@ const pendingComplianceReviews = [
     linkToDetails: "/compliance-review/APP-1004",
   },
   {
-    startupName: "NatureWell",
+    startupName: "HomeoClinic",
     applicationId: "APP-1005",
     submissionDate: "2024-08-20",
     requiredAction: "Review Additional Documents",
