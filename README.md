@@ -1,4 +1,3 @@
-````markdown
 # SIH Project 2K24
 
 A clean, maintainable full-stack application built to deliver a polished web experience for AYUSH Startups. This repository includes frontend and backend components designed to support modern user workflows, secure data handling, and scalable development.
@@ -91,4 +90,3 @@ NODE_ENV=development
 ```
 
 Additional variables may include email service credentials, API keys, or frontend base URLs.
-````
